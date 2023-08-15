@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About" xml:space="preserve">
+    <value>من نحن</value>
+  </data>
+  <data name="AboutCompany" xml:space="preserve">
+    <value>عن الشركة</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>الفعاليات القادمة</value>
+  </data>
+  <data name="ActivitiesEvents" xml:space="preserve">
+    <value>الفعاليات والأنشطة</value>
+  </data>
+  <data name="ActivityEnded" xml:space="preserve">
+    <value>انتهت الفعالية</value>
+  </data>
+  <data name="Alwatania" xml:space="preserve">
+    <value>الوطنية للصناعة</value>
+  </data>
+  <data name="Applications" xml:space="preserve">
+    <value>طلبات التوظيف</value>
+  </data>
+  <data name="Archive" xml:space="preserve">
+    <value>الأرشيف</value>
+  </data>
+  <data name="BC" xml:space="preserve">
+    <value>رئيس مجلس الإدارة </value>
+  </data>
+  <data name="CEO" xml:space="preserve">
+    <value>كلمة الرئيس التنفيذي</value>
+  </data>
+  <data name="Clients" xml:space="preserve">
+    <value>عملائنا</value>
+  </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>بيانات الاتصال</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="Countdown" xml:space="preserve">
+    <value>بدأ العد التنازلي</value>
+  </data>
+  <data name="Creers" xml:space="preserve">
+    <value>الفرص الوظيفية المتاحة</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>يوم</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>التفاصيل</value>
+  </data>
+  <data name="Docx" xml:space="preserve">
+    <value>الوثائق</value>
+  </data>
+  <data name="DownloadCenter" xml:space="preserve">
+    <value>مركز التحميل</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الالكتروني</value>
+  </data>
+  <data name="Environment" xml:space="preserve">
+    <value>بيئة العمل</value>
+  </data>
+  <data name="ExhibitionsConferences" xml:space="preserve">
+    <value>المناسبات والمعارض</value>
+  </data>
+  <data name="Features" xml:space="preserve">
+    <value>المزايا</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>تابعنا</value>
+  </data>
+  <data name="FollowInsta" xml:space="preserve">
+    <value>تابعنا على الانستغرام</value>
+  </data>
+  <data name="FollowLinkedIn" xml:space="preserve">
+    <value>انضم الينا في لنكيد-ان</value>
+  </data>
+  <data name="FollowUsOnTwitter" xml:space="preserve">
+    <value>تابعنا على تويتر</value>
+  </data>
+  <data name="FollowYoutube" xml:space="preserve">
+    <value>تفضل بزيارتنا على بوتيوب</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>ساعة</value>
+  </data>
+  <data name="HQ" xml:space="preserve">
+    <value>الهيكل التنظيمي</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>الملف التعريفي</value>
+  </data>
+  <data name="Jobs" xml:space="preserve">
+    <value>فرص العمل</value>
+  </data>
+  <data name="JobsContact" xml:space="preserve">
+    <value>تواصل مع قسم التوظيف</value>
+  </data>
+  <data name="KSA" xml:space="preserve">
+    <value>المملكة العربية السعودية</value>
+  </data>
+  <data name="Lang" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="LikeUsOnFace" xml:space="preserve">
+    <value>عبر عن اعجابك بنا على الفيس بوك</value>
+  </data>
+  <data name="Main" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Media" xml:space="preserve">
+    <value>ألبوم الصور</value>
+  </data>
+  <data name="MediaCenter" xml:space="preserve">
+    <value>المركز الإعلامي</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرسالة</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>دقيقة</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>جوال</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>شهر</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>المزيد</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>الإسم</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>الأخبار</value>
+  </data>
+  <data name="OnFacebook" xml:space="preserve">
+    <value>الوطنية علي فيس يوك</value>
+  </data>
+  <data name="OnTwitter" xml:space="preserve">
+    <value>الوطنية علي تويتر</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>الهاتف</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>المنتجات</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>المطبوعات</value>
+  </data>
+  <data name="RightsReserved" xml:space="preserve">
+    <value>جميع الحقوق محفوظة © الوطنية للصناعة {0}</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>ثانية</value>
+  </data>
+  <data name="SecondIndustry" xml:space="preserve">
+    <value>المدينة الصناعية الثانية</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>إرسال</value>
+  </data>
+  <data name="SocialPrograms" xml:space="preserve">
+    <value>البرامج الاجتماعية</value>
+  </data>
+  <data name="SocialResponsibility" xml:space="preserve">
+    <value>المسؤولية الاجتماعية</value>
+  </data>
+  <data name="Subscripe" xml:space="preserve">
+    <value>الإشتراك في النشرة الإخبارية</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>الدعم الفني</value>
+  </data>
+  <data name="Training" xml:space="preserve">
+    <value>التطوير والتدريب</value>
+  </data>
+  <data name="Units" xml:space="preserve">
+    <value>الوحدات التابعة</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>ألبوم الفيديو</value>
+  </data>
+  <data name="Vision" xml:space="preserve">
+    <value>الرؤية</value>
+  </data>
+  <data name="Avaialable" xml:space="preserve">
+    <value>متاح</value>
+  </data>
+  <data name="BoardChairman" xml:space="preserve">
+    <value>رئيس مجلس الإدارة</value>
+  </data>
+  <data name="BoardChairmanWord" xml:space="preserve">
+    <value>كلمة رئيس مجلس الإدارة</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>الشركة</value>
+  </data>
+  <data name="EnvironmentIntro" xml:space="preserve">
+    <value>تمتاز الشركة الوطنية للصناعة ببيئة عمل مميزة واهتمام بالكادر البشري والعديد من المميزات التي كان نتيجتها الاستقرار الوظيفي والاداء المميز.</value>
+  </data>
+  <data name="Goal" xml:space="preserve">
+    <value>هدفنا</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>صور</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>الأدارة</value>
+  </data>
+  <data name="MediaAndVideos" xml:space="preserve">
+    <value>ألبوم الفيديوهات والصور</value>
+  </data>
+  <data name="OpenedReports" xml:space="preserve">
+    <value>التقارير المتاحة</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>التقرير</value>
+  </data>
+  <data name="ReportSummary" xml:space="preserve">
+    <value>هدفنا المصداقية المتبادلة مع الجمهور حيث يتم عرض التقرير السنوي لمجموعة شركات الوطنية في هذه الصفحة حيثت يتم عرض التقارير السنوية والأرباح الربع سنوية حسب كل شركة</value>
+  </data>
+  <data name="RleaseDate" xml:space="preserve">
+    <value>وقت الإصدار</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="ViewReport" xml:space="preserve">
+    <value>مشاهدة التقرير</value>
+  </data>
+  <data name="VisionAndMessage" xml:space="preserve">
+    <value>الرؤية والرسالة والقيم</value>
+  </data>
+  <data name="Divorcee" xml:space="preserve">
+    <value>مطلق</value>
+  </data>
+  <data name="DOB" xml:space="preserve">
+    <value>تاريخ الميلاد</value>
+  </data>
+  <data name="FamilyNo" xml:space="preserve">
+    <value>عدد المعالين</value>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>أنثى</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الإسم رباعي</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>الجنس</value>
+  </data>
+  <data name="IdNumber" xml:space="preserve">
+    <value>رقم الهويه</value>
+  </data>
+  <data name="JobApplication" xml:space="preserve">
+    <value>طلب التقديم لوظيفة</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>ذكر</value>
+  </data>
+  <data name="Married" xml:space="preserve">
+    <value>متزوج</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>الجنسية</value>
+  </data>
+  <data name="PersonalInformation" xml:space="preserve">
+    <value>المعلومات الشخصية</value>
+  </data>
+  <data name="POB" xml:space="preserve">
+    <value>مكان الميلاد</value>
+  </data>
+  <data name="Single" xml:space="preserve">
+    <value>أعزب</value>
+  </data>
+  <data name="SocialStatus" xml:space="preserve">
+    <value>الحالة الاجتماعية</value>
+  </data>
+  <data name="Widowed" xml:space="preserve">
+    <value>أرمل</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>تاريخ الإنتهاء</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>جواز السفر</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>التعليق</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="ReadAlso" xml:space="preserve">
+    <value>إقرأ أيضا</value>
+  </data>
+  <data name="SendComent" xml:space="preserve">
+    <value>إرسال التعليق</value>
+  </data>
+  <data name="ShareArticle" xml:space="preserve">
+    <value>أنشر المقال</value>
+  </data>
+  <data name="AcademicInstatue" xml:space="preserve">
+    <value>الجامعة/المعهد/المدرسة</value>
+  </data>
+  <data name="AddCourse" xml:space="preserve">
+    <value>اضافة دورة</value>
+  </data>
+  <data name="AddJob" xml:space="preserve">
+    <value>اضافة وظيفة</value>
+  </data>
+  <data name="ApplicationAgreenment" xml:space="preserve">
+    <value>أشهد أنا موقع هذا الطلب أن البيانات المدونة صحيحة وأن أى مغالطة أو إغفال للحقائق فى هذا الطلب يعد سبباً لفصلى من العمل فى حالة تم توظيفي. وفى حالة تعيينى أوافق على إجراء الفحص الطبى وأوافق أن يكون إستخدامى طبقاً لقواعدالشركة ولوائحها وأى تعديلات تطرأ عليها.</value>
+  </data>
+  <data name="ArabicLanguage" xml:space="preserve">
+    <value>اللغة العربية</value>
+  </data>
+  <data name="Beginner" xml:space="preserve">
+    <value>مبتدئ</value>
+  </data>
+  <data name="CanContactCompany" xml:space="preserve">
+    <value>هل يمكننا السؤال عنك من صاحب العمل ؟</value>
+  </data>
+  <data name="CompanyAddressAndDetails" xml:space="preserve">
+    <value>إسم الشركة وعنوانها وإسم صاحب العمل</value>
+  </data>
+  <data name="CompanyNameAndDetails" xml:space="preserve">
+    <value>اسم وعنوان الشركة وصاحب العمل</value>
+  </data>
+  <data name="ComputerSkills" xml:space="preserve">
+    <value>مهارات الحاسب الألي</value>
+  </data>
+  <data name="Conduct" xml:space="preserve">
+    <value>هل سبق وأدنت بأي جريمة مخلة بالشرف أو الأمانة ؟</value>
+  </data>
+  <data name="Conversation" xml:space="preserve">
+    <value>المحادثة</value>
+  </data>
+  <data name="Course" xml:space="preserve">
+    <value>الدورة</value>
+  </data>
+  <data name="CurrentEmployementStatus" xml:space="preserve">
+    <value>هل أنت موظف حالياً ؟</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>المدة</value>
+  </data>
+  <data name="EmployeeName" xml:space="preserve">
+    <value>إسم الموظف</value>
+  </data>
+  <data name="EmployerTele" xml:space="preserve">
+    <value>رقم هاتف الشركة</value>
+  </data>
+  <data name="EmploymentHistory" xml:space="preserve">
+    <value>التاريخ الوظيفي</value>
+  </data>
+  <data name="EnglishLangauge" xml:space="preserve">
+    <value>اللغة الإنجليزية</value>
+  </data>
+  <data name="Excellent" xml:space="preserve">
+    <value>ممتاز</value>
+  </data>
+  <data name="ExpectedSalary" xml:space="preserve">
+    <value>الراتب الشهري المتوقع ؟</value>
+  </data>
+  <data name="FirstAcademic" xml:space="preserve">
+    <value>المؤهل الدراسي الأول</value>
+  </data>
+  <data name="FormerWorker" xml:space="preserve">
+    <value>هل عملت مع الشركة الوطنية للصناعات من قبل ؟</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>من تاريخ</value>
+  </data>
+  <data name="Good" xml:space="preserve">
+    <value>جيد</value>
+  </data>
+  <data name="Grade" xml:space="preserve">
+    <value>التقدير</value>
+  </data>
+  <data name="GraduationYear" xml:space="preserve">
+    <value>سنة التخرج</value>
+  </data>
+  <data name="Health" xml:space="preserve">
+    <value>هل تعاني من أي عاهة صحية ؟</value>
+  </data>
+  <data name="Job" xml:space="preserve">
+    <value>الوظيفة</value>
+  </data>
+  <data name="JobDes" xml:space="preserve">
+    <value>المهام الوظيفية</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>المسمى الوظيفي</value>
+  </data>
+  <data name="LanguageSkills" xml:space="preserve">
+    <value>مهارات اللغة</value>
+  </data>
+  <data name="LeaveReaseon" xml:space="preserve">
+    <value>سبب ترك الوظيفة</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>وسط</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملاحظة</value>
+  </data>
+  <data name="Organization" xml:space="preserve">
+    <value>الجهة</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="OtherLanguage" xml:space="preserve">
+    <value>لغة أخرى</value>
+  </data>
+  <data name="OtherQuestions" xml:space="preserve">
+    <value>أسئلة أخرى</value>
+  </data>
+  <data name="PlaceAndDate" xml:space="preserve">
+    <value>المكان والتاريخ</value>
+  </data>
+  <data name="Qualifications" xml:space="preserve">
+    <value>المؤهلات العلمية</value>
+  </data>
+  <data name="Reading" xml:space="preserve">
+    <value>القراءة</value>
+  </data>
+  <data name="RefPersons" xml:space="preserve">
+    <value>أشخاص يمكننا الرجوع اليهم</value>
+  </data>
+  <data name="RelativeRelation" xml:space="preserve">
+    <value>صلة القرابة</value>
+  </data>
+  <data name="RelativeWorker" xml:space="preserve">
+    <value>هل لديك أحد الأقارب يعمل في احدى شركات الوطنية للصناعات ؟</value>
+  </data>
+  <data name="Salary" xml:space="preserve">
+    <value>الراتب</value>
+  </data>
+  <data name="SecondAcademic" xml:space="preserve">
+    <value>المؤهل الدراسي الثاني</value>
+  </data>
+  <data name="SendApp" xml:space="preserve">
+    <value>إرسال الطلب</value>
+  </data>
+  <data name="Specialization" xml:space="preserve">
+    <value>التخصص</value>
+  </data>
+  <data name="StartWorking" xml:space="preserve">
+    <value>متى يمكنك البدئ في العمل</value>
+  </data>
+  <data name="Tables" xml:space="preserve">
+    <value>الجداول</value>
+  </data>
+  <data name="Telephone" xml:space="preserve">
+    <value>الهاتف</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>إلى تاريخ</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>الوحدة</value>
+  </data>
+  <data name="Windows" xml:space="preserve">
+    <value>نظام التشغيل Windows</value>
+  </data>
+  <data name="Writing" xml:space="preserve">
+    <value>الكتابة</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم</value>
+  </data>
+  <data name="AddressLocatopn" xml:space="preserve">
+    <value>المدينة الصناعية الثانية-الرياض</value>
+  </data>
+  <data name="BestWishes" xml:space="preserve">
+    <value>بخدمتكم. مع تمنياتنا للجميع بالتوفيق في حياتكم العملية.</value>
+  </data>
+  <data name="ContactEmploymentDepartment" xml:space="preserve">
+    <value>تواصل مع قسم التوظيف</value>
+  </data>
+  <data name="EmploymentDepartment" xml:space="preserve">
+    <value>قسم التوظيف</value>
+  </data>
+  <data name="FAQ" xml:space="preserve">
+    <value>اسئلة شائعة</value>
+  </data>
+  <data name="HappyToHelp" xml:space="preserve">
+    <value>قسم التوظيف سعيد بتواصلكم والرد على استفسارتكم دائما، الرجاء عدم التردد بإرسال استفساركم ونسعد</value>
+  </data>
+  <data name="LocationMap" xml:space="preserve">
+    <value>موقعنا علي الخريطة</value>
+  </data>
+  <data name="OurMessage" xml:space="preserve">
+    <value>رسالتنا</value>
+  </data>
+  <data name="Problem" xml:space="preserve">
+    <value>المشكلة</value>
+  </data>
+  <data name="Thanks" xml:space="preserve">
+    <value>شكراً لك</value>
+  </data>
+  <data name="WillContact" xml:space="preserve">
+    <value>سيتم التواصل معك في أقرب وقت</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>أضف للسلة</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>الغاء</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>تصنيفات المنتجات</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>التصنيف</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>إسم المنتج</value>
+  </data>
+  <data name="RequestedQuantity" xml:space="preserve">
+    <value>الكمية المطلوبة من المنتج</value>
+  </data>
+  <data name="ShareProduct" xml:space="preserve">
+    <value>شارك المنتج</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value> مجلس الإدارة</value>
+  </data>
+  <data name="Image" xml:space="preserve">
+    <value>الصورة</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>المنصب</value>
+  </data>
+  <data name="PublicationCenter" xml:space="preserve">
+    <value>مركز المطبوعات</value>
+  </data>
+  <data name="Riyadh" xml:space="preserve">
+    <value>الرياض</value>
+  </data>
+  <data name="UpcomingEvents" xml:space="preserve">
+    <value>الفعاليات القادمة</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>قيمنا</value>
+  </data>
+  <data name="DisplayWay" xml:space="preserve">
+    <value>طريقة العرض</value>
+  </data>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>السلة فارغة</value>
+  </data>
+  <data name="PleaseGoToProcustsPage" xml:space="preserve">
+    <value>يرجى الذهاب لصفحة المنتجات من خلال صفحات الوحدات</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>المنتج</value>
+  </data>
+  <data name="ProductDetails" xml:space="preserve">
+    <value>تفاصيل المنتج</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="SubmitOrder" xml:space="preserve">
+    <value>تأكيد الطلبية</value>
+  </data>
+  <data name="CareerOpportunities" xml:space="preserve">
+    <value>الفرص الوظيفية</value>
+  </data>
+  <data name="CareerSummary" xml:space="preserve">
+    <value>لم تجد وظيفة تناسبك ؟ لا تقلق يمكنك إرسال سيرتك الذاتية وسوف يتم حفظها في بنك السير الذاتية الخاص بقسم التوظيف وفي حال وجود فرصة شاغرة سيتم التواصل معكم.  يمكنك البدء من والنقر</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>المدينة</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>مغلق</value>
+  </data>
+  <data name="DateEnd" xml:space="preserve">
+    <value>تاريخ الانتهاء</value>
+  </data>
+  <data name="DisplayMore" xml:space="preserve">
+    <value>عرض المزيد</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>هنا</value>
+  </data>
+  <data name="JobApp" xml:space="preserve">
+    <value>طلب التوظيف</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>مفتوح</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>الطلب</value>
+  </data>
+  <data name="ShareActivity" xml:space="preserve">
+    <value>شارك الفعالية</value>
+  </data>
+  <data name="SubmitComment" xml:space="preserve">
+    <value>إرسال التعليق</value>
+  </data>
+  <data name="SubmitRequest" xml:space="preserve">
+    <value>تقديم الطلب</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="PlaceOfIssue" xml:space="preserve">
+    <value>مكان صدورها</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>تاريخ اصدارها</value>
+  </data>
+  <data name="RleaseDateH" xml:space="preserve">
+    <value>تاريخ الاصدار</value>
+  </data>
+  <data name="CVTitle" xml:space="preserve">
+    <value>السيرة الذاتية</value>
+  </data>
+  <data name="Branches" xml:space="preserve">
+    <value>الفروع</value>
+  </data>
+  <data name="RequestedImage" xml:space="preserve">
+    <value>ارفاق صوره</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>نتائج البحث</value>
+  </data>
+  <data name="SearchIn" xml:space="preserve">
+    <value>ابحث في</value>
+  </data>
+  <data name="FullSearch" xml:space="preserve">
+    <value>بحث كامل</value>
+  </data>
+  <data name="NewsSearch" xml:space="preserve">
+    <value>بحث في الأخبار</value>
+  </data>
+  <data name="ProductSearch" xml:space="preserve">
+    <value>بحث في المنتجات</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>ابحث</value>
+  </data>
+  <data name="SearchInActivities" xml:space="preserve">
+    <value>بحث في الفعاليات</value>
+  </data>
+  <data name="NonSaudiNationality" xml:space="preserve">
+    <value>غير سعودي</value>
+  </data>
+  <data name="SaudiNationality" xml:space="preserve">
+    <value>سعودي</value>
+  </data>
+  <data name="AddComputerSkill" xml:space="preserve">
+    <value>اضافة مهارة الحاسب الآلي</value>
+  </data>
+  <data name="AddQualification" xml:space="preserve">
+    <value>اضافة مؤهل علمي</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>الدولة</value>
+  </data>
+  <data name="CertificationsAndAccreditations" xml:space="preserve">
+    <value>الشهادات والإعتمادات</value>
+  </data>
+  <data name="CityOfBirth" xml:space="preserve">
+    <value>مدينة الميلاد</value>
+  </data>
+  <data name="CountryOfBirth" xml:space="preserve">
+    <value>دولة الميلاد</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>المستوى</value>
+  </data>
+  <data name="NewsBodyAr" xml:space="preserve">
+    <value>&lt;p&gt;مرحبا بكم في النشرة الإخبارية للوطنية للصناعة &lt;/p&gt;
+&lt;p&gt;يسعدنا ان نقدم لكم في هذه النسخة أخر الأخبار. نأمل أن تجد هذه النشرة أهتمامكم.&lt;/p&gt;
+
+&lt;h3&gt;{0}&lt;/h3&gt;
+&lt;p&gt;للاطلاع على الخبر النقر على الرابط التالي&lt;/p&gt;
+&lt;p&gt;{1}&lt;/p&gt;</value>
+  </data>
+  <data name="NewsBodyEn" xml:space="preserve">
+    <value>&lt;p&gt;Welcome to Al Watania for Industries Newsletter&lt;/p&gt;
+
+&lt;p&gt;We are pleased share with you in this edition the latest news, we hope you find it interesting&lt;/p&gt;
+
+&lt;h3&gt;{0}&lt;/h3&gt;
+&lt;p&gt;To read the full story please click on the following link &lt;/p&gt;
+&lt;p&gt;{1}&lt;/p&gt;</value>
+  </data>
+  <data name="OurFactories" xml:space="preserve">
+    <value>مصانعنا</value>
+  </data>
+  <data name="InvestorRelations" xml:space="preserve">
+    <value>علاقات المستثمرين</value>
+  </data>
+  <data name="ExecutiveManagement" xml:space="preserve">
+    <value>الإدارة التنفيذية</value>
+  </data>
+  <data name="PoliciesandGovernance" xml:space="preserve">
+    <value>السياسات والحوكمة</value>
+  </data>
+  <data name="CorporateStrategy" xml:space="preserve">
+    <value>استراتيجية الشركة</value>
+  </data>
+  <data name="MediaContact" xml:space="preserve">
+    <value>العلاقات الإعلامية</value>
+  </data>
+</root>
