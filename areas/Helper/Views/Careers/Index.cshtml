@@ -1,0 +1,117 @@
+﻿@model IEnumerable<alwatnia.Models.Job>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Helper/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض الوظائف</h1>           
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <form action="@Url.Action("Index", "Careers")" method="get" class="horizontal-form" id="Slider_form">
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن وظيفة</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>العنوان</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="title" placeholder="العنوان" value="@Request.QueryString["title"]">
+                        </div>
+                    </div>
+                    <hr />
+                    @*<div class="form-group ">
+                        <label> المدينة</label>
+                        <select class="form-control" name="City">
+                            <option value="الرياض">الرياض</option>
+                        </select>
+                    </div>
+                    <hr />*@
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-language"></i>
+                            </span>
+                            <select class="form-control" name="lang" placeholder="اللغة">
+                                <option value="">اختار اللغة </option>
+                                <option value="1">اللغة العربية </option>
+                                <option value="2">English  </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn blue"><i class="fa fa-search"></i> بحث</button>
+                    <a href="@Url.Action("Index")" class="btn default"><i class="fa fa-reply"></i> الغاء</a>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض الوظائف</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th class="col-counter"> # </th>
+                                <th> العنوان </th>
+                                <th>تاريخ الوظيفة</th>
+                                <th class="text-center"> <i class="icon-bubble"></i>  </th>
+                                <th class="col-operation"> العمليات </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="@(item.EndDate.HasValue && item.EndDate.Value.Date >= DateTime.Now.Date ? "success" : "danger")">
+                                    <td class="col-counter"> @(i++) </td>
+                                    <td> @Html.Raw(item.Title) </td>
+                                    <td class="col-operation"> @(string.Format("{0:ddd, MMMM d, yyyy}", item.EndDate))</td>
+                                    <td class="text-center"><a href="@Url.Action("Comments", "Careers", new {id=item.Id })">@item.Comments.Count() <i class="fa fa-comment"></i></a> </td>
+                                    <td class="col-operation">
+                                        <div class="btn-group btn-group-solid">
+                                            <a href="@Url.Action("Comments", "Careers", new { id = item.Id })" class="btn blue"><i class="fa fa-edit"></i> عرض المتقدمين</a>
+                                            <a onclick="return confirm('هل تريد حذف هذا التعليق ؟؟');" href="@Url.Action("RemoveJob", "Careers", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>

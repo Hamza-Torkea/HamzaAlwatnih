@@ -1,0 +1,209 @@
+﻿@model IEnumerable<alwatnia.Models.JobCV.JobApplication>
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Areas/helper/Views/Shared/_Layout.cshtml";
+  int i = 1;
+}
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>السير الذاتية  </h1>
+
+    }
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+  <div class="col-md-3">
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-magnifier font-dark"></i>
+          <span class="caption-subject font-dark bold uppercase">ابحث عن مسجل</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="form-group">
+          <label>اسم المتقدم</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" class="form-control" name="name" id="name" placeholder=" ...." value="@Request.QueryString["name"]">
+          </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+          <label>الجنسية</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" class="form-control" name="nationality" id="nationality" placeholder=" ...." value="@Request.QueryString["nationality"]">
+          </div>
+        </div>
+        <hr />
+        <div class="form-group">
+          <label>البريد الالكتروني</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" class="form-control" name="email" id="email" placeholder=" ...." value="@Request.QueryString["email"]">
+          </div>
+        </div>
+        <hr />
+        <div class="form-group ">
+          <label>السجل المدني</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="IdentityNo" id="IdentityNo" placeholder="السجل المدني" value="@Request.QueryString["IdentityNo"]">
+          </div>
+        </div>
+        <hr />
+        <div class="form-group ">
+          <label>الجوال</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="الجوال" value="@Request.QueryString["mobile"]">
+          </div>
+        </div>
+        <hr />
+
+        <div class="form-group ">
+          <label>مكان الميلاد</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="PlaceOfBirth" id="PlaceOfBirth" placeholder="مكان الميلاد" value="@Request.QueryString["PlaceOfBirth"]">
+          </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+          <label>الجنس</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+
+              <i class="fa fa-user"></i>
+            </span>
+            <select class="form-control" id="gender">
+              <option value="">-- اختار الجنس --</option>
+              <option value="1" @(Request.QueryString["Gender"] == "1" ? "selected" : "")>ذكر</option>
+              <option value="2" @(Request.QueryString["Gender"] == "2" ? "selected" : "")> أنثى</option>
+            </select>
+          </div>
+        </div>
+        <hr />
+        <div class="form-group ">
+          <label>الموهل العلمي</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="nlevel" id="nlevel" placeholder="الموهل العلمي" value="@Request.QueryString["nlevel"]">
+          </div>
+        </div>
+        <hr />
+        <div class="form-group ">
+          <label>التخصص</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="espicial" id="espicial" placeholder="التخصص" value="@Request.QueryString["espicial"]">
+          </div>
+        </div>
+        <hr />
+        <div class="form-group ">
+          <label>الجامعة</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="universety" id="universety" placeholder="الجامعة" value="@Request.QueryString["universety"]">
+          </div>
+        </div>
+        <hr />
+        <div class="form-group ">
+          <label>سنة التخرج</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-bookmark" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="workYears" id="workYears" placeholder="سنة التخرج " value="@Request.QueryString["workYears"]">
+          </div>
+        </div>
+        <hr />
+
+        <button type="submit" onclick="search('CVsApplications')" id="btnSearch" class="btn blue"><i class="fa fa-save"></i> بحث الصفحة</button>
+        <a href="@Url.Action("CVsApplications", "Careers")" class="btn default"><i class="fa fa-reply"></i> الغاء</a>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-9">
+    <!-- BEGIN BORDERED TABLE PORTLET-->
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-arrow-left font-dark"></i>
+          <span class="caption-subject font-dark bold uppercase">عرض المرسلين</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-scrollable">
+          <table class="table table-bordered table-hover">
+            <thead>
+
+              <tr>
+                <th class="col-counter" colspan="1"> # </th>
+                <th colspan="5"> الاسم </th>
+                <th colspan="5"> البريد الالكتروني </th>
+                <th class="col-operation" colspan="3"> العمليات </th>
+
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var item in Model)
+              {
+                <tr>
+                  <td class="col-counter" colspan="1"> @(i++) </td>
+                  <td colspan="5"> @item.FullName </td>
+                  <td colspan="5">@item.Email </td>
+                  <td class="col-operation" colspan="3">
+                    <div class="btn-group btn-group-solid">
+                      <a target="_blank" href="@Url.Action("Details", "Careers", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> عرض السيرة الذاتية</a>
+                      <a download href="@Url.Action("DownloadCv", "Careers", new { id = item.Id })" class="btn btn-default">Export To Excel</a>
+                      <a onclick="return confirm('هل تريد حذف السيره الذاتيه ؟؟');" href="@Url.Action("RemoveApplication", "Careers", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                    </div>
+                  </td>
+                </tr>
+              }
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- END BORDERED TABLE PORTLET-->
+  </div>
+</div>
+<div id="dvData" ></div>
+
+@section Scripts
+{
+  <script src="~/Scripts/job.js"></script>
+}
+

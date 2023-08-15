@@ -1,0 +1,67 @@
+﻿@model IEnumerable<alwatnia.Models.RequestedProducts>
+@{
+   
+    Layout = null;
+    int i = 1;
+}
+<div class="table-scrollable">
+    <table class="table table-bordered table-hover">
+        <thead>
+
+            <tr>
+                <th class="col-counter"> # </th>
+                <th> المنتج المطلوب  </th>
+              <th> الكمية  </th>  
+              <th>الصوره المرفقه</th>
+              <th class="col-operation"> العمليات </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)  
+            {
+
+                <tr class="@(item.status.HasValue && item.status.Value==1 ? "success" : "warnign")">
+                    <td class="col-counter"> @(i++) </td>
+                    <td> @item.Product.Title </td>
+                  <td> @item.amount</td>        
+                  <td>
+                    @if (!string.IsNullOrWhiteSpace(item.Photo))
+                    {
+                      <a target="_blank" href="~/Recources/ProductRequest/@item.Photo">
+                        <span class="fa fa-external-link"></span>
+                      </a>
+                    }
+                    else
+                    {
+                      <text>-</text>
+                    }
+                  </td>
+                  <td class="col-operation">
+                    <div class="btn-group btn-group-solid">
+
+
+                      @{
+                        if (item.status == 1)
+                        {
+                          <a href="@Url.Action("done", new {id = item.Id, status=0})" class="btn orange"><i class="fa fa-edit"></i> لم يتم بعد </a>
+
+                        }
+                        else
+                        {
+                          <a href="@Url.Action("done", new {id = item.Id, status=1})" class="btn green"><i class="fa fa-edit"></i> تم  </a>
+
+                        }
+                      }
+
+                      <a onclick="return confirm('هل تريد حذف الطلب ؟؟');" href="@Url.Action("RemoveRequested", "UnitPage", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                    </div>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

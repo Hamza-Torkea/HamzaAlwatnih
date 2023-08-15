@@ -1,0 +1,190 @@
+﻿@model IEnumerable<alwatnia.Models.UsersProducts>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Unit/Views/Shared/_Layout.cshtml";
+    int i = 1;
+
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض الطلبات</h1>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <form action="@Url.Action("Index")" method="get" class="horizontal-form" id="Slider_form">
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن طلبية</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>اسم الزبون</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="title" id="title" placeholder="اسم الزبون" value="@Request.QueryString["title"]">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>البريد الالكتروني</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="email" id="email" placeholder="البريد الالكتروني" value="@Request.QueryString["email"]">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>الجوال</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="mobile" id="mobile" placeholder="الجوال" value="@Request.QueryString["mobile"]">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn blue"><i class="fa fa-search"></i> بحث</button>
+                    <a href="@Url.Action("Index")" class="btn default"><i class="fa fa-reply"></i> الغاء</a>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض الطلبات</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th class="col-counter"> # </th>
+                                <th> صاحب الطلبية   </th>
+                                <th> رقم جوال صاحب الطلبية  </th>
+                                <th> بريد  صاحب الطلبية  </th>
+                              <th>تاريخ الطلبية</th>
+                              <th>الدوله</th>
+                              <th>المدينه</th>
+                                <th>الملاحطات</th>
+                                <th class="col-operation"> العمليات </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @{
+                            if (Model != null)
+                            {
+
+
+                                foreach (var item in Model)
+                                {
+
+                                    <tr class="@(item.status.HasValue && item.status.Value == 1 ? "success" : "warnign")">
+                                        <td class="col-counter"> @(i++) </td>
+                                        <td> @item.fullname </td>
+                                        <td> @item.mobile</td>
+                                        <td > @item.email</td>
+                                        <td > @item.cdate</td>
+                                      <td>@item.Country</td>
+                                      <td>@item.City</td>
+                                      <td>@item.Notes</td>
+
+                                        <td class="col-operation">
+                                          <div class="btn-group btn-group-solid">
+                                            <a data-href="@Url.Action("Details", new {id = item.Id})" href="@Url.Action("Details", new {id = item.Id})" data-toggle="modal" data-target="#responsive" class="btn blue"><i class="fa fa-edit"></i> تفاصيل</a>
+
+                                            @{
+                                              if (@item.status == 1)
+                                              {
+                                                <a href="@Url.Action("UserRequestDone", new {id = item.Id, status=0})" class="btn orange"><i class="fa fa-edit"></i> لم يتم بعد </a>
+
+                                              }
+                                              else
+                                              {
+                                                <a href="@Url.Action("UserRequestDone", new {id = item.Id, status=1})" class="btn green"><i class="fa fa-edit"></i> تم  </a>
+
+                                              }
+                                            }
+
+                                            <a onclick="return confirm('هل تريد حذف الطلب ؟؟');" href="@Url.Action("RemoveProduct", "UnitPage", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                          </div>
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6">
+                                        لا يوجد بيانات
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+
+<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+    <form action="@Url.Action("done")" method="post" class="horizontal-form">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">تفاصيل الطلبية</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+    </form>
+</div><!-- /.modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">Modal title</h4>
+
+            </div>
+            <div class="modal-body"><div class="te"></div></div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

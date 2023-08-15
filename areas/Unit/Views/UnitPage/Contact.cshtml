@@ -1,0 +1,117 @@
+﻿@model IEnumerable<alwatnia.Models.Contact>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Unit/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>تواصل معنا </h1>           
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <div class="col-md-3">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-magnifier font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">ابحث عن متواصل</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="form-group">
+                    <label>اسم المرسل</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" name="name" id="name" placeholder=" ...." value="@Request.QueryString["name"]">
+                    </div>
+                </div>             
+                                
+                <hr />
+                <div class="form-group">
+                    <label>البريد الالكتروني</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" name="email" id="email" placeholder=" ...." value="@Request.QueryString["email"]">
+                    </div>
+                </div>             
+                <button type="submit" class="btn blue" onclick="searchContact()" ><i class="fa fa-save"></i> بحث الصفحة</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض المرسلين</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th class="col-counter"> # </th>
+                                <th> الاسم </th>
+                                <th> الموبايل </th>
+                                <th> البريد الالكتروني </th>
+
+                                <th> الهاتف </th>
+                                <th class="col-operation"> العمليات </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                            <tr class="bg-@(item.IsRead.HasValue && item.IsRead.Value ? "success" : "warning")">
+                                <td class="col-counter"> @(i++) </td>
+                                <td> @item.Name </td>
+                                <td> @item.Mobile </td>
+                                <td>@item.Email </td>
+                                <td> @item.Phone </td>
+
+                                <td class="col-operation">
+                                  <div class="btn-group btn-group-solid">
+                                    <a href="@Url.Action("Read", "UnitPage", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تمت القراءة</a>
+                                    <a onclick="return confirm('هل تريد حذف الطلب ؟؟');" href="@Url.Action("RemoveContact", "UnitPage", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+
+                                  </div>
+                                </td>
+
+                            </tr>
+
+                                <tr class="bg-@(item.IsRead.HasValue && item.IsRead.Value ? "success" : "warning")">
+                                    <td colspan="5">@item.Message</td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+
+
+<script src="~/Scripts/contact.js"></script>

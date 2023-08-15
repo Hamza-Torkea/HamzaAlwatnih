@@ -1,0 +1,837 @@
+﻿@using alwatnia.Models.JobCV
+@using Resources
+@model alwatnia.Models.JobCV.JobApplication
+@{
+  Layout = null;
+  var i = 1;
+}
+
+!<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume For @Model.FullName</title>
+</head>
+@Styles.Render("~/Content/BasicCss");
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-scrollable">
+        <fieldset class="pf">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3> @Resource.PersonalInformation</h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            <div class="col-md-6">
+              <table class="table table-hover table-bordered">
+                <tr>
+                  <th>
+                    <b>@Resource.FullName</b>
+                  </th>
+                  <td>
+                    @Model.FullName
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.DOB</b>
+                  </th>
+                  <td>
+                    @Model.DateOfBirth
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.POB</b>
+                  </th>
+                  <td>
+                    @string.Format("{0}, {1}", Model.CountryOfBirth, Model.CityOfBirth)
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.SocialStatus</b>
+                  </th>
+                  <td>
+                    @switch (Model.SocialStatus)
+                    {
+                      case SocialStatus.Single:
+                        <text>أهزب</text>
+                        break;
+                      case SocialStatus.Married:
+                        <text>متزوج</text>
+                        break;
+                      case SocialStatus.Widowed:
+                        <text>أرمل</text>
+                        break;
+                      case SocialStatus.Divorcee:
+                        <text>مطلق</text>
+                        break;
+                    }
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.Nationality</b>
+                  </th>
+                  <td>
+                    @Model.Nationality
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.Gender</b>
+                  </th>
+                  <td>
+                    @( Model.Gender == 1 ? "ذكر" : "آنثى")
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.FamilyNo</b>
+                  </th>
+                  <td>
+                    @Model.NumberOfDependents
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+            <div class="col-md-6">
+              <table class="table table-hover table-bordered">
+                <tr>
+                  <th>
+                    <b>@Resource.IdNumber</b>
+                  </th>
+                  <td>
+                    @Model.IdentityNo
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.ReleaseDate</b>
+                  </th>
+                  <td>
+                    @Model.IdentitReleaseDate
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.PlaceOfIssue</b>
+                  </th>
+                  <td>
+                    @Model.PlaceOfIssue
+                  </td>
+                </tr>
+
+              </table>
+
+              <br />
+
+              <table class="table table-hover table-bordered">
+                <tr>
+                  <th>
+                    <b>@Resource.Passport</b>
+                  </th>
+                  <td>
+                    @Model.Passport
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.ReleaseDate</b>
+                  </th>
+                  <td>
+                    @Model.PassportReleaseDate
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>
+                    <b>@Resource.ExpirationDate</b>
+                  </th>
+                  <td>
+                    @Model.PassportEndDate
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="col-md-12">
+              <table class="table table-hover table-bordered">
+                <tr>
+                  <th style="width: 30%">
+                    <b>@Resource.Mobile</b>
+                  </th>
+                  <td>
+                    @Model.Mobile
+                  </td>
+                </tr>
+
+                <tr>
+                  <th style="width: 30%">
+                    <b>@Resource.Email</b>
+                  </th>
+                  <td>
+                    @Model.Email
+                  </td>
+                </tr>
+
+                <tr>
+                  <th style="width: 30%">
+                    <b>@Resource.Phone</b>
+                  </th>
+                  <td>
+                    @Model.Tell
+                  </td>
+                </tr>
+
+                <tr>
+                  <th style="width: 30%">
+                    <b>@Resource.Address</b>
+                  </th>
+                  <td>
+                    @Model.Address
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="qf">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3>
+                @Resource.Qualifications
+              </h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    <b>
+                      #
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.FirstAcademic
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.AcademicInstatue
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Specialization
+
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.GraduationYear
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Grade
+                    </b>
+                  </th>
+
+                </tr>
+              </thead>
+              <tbody>
+                @{
+                  i = 1;
+                  foreach (var item in Model.Qualifications)
+                  {
+                    <tr>
+                      <td>@i</td>
+                      <td>@item.Name</td>
+                      <td> @item.University</td>
+                      <td>@item.Specialization</td>
+                      <td>@item.GraduationYear</td>
+                      <td>@item.Grade</td>
+                    </tr>
+                    ++i;
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="form-top col-md-12">
+            <div class="form-top-left">
+              <h3>@Resource.LanguageSkills</h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    <b>#</b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Lang
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Conversation
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Writing
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Reading
+                    </b>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @{
+                  i = 1;
+                  foreach (var item in Model.LanguageSkills.Where(t => !string.IsNullOrEmpty(t.Name)))
+                  {
+                    <tr>
+                      <td>@i</td>
+                      <td>@item.Name</td>
+                      <td>
+                        @switch (item.Conversation)
+                        {
+                          case SkillStatus.Medium:
+                            <text>متوسط</text>
+                            break;
+                          case SkillStatus.Excellent:
+                            <text>جيد جدا</text>
+                            break;
+                          case SkillStatus.Good:
+                            <text>جيد </text>
+                            break;
+                          case SkillStatus.Beginner:
+                            <text>مبتدئ</text>
+                            break;
+                        }
+                      </td>
+                      <td>
+                        @switch (item.Writing)
+                        {
+                          case SkillStatus.Medium:
+                            <text>متوسط</text>
+                            break;
+                          case SkillStatus.Excellent:
+                            <text>جيد جدا</text>
+                            break;
+                          case SkillStatus.Good:
+                            <text>جيد </text>
+                            break;
+                          case SkillStatus.Beginner:
+                            <text>مبتدئ</text>
+                            break;
+                        }
+                      </td>
+                      <td>
+                        @switch (item.Reading)
+                        {
+                          case SkillStatus.Medium:
+                            <text>متوسط</text>
+                            break;
+                          case SkillStatus.Excellent:
+                            <text>جيد جدا</text>
+                            break;
+                          case SkillStatus.Good:
+                            <text>جيد </text>
+                            break;
+                          case SkillStatus.Beginner:
+                            <text>مبتدئ</text>
+                            break;
+                        }
+                      </td>
+                    </tr>
+                    ++i;
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+          <div class="form-top col-md-12">
+            <div class="form-top-left">
+              <h3> @Resource.ComputerSkills</h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>@Resource.Name</th>
+                  <th>المستوي</th>
+                </tr>
+              </thead>
+              <tbody>
+                @{
+                  i = 1;
+                  foreach (var item in Model.ComputerSkills.Where(t => !string.IsNullOrEmpty(t.Name)))
+                  {
+                    <tr>
+                      <td>@i</td>
+                      <td>@item.Name</td>
+                      <td>
+                        @switch (item.Skill)
+                        {
+                          case SkillStatus.Medium:
+                            <text>متوسط</text>
+                            break;
+                          case SkillStatus.Excellent:
+                            <text>جيد جدا</text>
+                            break;
+                          case SkillStatus.Good:
+                            <text>جيد </text>
+                            break;
+                          case SkillStatus.Beginner:
+                            <text>مبتدئ</text>
+                            break;
+                        }
+                      </td>
+                    </tr>
+                    ++i;
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset class="cf">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3> @Resource.Training</h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>
+                    <b>#</b>
+                  </th>
+                  <th>
+                    <b>@Resource.Address</b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Organization
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Course
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Date
+                    </b>
+                  </th>
+                  <th>
+                    <b>
+                      @Resource.Duration
+                    </b>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @{
+                  i = 1;
+                  foreach (var item in Model.Courses.Where(t => !string.IsNullOrEmpty(t.Name)))
+                  {
+                    <tr>
+                      <td>
+                        @i
+                      </td>
+                      <td>
+                        @item.Address
+                      </td>
+                      <td>
+                        @item.Orginization
+                      </td>
+                      <td>
+                        @item.Name
+                      </td>
+                      <td>
+                        @item.Date
+                      </td>
+                      <td>
+                        @item.Duration
+                      </td>
+                    </tr>
+                    ++i;
+                  }
+                }
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
+        <fieldset class="ef">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3> @Resource.EmploymentHistory </h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            @foreach (var item in Model.Employments)
+            {
+              <div class="col-md-6">
+                <table class="table table-bordered table-hover">
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.Duration
+                      </b>
+                    </th>
+                    <td>
+                      @item.Duration
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.FromDate
+                      </b>
+                    </th>
+                    <td>
+                      @item.FromDate
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.ToDate
+                      </b>
+                    </th>
+                    <td>
+                      @item.ToDate
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.Salary
+                      </b>
+                    </th>
+                    <td>
+                      @item.Salary
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.JobTitle
+                      </b>
+                    </th>
+                    <td>
+                      @item.JobTitle
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.CompanyAddressAndDetails
+                      </b>
+                    </th>
+                    <td>
+                      @item.CompanyAddress
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th>
+                      <b>
+                        @Resource.JobDes
+                      </b>
+                    </th>
+                    <td>
+                      @item.Description
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            }
+          </div>
+        </fieldset>
+        <fieldset class="of">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3> @Resource.Other</h3>
+            </div>
+          </div>
+          <div class="form-bottom row">
+            <table class="table table-hover table-bordered">
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.Conduct
+                  </b>
+                </th>
+                <td>
+                  @(Model.HasCrime ? "نعم" : "لا")
+                </td>
+              </tr>
+
+              @if (Model.HasCrime)
+              {
+                <tr >
+                  <th style="width: 30%;">
+                    <b>
+                      @Resource.Details
+                    </b>
+                  </th>
+                  <td>
+                    @Model.CrimeDescription
+                  </td>
+                </tr>
+              }
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.Health
+                  </b>
+                </th>
+                <td>
+                  @(Model.HasDisable ? "نعم" : "لا")
+                </td>
+              </tr>
+
+              @if (Model.HasDisable)
+              {
+                <tr>
+                  <th style="width: 30%;">
+                    <b>
+                      @Resource.Details
+                    </b>
+                  </th>
+                  <td>
+                    @Model.DisableDescription
+                  </td>
+                </tr>
+              }
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.CurrentEmployementStatus
+                  </b>
+                </th>
+                <td>
+                  @(Model.EmployeeNow ? "نعم" : "لا")
+                </td>
+              </tr>
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.CanContactCompany
+                  </b>
+                </th>
+                <td>
+                  @(Model.AskYourEmployer ? "نعم" : "لا")
+                </td>
+              </tr>
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.Telephone
+                  </b>
+                </th>
+                <td>
+                  @Model.EmployerMobile
+                </td>
+              </tr>
+
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.CompanyAddressAndDetails
+                  </b>
+                </th>
+                <td>
+                  @Model.EmployerDescription
+                </td>
+              </tr>
+
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.RelativeWorker
+                  </b>
+                </th>
+                <td>
+                  @(Model.HasRelativeInOurCompany ? "نعم" : "لا")
+                </td>
+              </tr>
+
+
+              @if (Model.HasRelativeInOurCompany)
+              {
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>@Resource.Unit</th>
+                      <th>@Resource.EmployeeName</th>
+                      <th>@Resource.RelativeRelation</th>
+                      <th>@Resource.Job</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach (var item in Model.RelativeEmployers)
+                    {
+                      <tr>
+                        <td>
+                          @item.Unit
+                        </td>
+                        <td>
+                          @item.Name
+                        </td>
+                        <td>
+                          @item.RelativeRelation
+                        </td>
+                        <td>
+                          @item.JobTitle
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              }
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.StartWorking
+                  </b>
+                </th>
+                <td>
+                  @Model.WhenStartWorking
+                </td>
+              </tr>
+
+              <tr>
+                <th style="width: 30%;">
+                  <b>
+                    @Resource.ExpectedSalary
+                  </b>
+                </th>
+                <td>
+                  @Model.SalaryExpect
+                </td>
+              </tr>
+
+            </table>
+          </div>
+        </fieldset>
+        <fieldset class="rf">
+          <div class="form-top">
+            <div class="form-top-left">
+              <h3> @Resource.RefPersons</h3>
+            </div>
+          </div>
+
+
+          <div class="form-bottom row">
+            <table class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th>
+                  <b>#</b>
+                </th>
+                <th>
+                  <b>@Resource.Name</b>
+                </th>
+                <th>
+                  <b>@Resource.Job</b>
+                </th>
+                <th>
+                  <b>@Resource.Address</b>
+                </th>
+                <th>
+                  <b>@Resource.Phone</b>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+                @{
+                  i = 1;
+                  foreach (var item in Model.References)
+                  {
+                    <tr>
+                      <td>@i</td>
+                      <td>
+                        @item.Name
+                      </td>
+                      <td>
+                        @item.JobTitle
+                      </td>
+                      <td>
+                        @item.Address
+                      </td>
+                      <td>
+                        @item.Mobile
+                      </td>
+                    </tr>
+                    ++i;
+                  }
+                }
+              </tbody>
+            </table>
+
+
+            <div class="col-md-12">
+              <br />
+              <div class="form-group">
+                <div class="other-input">
+                  <div class="checkbox">
+                    <p>
+                      <b> @Resource.ApplicationAgreenment </b>
+                    </p>
+
+                    <p>@(Model.Confirm ? "نعم" : "لا")</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,39 @@
+﻿@using alwatnia.Models
+@Html.Partial("~/Areas/UNit/Views/Shared/_header.cshtml")
+@{
+  Company company = null;
+  try
+  {
+    company = (Company) ViewBag.Company;
+  }
+  catch (Exception)
+  {
+    // ignore
+  }
+}
+<div class="container-fluid">
+    <div class="page-content" style="padding-top: 10px;">
+        <!-- BEGIN BREADCRUMBS -->
+        <div class="breadcrumbs">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <div class="about-block-p">
+                            <div class="logo">
+                                <img src="~/Recources/Uploads/@(company != null ? company.Photo.Replace("jpeg", "png") : "")" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @RenderSection("addBtn", false)
+
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <!-- END PAGE CONTAINER -->
+    @Html.Partial("~/Areas/UNit/Views/Shared/_footer.cshtml")
+    @RenderSection("Scripts", false)
