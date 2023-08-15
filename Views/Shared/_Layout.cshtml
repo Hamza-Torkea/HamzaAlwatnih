@@ -1,0 +1,23 @@
+﻿    @Html.Partial("~/Views/Shared/_HomeHeader.cshtml")
+    @RenderBody()
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+    @RenderSection("scripts", required: false)
+    <script>
+	    new WOW().init();
+    </script>
+<script>
+	if (document.getElementById('shareBtn')) {
+	document.getElementById('shareBtn').onclick = function () {
+		FB.ui({
+			method: 'share',
+      display: 'popup',
+      appId: '262984307597347',
+			href: 'https://developers.facebook.com/docs/',
+		}, function(response) {
+		  console.log(response);
+		});
+		}
+	}
+</script>
+</body>
+</html>

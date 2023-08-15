@@ -1,0 +1,89 @@
+﻿@using alwatnia.Helper;
+@using alwatnia.Views.Shared
+@{
+    ViewBag.Title = "Vision";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData.AddActiveMenu(Nav.About);
+  ViewData.AddActivePage(Nav.MainVision);
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+.value {
+    text-align: center;
+    display: inline-block;
+}
+.value li {
+    float: right;
+    padding: 10px 30px !important;
+    margin: 0;
+    background-color: #ffe7e7;
+    margin-left: 15px;
+    text-align: center;
+    border: 1px solid #5ab4e3;
+}
+.value li:before {
+content: none !important
+    }
+</style>
+<section class="">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">الرئيسية</a></li>
+            <li class="breadcrumb-item active">الرؤية والرسالة</li>
+        </ol>
+        <h2  style="color: #1e3687" class="title-page">@Resource.VisionAndMessage</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <h2>
+                        <i class ="fa fa-binoculars"></i>
+                        @Resource.Vision</h2>
+                        <p>
+                            @Html.Raw(ViewBag.vision)
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2>
+                         <i class ="fa fa-envelope"></i>
+                        @Resource.Message</h2>
+                        <p>
+                            @Html.Raw(ViewBag.message)
+
+                        </p>
+                        
+                    </div>
+                </div>
+                <div class="col-sm-12" style="text-align: center">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2 style="margin-top: 20px;">
+                        <i class ="fa fa-balance-scale"></i>
+                        @Resource.Value</h2>
+                                  
+                            <div class="value clearfix" >
+                                <h2>
+                                   
+                                 @Html.Raw(ViewBag.value)
+                                        
+                                </h2>
+                                
+                            </div>
+                             
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

@@ -1,0 +1,154 @@
+﻿@using alwatnia.Helper
+@{
+  ViewBag.Title = "Cart";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  List<alwatnia.Models.ProductItem> pros = (List<alwatnia.Models.ProductItem>)HttpContext.Current.Session["products"];
+  var isEng = Functions.IsEnglish();
+}
+<style>
+  label {
+    line-height: 20px;
+  }
+</style>
+<section class="section-topBanar">
+  <div class="container">
+    <h2 class="title-page">@Resource.ProductDetails</h2>
+  </div>
+</section><!--section-topBanar-->
+
+<div class="section-contentInner">
+  <div class="container">
+    <form action="@Url.Action("cart")" method="post">
+      <div class="row items">
+        <div class="col-md-7 col-sm-12 text-left" style="border:1px solid #188ac8">
+          <ul>
+            <li class="row list-inline columnCaptions" style="margin: 0 -15px; padding-top: 10px;">
+              <span class="@(isEng ? "pull-left" : "pull-right")">@Resource.Quantity</span>
+              <span>@Resource.Product</span>
+            </li>
+
+            @{
+              if (Session["products"] != null && pros.FirstOrDefault() != null)
+              {
+                int i = 2;
+                foreach (var item in pros)
+                {
+                  <li class="row @(i++ % 2 !=0 ? "rowItem" : "")">
+                    <span class="quantity">@item.productAmount</span>
+                    <span class="itemName">@item.title</span>
+                    <span class="">
+                      <a href="@Url.Action("RemoveFromCart", new {id = item.productItem})">
+                        <span class="glyphicon glyphicon-remove fa fa-remove"></span>
+                      </a>
+                    </span>
+                    <input type="hidden" name="items[@(i-3)].productItem" value="@item.productItem" />
+                    <input type="hidden" name="items[@(i-3)].productAmount" value="@item.productAmount" />
+                    <input type="hidden" name="items[@(i-3)].photo" value="@item.photo" />
+                    <input type="hidden" name="items[@(i-3)].productCompany" value="@item.productCompany" />
+
+                  </li>
+                }
+              }
+              else
+              {
+                <li class="text-right" style="margin-top:20px;">
+                  <div class="alert alert-danger">
+                    <strong>@Resource.EmptyCart </strong> @Resource.PleaseGoToProcustsPage
+                  </div>
+                </li>
+              }
+            }
+
+          </ul>
+        </div>
+        <div class="col-md-4 col-sm-12 finishCart">
+          <div class="bigcart"></div>
+          @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+          <div class="row" style="border-top:1px solid #eee">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>@Resource.FullName</label>
+                <input class="form-control" required name="name" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>@Resource.Email</label>
+                <input class="form-control" type="email" required name="email" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>@Resource.Mobile</label>
+                <input class="form-control" type="number" required name="mobile" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>@Resource.Country</label>
+                <input class="form-control" required name="Country" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>@Resource.City</label>
+                <input class="form-control" required name="City" />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>@Resource.Note</label>
+                <textarea name="Notes" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-md-12 text-right">
+              <button class="btn addBascket pull-right @( Session["products"] == null ? "disabled" : "" )" type="submit">@Resource.SubmitOrder</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div id="popover" style="display: none">
+    <a href="#"><span class="glyphicon glyphicon-pencil fa fa-pencil"></span></a>
+  </div>
+</div>
+@section Scripts{
+  <script>
+    $(function () {
+      var pop = $('.popbtn');
+      var row = $('.row:not(:first):not(:last)');
+
+
+      pop.popover({
+        trigger: 'manual',
+        html: true,
+        container: 'body',
+        placement: 'bottom',
+        animation: false,
+        content: function () {
+          return $('#popover').html();
+        }
+      });
+
+
+      pop.on('click', function (e) {
+        pop.popover('toggle');
+        pop.not(this).popover('hide');
+      });
+
+      $(window).on('resize', function () {
+        pop.popover('hide');
+      });
+
+      row.on('touchend', function (e) {
+        $(this).find('.popbtn').popover('toggle');
+        row.not(this).find('.popbtn').popover('hide');
+        return false;
+      });
+
+    });
+  </script>
+}

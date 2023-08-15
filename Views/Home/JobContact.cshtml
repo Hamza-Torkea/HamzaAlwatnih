@@ -1,0 +1,120 @@
+﻿@using alwatnia.Models
+@using alwatnia.Views.Shared
+@model alwatnia.Models.Comment
+@{
+  ViewBag.Title = "career_request";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  List<alwatnia.Models.News> LeftNews = (List<alwatnia.Models.News>)ViewBag.LeftNews;
+  List<alwatnia.Models.Product> Products = (List<alwatnia.Models.Product>)ViewBag.Products;
+  List<alwatnia.Models.Activity> Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+  ViewData.AddActiveMenu(Nav.Jobs);
+  ViewData.AddActivePage(Nav.JobsContact);
+
+}
+
+
+<section class="section-">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+		<h2  style="color: #1e3687"  class="title-page">@Resource.ContactUs - @Resource.EmploymentDepartment</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="article-box" style="margin-bottom:0px;">
+					<h2 class="b-article-title">
+						@Resource.ContactEmploymentDepartment
+										<a target="_blank" href="https://www.bayt.com/ar/company/al-watania-for-industries-70458/" style="width: 25px;height: 25px;">
+											<img src="~/assets/Bayt.com3_.png" style="width: 25px;height: 25px;border-radius:7px;margin-top:2px;">
+										</a>
+										<a target="_blank" href="https://www.linkedin.com/company-beta/2860151" style="width: 25px;height: 25px;margin-left:10px;">
+											<i class="fa fa-linkedin-square" aria-hidden="true" style="font-size:29px;"></i>
+										</a>
+									</h2>
+                    </div>
+                    <h4 style="line-height:30px;">@Resource.HappyToHelp
+                    
+                @Resource.BestWishes    
+				</h4>
+                    <div class="career-form" style="padding-top:0px;margin-top:0px;">
+                        <div class="error-success-msgs"></div>
+                        <iframe class="hidden" name="hidden"></iframe>
+                        <form class="form-career" action="@Url.Action("Send", "Home", new {type= ContactType.Job, redirectTo="JobContact"})" method="post">
+                            <div class="form-group">
+                                <input type="text" placeholder="@Resource.Name" class="form-control" name="name">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="@Resource.Email" class="form-control" name="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="@Resource.Telephone" class="form-control" name="Mobile">
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-control" rows="10" style="height:auto" placeholder="@Resource.Comment" name="message" required></textarea>
+                            </div>
+
+                            <input type="submit" class="btn btn-submit-career" value="@Resource.Send">
+                        </form>
+                    </div>
+                </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.News</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new {id = ""})" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.Activities</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/Activities/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

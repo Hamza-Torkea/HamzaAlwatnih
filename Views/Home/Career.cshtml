@@ -1,0 +1,139 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@using alwatnia.Views.Shared
+@model IEnumerable<Job>
+@{
+    ViewBag.Title = "Career";
+    var counter = 1;
+    var LeftNews = (List<News>) ViewBag.LeftNews;
+    var Products = (List<Product>) ViewBag.Products;
+    var Acts = (List<Activity>) ViewBag.Acts;
+    var isEng = Functions.IsEnglish();
+
+  ViewData.AddActiveMenu(Nav.Jobs);
+  ViewData.AddActivePage(Nav.JobsCareer);
+}
+<style>
+    .career-txt img {
+        margin: 0 auto 30px;
+        max-width: 275px;
+    }
+</style>
+<section class="">
+    <div class="container">
+      <div class="new-bar">
+        <img class="img-responsive" src="~/assets/home/images/parcode.png" alt=""/>
+      </div>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="@Url.Action("Index")">@Resource.Main</a>
+        </li>
+        <li class="breadcrumb-item active">@Resource.Jobs</li>
+      </ol>
+        <h2 style="color: #1e3687" class="title-page">@Resource.Jobs</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="career-txt">
+                    <h2>@Resource.CareerOpportunities</h2>
+                    <img src="~/assets/jobs.png" alt="" class="img-responsive">
+                    <p>
+                        @Resource.CareerSummary<a href="~/Home/FillApplication"> @Resource.Here</a>.
+                    </p>
+                </div>
+                <table class="table table-viewCareer table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>@Resource.Job</th>
+                        <th> @Resource.DateEnd</th>
+                        <th>@Resource.Status</th>
+                        <th>@Resource.Request</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@counter</th>
+                            <td>@item.Title</td>
+                            <td>@item.EndDate</td>
+                            <td>@{
+                                    if (item.IsOpen.HasValue && item.IsOpen.Value)
+                                    {
+                                    @Resource.Open
+                                    }
+                                    else
+                                    {
+                                    @Resource.Close
+                                    }
+                            }
+                            </td>
+                            <td>
+                                <a href="@Url.Action("career", new {id = item.Id})"> @Resource.SubmitRequest</a>
+                            </td>
+                        </tr>
+                        counter = counter + 1;
+                    }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.News</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new {id = ""})" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.Activities</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/Activities/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

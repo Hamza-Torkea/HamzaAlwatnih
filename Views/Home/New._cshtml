@@ -1,0 +1,198 @@
+﻿@using alwatnia.Models
+@model alwatnia.Models.News
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var AnotherNews = (List<alwatnia.Models.News>)ViewBag.AnotherNews;
+    var LeftNews = (List<alwatnia.Models.News>)ViewBag.LeftNews;
+    var Products = (List<alwatnia.Models.Product>)ViewBag.Products;
+    var Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+
+}
+<style>
+        .data-v i.fa {
+    font-size: 14px;
+}.data-v {
+    color: #676767;
+    font-size: 14px;
+    font-family: 'tahoma';
+    margin: 0 0 10px;
+    border-bottom: 1px solid #eee;
+    padding: 0 0 5px;
+}
+        </style>
+<section class="section-topBanar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+            <li class="breadcrumb-item"><a href="@(Model.type == NewsType.Social ? Url.Action("News", new { type = NewsType.Social }) : Url.Action("News") )">@(Model.type == NewsType.Social ? Resource.SocialResponsibility : Resource.News)</a></li>
+
+            <li class="breadcrumb-item active">@Model.Title</li>
+        </ol>
+        <h2 class="title-page">@Model.Title</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="subject-rigth">
+                    <div class="subject-detail">
+                        <div class="s-detail-thumb">
+							<img src="@Url.Content("/Recources/News/"+Model.Photo+"?w=560")"  class="img-responsive"/>
+                        </div>
+                        <div class="s-detail-caption">
+                            <h2>@Html.Raw(Model.Title)</h2>
+                            <ul class="s-detail-meta">
+                                <li><i class="fa fa-clock-o"></i>@string.Format("{0:dddd, MMMM d, yyyy}", Model.Cdate)</li>
+                                <li><i class="fa fa-eye"></i> @Model.ReadCounter</li>
+                            </ul>
+                            <p> @Html.Raw(Model.Details)</p>
+                        </div>
+                        <div class="subscribe-article">
+                            <h2>@Resource.ShareArticle</h2>
+                            <!-- AddThis Button BEGIN -->
+            <div class="addthis_inline_share_toolbox"></div>
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57e82e357a6ab7bc"></script>
+            <!-- AddThis Button END --> 
+                            <ul class="clearfix">
+                                <li>
+                                    <a  id="shareBtn"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                </li>
+                                <li>
+                                    <a  target="_blank" class="twitter-share-button"
+                                       href="https://twitter.com/share"
+                                       data-size="large"
+                                       data-text="custom share text"
+                                       data-url="@(HttpContext.Current.Request.Url.AbsoluteUri)"
+                                       data-via="twitterdev"
+                                       data-related="twitterapi,twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://plus.google.com/share?url=@(HttpContext.Current.Request.Url.AbsoluteUri)" class="g-plus" data-action="share"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="comment-box">
+                            <div class="error-success-msgs"></div>
+                            <iframe class="hidden" name="hidden"></iframe>
+                            <form class="form-comment" action="@Url.Action("SendComment", "Home")" method="post" target="hidden">
+                                <input type="hidden" name="news_id" value="@Model.Id" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="@Resource.Name" name="comment_auther" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="@Resource.Email" name="Email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="@Resource.Comment" name="comment_text" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-submit" value="@Resource.SendComent">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="subject-pagenation clearfix">
+                        @{
+                            if (ViewBag.prev != 0)
+                            {
+                                <a href="@Url.Action("News", new { id = ViewBag.prev})" class="page-prev">@Resource.Previous</a>
+                            }
+
+                            if (ViewBag.next != 0)
+                            {
+                                <a href="@Url.Action("News", new { id = ViewBag.next })" class="page-next">@Resource.Next</a>
+                            }
+
+                        }
+                    </div>
+                    <div class="subject-more">
+                        <h2 class="sm-title">@Resource.ReadAlso</h2>
+                        <div class="subject-more-list">
+                            <div class="row">
+                                @foreach (var item in AnotherNews)
+                                {
+                                    <div class="col-sm-4">
+                                        <div class="m-subject-item">
+                                            <div class="m-subject-thumb">
+                                                <a href="@Url.Action("news", new {id=item.Id })" class="img-hover">
+                                                    <img src="~/Recources/News/@item.Photo?w=220" alt="" class="img-responsive">
+                                                </a>
+                                            </div>
+                                            <div class="m-subject-detail">
+                                                <h2>
+                                                    <a href="@Url.Action("news", new {id=item.Id })">@item.Title</a>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div><!--subject-rigth-->
+            </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.News</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id=item.Id })" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=400" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id=item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new { id=""})" class="article-box-more">@Resource.More</a>
+                    </div><!--article-box-->
+                   <div class="article-box">
+                        <h2 class="b-article-title">@Resource.Activities</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new { id = item.Id })" class="img-hover">
+	                                            <img src="@Url.Content("/Recources/Activities/"+item.Photo+"?w=300")" class="img-responsive" />
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new { id = item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">@Resource.More</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

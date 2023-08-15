@@ -1,0 +1,148 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@using reCAPTCHA.MVC
+@using alwatnia.Views.Shared
+@{
+  var mainCompany = (Company)ViewBag.MainCompany;
+  var isEng = Functions.IsEnglish();
+
+  ViewData.AddActiveMenu(Nav.Contact);
+  ViewData.AddActivePage(Nav.ContactContacts);
+}
+<section class="section-">
+  <div class="container">
+    <div class="new-bar">
+      <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+    </div>
+    <ol style="display: none" class="breadcrumb">
+      <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+      <li class="breadcrumb-item active">@Resource.ContactUs</li>
+    </ol>
+    <h2 style="color: #1e3687" class="title-page">@Resource.ContactUs</h2>
+  </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="contact-right">
+          <!--					<h2 class="titleBlock-contact">@Resource.ContactUs</h2>-->
+          @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+          <form class="form-contactPage" method="post" action="@Url.Action("Send", "Home", new {type = ContactType.Main, redirectTo = "Contact"})">
+            @Html.ValidationMessage("ReCaptcha")
+            <div class="form-group">
+              <label>@Resource.Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>@Resource.Mobile</label>
+              <input type="number" name="mobile" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>@Resource.Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>@Resource.Message</label>
+              <textarea name="message" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+              @Html.Recaptcha()
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-submitContact" value="@Resource.Send">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="contact-left">
+          <div class="map-location">
+            <h2 class="titleBlock-contact">@Resource.LocationMap</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14515.672998233447!2d46.893146!3d24.557487!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3ab3934c359bd11c!2z2KfZhNi02LHZg9ipINin2YTZiNi32YbZitipINmE2YTYtdmG2KfYudip!5e0!3m2!1sar!2sus!4v1539950258276" width="100%" height="270" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+          <div class="contact-infoPage">
+            <h2 class="titleBlock-contact">@Resource.Contacts</h2>
+            @{ if (mainCompany.Branches.Any())
+              {
+                if (mainCompany.Branches.Count > 1)
+                {
+                  var isActive = "active";
+                  var i = 1;
+                  <ul class="nav nav-tabs">
+
+                    @foreach (var branch in mainCompany.Branches)
+                    {
+                      <li class="@isActive"><a data-toggle="tab" href="#branch_@i">@(isEng ? branch.ETitle : branch.Title)</a></li>
+                      isActive = "";
+                      ++i;
+                    }
+                  </ul>
+
+                  isActive = "active";
+                  i = 1;
+                  <div class="tab-content">
+                    @foreach (var branch in mainCompany.Branches)
+                    {
+                      <div id="branch_@i" class="tab-pane fade in @isActive">
+                        <ul class="info-contactPage">
+                          <li><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><p>@(isEng ? branch.EAdress : branch.Adress)</li>
+                          <li><span><i class="fa fa-globe" aria-hidden="true"></i></span><p><a href="https://@branch.Link">@branch.Link</a></p></li>
+                          <li><span><i class="fa fa-envelope" aria-hidden="true"></i></span><p><a href="mailto:@branch.Email">@branch.Email</a></p></li>
+                          <li><span><i class="fa fa-phone" aria-hidden="true"></i></span><p style="direction:ltr"><a href="tel:@branch.Tell">@branch.Tell</a></p></li>
+                          <li><span><i class="fa fa-fax" aria-hidden="true"></i></span><p style="direction:ltr"><a href="fax:@branch.Fax">@branch.Fax</a></p></li>
+                        </ul>
+                      </div>
+                      isActive = "";
+                      ++i;
+                    }
+                  </div>
+                }
+                else
+                {
+                  var branch = mainCompany.Branches.First();
+                  <ul class="info-contactPage">
+                    <li><span><i class="fa fa-map-marker" aria-hidden="true"></i></span><p>@(isEng ? branch.EAdress : branch.Adress)</li>
+                    <li><span><i class="fa fa-globe" aria-hidden="true"></i></span><p><a href="https://@branch.Link">@branch.Link</a></p></li>
+                    <li><span><i class="fa fa-envelope" aria-hidden="true"></i></span><p><a href="mailto:@branch.Email">@branch.Email</a></p></li>
+                    <li><span><i class="fa fa-phone" aria-hidden="true"></i></span><p style="direction:ltr"><a href="tel:@branch.Tell">@branch.Tell</a></p></li>
+                    <li><span><i class="fa fa-fax" aria-hidden="true"></i></span><p style="direction:ltr"><a href="fax:@branch.Fax">@branch.Fax</a></p></li>
+                  </ul>
+                }
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@section Scripts{
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsVCH2AY7nJecNz41eiAGCMdupbk0qNnE&sensor=true"></script>
+  <script type="text/javascript">
+    var mapLocation = new google.maps.LatLng(24.567244, 46.877909); //change coordinates here
+    var marker;
+    var map;
+
+    function initialize() {
+      var mapOptions = {
+        zoom: 12, //change zoom here
+        scrollwheel: false,
+        center: mapLocation,
+      };
+
+      map = new google.maps.Map(document.getElementById('map-company'), mapOptions);
+
+
+      marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        title: 'Site Name', //change title here
+        position: mapLocation
+      });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+  </script>
+}

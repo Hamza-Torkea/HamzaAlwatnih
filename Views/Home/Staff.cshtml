@@ -1,0 +1,123 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@using alwatnia.Views.Shared
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isEnglish = Functions.IsEnglish();
+    var staffs = (List<Staff>) ViewBag.Staffs;
+    var staffWord = ViewBag.staffWord;
+
+    ViewData.AddActiveMenu(Nav.About);
+    ViewData.AddActivePage(Nav.MainStaff);
+}
+<style>
+    .msg_body {
+        font-size: 14px;
+        line-height: 30px;
+    }
+
+    .hed.clearfix {
+        background-color: #2f3233;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .hed.clearfix p {
+        color: white;
+        font-family: 'DroidArabicKufi-Bold';
+        font-size: 15px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .item-staff.clearfix {
+        background-color: #fbfbfb;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0 10px;
+        text-align: center;
+    }
+
+    .item-staff.clearfix img.img-responsive { margin: auto; }
+
+    .item-staff.clearfix p { margin: auto; }
+
+    .item-staff.clearfix p {
+        font-size: 17px;
+        margin: 105px 0 0;
+    }
+</style>
+<section class="section-">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt=""/>
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="@Url.Action(" index ")">@Resource.Main</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">@Resource.About</a>
+            </li>
+            <li class="breadcrumb-item active">@Resource.Staff</li>
+        </ol>
+        <h2 style="color: #1e3687" class="title-page">@Resource.Staff</h2>
+    </div>
+</section>
+<!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+
+        @*<div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+
+                        <h2>@Resource.Staff</h2>
+                        @Html.Raw(staffWord)
+                    </div>
+                </div>
+            </div>
+
+        </div>*@
+        
+
+
+        <div class="container">
+            <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                <div class="row">
+                    <div class="hed clearfix">
+                        <div class="col-sm-4">
+                            <p>@Resource.Name</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>@Resource.Position</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>@Resource.Image</p>
+                        </div>
+                    </div>
+                    @foreach (var item in staffs)
+                    {
+                        <div class="item-staff clearfix">
+                            <div class="col-sm-4">
+                                <p>@item.Title
+                                    <br/><span style="font-size: 12px; white-space: pre-wrap;">@item.Details</span>
+                                </p>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <p>@item.Job</p>
+                            </div>
+                            <div class="col-sm-4">
+                                <img src="@Url.Content("/Recources/Staff/" + item.Photo + "?w=250")" class="img-responsive"/>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--section-aboutCompany-->

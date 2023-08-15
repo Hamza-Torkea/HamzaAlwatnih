@@ -1,0 +1,62 @@
+﻿@using alwatnia.Helper
+@{
+    ViewBag.Title = "Company";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+	var isEnglish = Functions.IsEnglish();
+    var staffs = (List<alwatnia.Models.Staff>)ViewBag.Staffs;
+
+
+}
+<style>
+.msg_body{
+    font-size:14px;
+    line-height:30px;
+}
+</style>
+<section class="section-">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="http://watani-001-site1.mysitepanel.net/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("index")">@Resource.Main</a></li>
+            <li class="breadcrumb-item"><a href="#">@Resource.About</a></li>
+            <li class="breadcrumb-item active">@Resource.Staff</li>
+        </ol>
+        <h2   style="color: #1e3687" class="title-page">@Resource.Staff</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>@Resource.Position</th>
+                                <th>@Resource.Name</th>
+                                <th>@Resource.Image</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-striped">
+                            @foreach (var item in staffs)
+                            {
+                                <tr>
+                                    <td>@item.Job</td>
+                                    <td>@item.Title</td>
+                                    <td>
+	                                    <img src="@Url.Content("/Recources/Staff/"+item.Photo+"?w=100")" class="img-responsive" />
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

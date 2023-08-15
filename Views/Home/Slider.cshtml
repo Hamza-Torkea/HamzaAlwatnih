@@ -1,0 +1,201 @@
+﻿@model alwatnia.Models.Slider
+@{
+    ViewBag.Title = "Slider";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<alwatnia.Models.News> AnotherNews = (List<alwatnia.Models.News>)ViewBag.AnotherNews;
+    List<alwatnia.Models.News> LeftNews = (List<alwatnia.Models.News>)ViewBag.LeftNews;
+    List<alwatnia.Models.Product> Products = (List<alwatnia.Models.Product>)ViewBag.Products;
+    List<alwatnia.Models.Activity> Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+
+}
+
+<section class="section-topBanar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("News", new { id = "" })">المقالات</a></li>
+            <li class="breadcrumb-item active">@Html.Raw(Model.Title)</li>
+        </ol>
+        <h2 class="title-page">@Html.Raw(Model.Title)</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="subject-rigth">
+                    <div class="subject-detail">
+                        <div class="s-detail-thumb">
+                            <img src="~/Recources/Slider/@Model.Photo" alt="" class="img-responsive">
+                        </div>
+                        <div class="s-detail-caption">
+                            <h2>@Html.Raw(Model.Title)</h2>
+                            <ul class="s-detail-meta">
+                               <li>@string.Format("{0:dddd, MMMM d, yyyy}", Model.Cdate)</li>
+                            </ul>
+                            <p>@Html.Raw(Model.Details)</p>
+                        </div>
+                        <div class="subscribe-article">
+                            <h2>شارك المقال</h2>
+                            <ul class="clearfix">
+                                <li>
+                                    <a  id="shareBtn"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                </li>
+                                <li>
+                                    <a  target="_blank" class="twitter-share-button"
+                                       href="https://twitter.com/share"
+                                       data-size="large"
+                                       data-text="custom share text"
+                                       data-url="@(HttpContext.Current.Request.Url.AbsoluteUri)"
+                                       data-via="twitterdev"
+                                       data-related="twitterapi,twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </li>
+                                <li>
+                                    <a href="https://plus.google.com/share?url=@(HttpContext.Current.Request.Url.AbsoluteUri)" class="g-plus" data-action="share"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="comment-box">
+                            <form action="@Url.Action("SendComment")" method="post" class="form-comment">
+                                <input type="hidden" name="news_id" value="@Model.Id" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="الاسم" name="comment_auther">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" placeholder="الايميل" name="Email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <textarea class="form-control" placeholder="التعليق" name="comment_text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-submit" value="ارسال التعليق">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="subject-pagenation clearfix">
+                        @{
+                            if (ViewBag.prev != 0)
+                            {
+                                <a href="@Url.Action("Slider", new { id = ViewBag.prev})" class="page-prev">السابق</a>
+                            }
+
+                            if (ViewBag.next != 0)
+                            {
+                                <a href="@Url.Action("Slider", new { id = ViewBag.next })" class="page-next">التالي</a>
+                            }
+
+                        }
+                    </div>
+                    <div class="subject-more">
+                        <h2 class="sm-title">اقرأ أيضا</h2>
+                        <div class="subject-more-list">
+                            <div class="row">
+                                @foreach (var item in AnotherNews)
+                                {
+                                    <div class="col-sm-4">
+                                        <div class="m-subject-item">
+                                            <div class="m-subject-thumb">
+                                                <a href="@Url.Action("news", new {id=item.Id })" class="img-hover">
+                                                    <img src="~/Recources/News/@item.Photo" alt="" class="img-responsive">
+                                                </a>
+                                            </div>
+                                            <div class="m-subject-detail">
+                                                <h2>
+                                                    <a href="@Url.Action("news", new {id=item.Id })">@item.Title</a>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div><!--subject-rigth-->
+            </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">الأخبار</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id=item.Id })" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id=item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new { id=""})" class="article-box-more">عرض المزيد</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">المنتجات</h2>
+                        <div class="row">
+                            @foreach (var item in Products)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Products", new { id = item.Id })" class="img-hover">
+                                                <img src="~/Recources/Products/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Products", new { id = item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <a href="@Url.Action("Products")" class="article-box-more">عرض المزيد</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">الفعاليات</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new { id = item.Id })" class="img-hover">
+                                                <img src="~/Recources/Activities/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new { id = item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">عرض المزيد</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

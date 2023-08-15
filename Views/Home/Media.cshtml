@@ -1,0 +1,229 @@
+﻿@model IEnumerable<alwatnia.Models.Medium>
+@using alwatnia.Helper;
+@using alwatnia.Views.Shared
+@{
+    ViewBag.Title = "Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var isEng = Functions.IsEnglish();
+
+    ViewData.AddActiveMenu(Nav.Mc);
+    if (ViewContext.RouteData.Values["id"].ToString() == "video")
+    {
+      ViewData.AddActivePage(Nav.McMediaVideos);
+    }
+    else
+    {
+      ViewData.AddActivePage(Nav.McMediaImages);
+    }
+}
+    <style>
+    .media-item.mitem-lg {
+    height: 650px;
+}
+        .media-item.mitem-lg.fancybox{
+            height: 360px
+        }
+       .banner_home .flex-video {
+    padding-bottom: 50%;
+    margin-bottom: 0;
+}
+.banner_home .bh_left .bh_slide {
+    transition: .7s;
+    display: none;
+}
+.flex-video {
+    position: relative;
+    padding-top: 1.5625rem;
+    padding-bottom: 67.5%;
+    height: 0;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}.banner_home .bh_left iframe {
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+}.flex-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}.banner_home .bh_right {
+    background: #FFF;
+    padding: 10px 0;
+    overflow: hidden;
+    border: 1px solid #dddddd;
+}#vidThumbs {
+    display: table;
+    margin: 0 auto;
+}.banner_home .bh_right .vid_thumb {
+    width: 200px;
+    margin: 10px 10px 5px 0;
+    float: left;
+}.banner_home .bh_right .vid_thumb img {
+    display: block;
+    margin: 0 0 4px;
+}#vidThumbs span {
+    color: #004686;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    font-size: 15px;
+}.banner_home .bh_left #slide_1 {
+    display: block;
+}
+        .item-v {
+    margin: 0 0 30px;
+}
+
+.item-v .tump {
+    float: right;
+    margin-left: 10px;
+}
+
+.item-v .tump img {
+    width: 270px;
+    height: 165px;
+}
+
+.item-v .cap {
+    overflow: hidden;
+    font-size: 16px;
+}div#banner_home {
+    margin: 0 0 40px;
+}
+    </style>
+<link href="~/assets/home/js/source/jquery.fancybox.css" rel="stylesheet" media="screen" >
+<section class="">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">@Resource.Main</a></li>
+            <li class="breadcrumb-item active">@Resource.MediaAndVideos</li>
+        </ol>
+        <h2 style="color: #1e3687" class="title-page">@Resource.MediaAndVideos</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="media-head clearfix">
+            <ul class="reTabs_title nav_tabs clearfix">
+                <li class="@(ViewContext.RouteData.Values["id"].ToString()=="video"?"active":"")">
+                    <a href="#media-vedio" data-toggle="tab" aria-expanded="true">@Resource.Videos</a>
+                </li>
+                <li class="@(ViewContext.RouteData.Values["id"].ToString() == "images" ? "active" : "")">
+                    <a href="#media-pic" data-toggle="tab" aria-expanded="true">@Resource.Images</a>
+                </li>
+            </ul>
+        </div>
+        <div class="media-content">
+            <div class="tab-content">
+                <div class="tab-pane @(ViewContext.RouteData.Values["id"].ToString() == "video" ? "active in" : "")" id="media-vedio">
+                    <div class="banner_home clearfix row" id="banner_home">
+	                   <div class="large-12 columns">
+		                  <div class="bh_left">
+                                @{
+                                   var counter = 0;
+                                }
+                              @foreach (var item in Model.Where(w => w.Type.Equals("video")).Take(4))
+                                {
+                                    string VideoID = Functions.getVideoId(item.Link);
+                                <div class="bh_slide" id="slide_@(++counter)">
+                                    <div class="flex-video">
+                                        <iframe width="640" height="360" src="//www.youtube.com/embed/@VideoID" frameborder="0" allowfullscreen=""></iframe>
+                                    </div>
+                                </div>
+							     }
+				          </div>
+		                  <div class="bh_right">
+			                 <div id="vidThumbs">
+                                     @{
+                                   var counter1 = 0;
+                                }
+                                     @foreach (var item in Model.Where(w => w.Type.Equals("video")).Take(4))
+                                        {
+                                    string VideoID = Functions.getVideoId(item.Link);
+                                    <div class="vid_thumb">
+                                        <a href="#slide_@(++counter1)">
+                                        <img src="http://i1.ytimg.com/vi/@VideoID/mqdefault.jpg" alt="" title="" width="200" height="112">
+                                        <span>@(isEng ? item.ETitle : item.Title)</span>
+                                    </a>
+                                        </div>
+                                     }
+                              </div>
+                           </div>
+                        </div>
+                    </div>
+                    <div class="row">    
+                        @foreach (var item in Model.Where(w => w.Type.Equals("video")).Skip(4))
+                            {
+                                string VideoID = Functions.getVideoId(item.Link);
+                                <div class="col-md-6">
+                                    <div class="item-v">
+                                    <div class="tump">
+                                        <a target="_blank" href="https://www.youtube.com/embed/@VideoID" class="media-item mitem-md various fancybox.iframe">
+                                          <img src="https://img.youtube.com/vi/@VideoID/hqdefault.jpg" alt="" class="img-responsive">
+                                        </a>
+                                    </div>
+                                    <div class="cap">
+                                       <a  target="_blank" href="https://www.youtube.com/embed/@VideoID">@(isEng ? item.ETitle : item.Title)</a>
+                                    </div>
+                                    </div>
+                                 </div>
+                            }                    
+                    </div>
+                </div>
+                    
+                <div class="tab-pane @(ViewContext.RouteData.Values["id"].ToString() == "images" ? "active in" : "")" id="media-pic">
+                            <div class="row">
+                                @foreach (var item in Model.Where(w => w.Type.Equals("images")))
+                                {
+                                    <div class="col-md-3 col-xs-6">
+                                        <a href="~/Recources/Albums/@item.Link?w=1000" class="media-item mitem-md fancybox" rel="gallery1">
+                                            <img src="@Url.Content("/Recources/Albums/"+item.Link+"?w=500")" class="img-responsive" />
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    </div>
+@section Scripts{
+<script type="text/javascript" src="~/assets/home/js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script>
+            if ($('#banner_home').length !== 0) {
+            var vid_thumb = $('a', '.vid_thumb');
+            vid_thumb.click(function() {
+                var targetSlide = $(this).attr('href');
+                $('.bh_slide').css({
+                    'display': 'none'
+                });
+                $(targetSlide).css({
+                    'display': 'block'
+                });
+                return false;
+            })
+        }
+
+		$(".fancybox").fancybox({
+	        openEffect  : 'none',
+	        closeEffect : 'none',
+	    });
+
+      $(".various").fancybox({
+        maxWidth    : 800,
+        maxHeight   : 600,
+        fitToView   : false,
+        width       : '70%',
+        height      : '70%',
+        autoSize    : false,
+        closeClick  : false,
+        openEffect  : 'none',
+        closeEffect : 'none'
+      });
+</script>
+}

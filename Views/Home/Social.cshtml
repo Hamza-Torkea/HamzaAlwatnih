@@ -1,0 +1,62 @@
+﻿@using alwatnia.Helper;
+@using alwatnia.Views.Shared
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var images = (List<alwatnia.Models.Image>)ViewBag.Images;
+    ViewData.AddActiveMenu(Nav.Mc);
+    ViewData.AddActivePage(Nav.McSocial);
+}
+<section class="">
+    <div class="container">
+         <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+        <h2 style="color: #1e3687"  class="title-page">@Resource.SocialResponsibility</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <h2> @Resource.SocialResponsibility</h2>
+                      
+                    </div>
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <img src="@Url.Action("Index", "Thumb", new { area = "", type = "Uploads", width =700, height = 400, name = ViewBag.socialPhoto })" alt="" class="img-responsive">
+                    </div>
+            
+            @{
+                if (images.Count > 0)
+                {
+                    <section class="section-imgCompany">
+                        <div class="container">
+                            <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                                <h2 class="sec-title">@Resource.Images</h2>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="sec-warrper">
+                                <div class="s_content">
+                                    <div class="slider-img-list">
+                                        <div class="loop owl-carousel">
+                                            @foreach (var item in images.ToList())
+                                            {
+                                                <div class="item">
+								
+                                                    <a href="#">
+                                                        <img src="@Url.Content("/Recources/Albums/"+item.photo+"?w=300")"  class="img-responsive" />
+                                                    </a>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div><!--s_content-->
+                            </div>
+                        </div>
+                    </section><!--section-productCompany-->
+                }
+            }
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>@Resource.Alwatania</title>
+    <!-- Stylesheets -->    
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  
+    <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+   
+</head>
+<body class="inner-pages">
+    <div class="mobile-menu">
+        <div class="menu-mobile">
+            <div class="brand-area">
+                <a href="#">
+                    <img src="images/logo-site.png">
+                </a>
+            </div>
+            <div class="mmenu">
+                <ul>
+                    <li class="active"><a href="index.html">@Resource.Main</a></li>
+                    <li><a href="#">@Resource.AboutCompany</a></li>
+                    <li><a href="#">@Resource.MediaCenter</a></li>
+                    <li><a href="#">@Resource.SocialPrograms</a></li>
+                    <li><a href="#">@Resource.Jobs</a></li>
+                    @*<li><a href="#">@Resource.Products</a></li>*@
+                    <li><a href="#">@Resource.OurFactories</a></li>
+                    <li><a href="#">@Resource.Clients</a></li>
+                    <li><a href="#">@Resource.ContactUs</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="m-overlay"></div>
+    </div><!--mobile-menu-->
+    <div class="main-wrapper">
+        <header id="header">
+            <div class="header-top">
+                <div class="container">
+                    <ul class="social-head clearfix">
+                        <li class="facebook">
+                            <a href="#" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="twitter">
+                            <a href="#" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="linkedin">
+                            <a href="#" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="youtube">
+                            <a href="#" target="_blank"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+                        </li>
+                        <li class="instagram">
+                            <a href="#" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="header-bottom">
+                <div class="container">
+                    <div class="logo-header">
+                        <a href="#"><img src="images/logo-site.png"></a>
+                    </div>
+                    <div class="mobile-nav-icon js-nav-icon">
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                    </div>
+                    <div class="main-menu-region clearfix">
+                        @Html.Partial("~/Views/Shared/_Menu.cshtml")
+                    </div>
+                </div><!--container-->
+            </div><!--header menu-->
+        </header><!--header-->

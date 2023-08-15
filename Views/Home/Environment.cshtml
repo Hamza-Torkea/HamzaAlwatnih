@@ -1,0 +1,68 @@
+﻿@using alwatnia.Views.Shared
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData.AddActiveMenu(Nav.Jobs);
+  ViewData.AddActivePage(Nav.JobsEnvironment);
+}
+<section class="">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="~/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+            <li class="breadcrumb-item active">@Resource.Environment</li>
+        </ol>
+        <h2 style="color: #1e3687"  class="title-page">@Resource.Environment</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+<!--                        <h2>@Resource.Environment </h2>-->
+                         @Html.Raw(ViewBag.env)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+	                    <img src="@Url.Content("/Recources/Uploads/"+ViewBag.env_photo+"?w=600")" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+<!--
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <h2>@Resource.Features </h2>
+                        
+                        @Html.Raw(@ViewBag.feature)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+	                    <img src="@Url.Content("/Recources/Uploads/"+ViewBag.feature_photo+"?w=545")"  class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <h2>@Resource.Training </h2>
+                        
+                        @Html.Raw(@ViewBag.training)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+	                    <img src="@Url.Content("/Recources/Uploads/"+ViewBag.training_photo+"?w=545")"  class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+-->
+           
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

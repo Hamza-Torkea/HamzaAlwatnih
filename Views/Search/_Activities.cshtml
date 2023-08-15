@@ -1,0 +1,21 @@
+﻿@model List<alwatnia.Models.Activity>
+
+
+
+@foreach (var item in Model)
+{
+  <div class="item-news col-md-3 col-xs-6">
+    <div class="confer-item">
+      <div class="confer-thumb">
+        <a href="@Url.Action("Activities", "Home", new {id = item.Id})" class="img-hover">
+          <img src="@Url.Content("/Recources/Activities/" + item.Photo + "?w=350")" class="img-responsive" />
+        </a>
+      </div>
+      <div class="confer-desc">
+        <h2>
+          <a href="@Url.Action("Activities", "Home", new {id = item.Id})">@item.Title</a>
+        </h2>
+      </div>
+    </div><!--confer-item-->
+  </div>
+}

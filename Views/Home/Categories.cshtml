@@ -1,0 +1,94 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@model Company
+
+@{
+  ViewBag.Title = "Categories";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  var isEng = Functions.IsEnglish();
+  var langId = Functions.GetLanguage();
+
+}
+<style>
+  .section-topBanar {
+    background: #7ad2f7;
+  }
+
+  .product_detail .table-responsive, .product_detail p:nth-child(4) {
+    display: none;
+  }
+</style>
+
+<section class="section-topBanar">
+  <div class="container">
+    <h2 class="title-page">@(isEng ? Model.ETitle : Model.Title)</h2>
+  </div>
+</section><!--section-topBanar-->
+
+<div class="section-contentInner">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+      <li class="breadcrumb-item">
+        <a href="@Url.Action("Company", new {id = Model.Id})">
+          @(isEng ? Model.ETitle : Model.Title)
+        </a>
+      </li>
+      <li class="breadcrumb-item active">@Resource.Products</li>
+    </ol>   <div class="product_list">
+      <div class="row">
+        @{
+            if (Model.ShowProductsInstedOfCategories == true)
+            {
+               foreach (var item in Model.Product.Where(e => e.Lang == langId).ToList())
+               {
+
+                 <div class="col-md-3 col-sm-6 col-xs-6">
+                   <div class="products-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                     <div class="products-thumb">
+                       <a href="@Url.Action("Product", new {id = item.Id})" class="img-hover">
+                         <img src="~/Recources/Products/@item.Photo" alt="" class="img-responsive">
+                       </a>
+
+                     </div>
+                     <div class="products-desc">
+                       <a href="@Url.Action("Product", new {id = item.Id})">@item.Title</a>
+                     </div>
+                   </div>
+                 </div>
+
+               }
+            }
+            else
+            {
+              var categories = (Functions.PaginatedResult<ProductCat>)ViewBag.Categories;
+              foreach (var item in categories.Results)
+              {
+                <div class="col-sm-4">
+                  <div class="product_item">
+                    <div class="product_thumb">
+                      <a href="@Url.Action("Category", new {id = item.Id})" class="img-hover">
+                        <img src="@Url.Content("/Recources/ProductCat/" + item.Photo + "?w=300")" class="img-responsive"/>
+                      </a>
+                    </div>
+                    <div class="product_detail">
+                      <h2><a href="@Url.Action("Category", new {id = item.Id})">@(isEng ? item.EnglishTitle : item.ArabicTitle)</a></h2>
+                      <a href="@Url.Action("Category", new {id = item.Id})" class="more-pro">@Resource.More</a>
+                    </div>
+                  </div><!--product_item-->
+                </div>
+              }
+              @Html.Partial("_Paginator", model: new Functions.PaginatedResult<IHasPaginator>()
+              {
+                Results = categories.Results,
+                Entity = "Categories",
+                PageCounts = categories.PageCounts,
+                TotalCount = categories.TotalCount,
+                CurrentPage = categories.CurrentPage
+              })
+            }
+        }
+      </div>
+    </div><!--product_list-->
+  </div>
+</div>

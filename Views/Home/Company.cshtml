@@ -1,0 +1,544 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@using alwatnia.Views.Shared
+@using reCAPTCHA.MVC
+@model alwatnia.Models.Company
+@{
+  ViewBag.Title = "Company";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  var isEnglish = Functions.IsEnglish();
+  var CompanyNews = (List<alwatnia.Models.News>)ViewBag.CompanyNews;
+  var reports = (List<alwatnia.Models.Reports>)ViewBag.reports;
+
+  ViewData.AddActiveMenu(Nav.Compay);
+  ViewData.AddActivePage(Model.ETitle);
+
+
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.css" />
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.2/dist/jquery.fancybox.min.js"></script>
+
+
+<style>
+  .head-icon {
+    position: relative;
+  }
+
+    .head-icon:before {
+      content: '';
+      position: absolute;
+      background: #fff;
+      left: 0;
+      right: -100px;
+      width: 20px;
+      height: 4px;
+      margin: auto;
+      bottom: 0px;
+    }
+
+  .msg_body {
+    font-size: 14px;
+    line-height: 30px;
+  }
+
+  .company-icon {
+    width: 20px;
+  }
+
+  .icon-blue {
+    color: #2895cf
+  }
+
+  .icon-green {
+    color: #11aa50
+  }
+
+  .icon-orange {
+    color: #e18d1b
+  }
+
+  .icon-red {
+    color: #ef1c23
+  }
+
+  .logo img {
+    min-width: 280px;
+  }
+
+  .blog-box img {
+    max-height: 410px !important;
+  }
+
+  .about-block {
+    position: relative;
+  }
+
+  .logo {
+    float: right;
+    padding: 2px;
+    margin-left: 10px;
+  }
+
+  .col-md-7 .blog-thumb img {
+    height: 410px;
+  }
+
+  .about-block-p strong {
+    font-weight: 100;
+  }
+
+  a.web-site {
+    color: #4d494a;
+    font-size: 26px;
+    display: block;
+    margin: 10px 0 0;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+</style>
+
+<section class="section-">
+  <div class="container">
+    <div class="new-bar">
+      <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+    </div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="@Url.Action("index")">@Resource.Main</a></li>
+      <li class="breadcrumb-item active">@(isEnglish ? Model.ETitle : Model.Title)</li>
+    </ol>
+    <h2 style="color: #1e3687" class="title-page">@(isEnglish ? Model.ETitle : Model.Title)</h2>
+  </div>
+</section><!--section-topBanar-->
+<div class="section-aboutCompany">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+              <h2>@Resource.About</h2>
+              <div class="about-block-p content-v">
+                <div class="logo">
+                  <img src="~/Recources/Uploads/@Model.Photo.Replace("jpeg", "png")" alt="">
+                  @*<a class="web-site" href="https://@Model.Link" target="_blank">@Model.Link</a>*@
+                </div>
+                @Html.Raw(isEnglish ? Model.Eabout : Model.about)
+
+              </div>
+              <a id="more" href="#">@Resource.More</a>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+              <h2>@Resource.Vision</h2>
+              @Html.Raw(isEnglish ? Model.Evision : Model.vision)
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+              <h2>@Resource.OurMessage</h2>
+              @Html.Raw(isEnglish ? Model.Emessage : Model.message)
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-6">
+          <div class="text-center">
+            <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+              @{
+                string VideoID = Functions.getVideoId(Model.Video);
+                <iframe width="100%" height="320" class="cbp-lightbox" src="https://www.youtube.com/embed/@VideoID" frameborder="0" allowfullscreen style="width:100%"></iframe>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+      </div>
+    </div>
+
+  </div><!--section-aboutCompany-->
+</div>
+@{
+  if (Model.ShowProductsInstedOfCategories == true)
+  {
+    var langId = Functions.GetLanguage();
+    if (Model.Product.Any())
+    {
+      <section class="section-productCompany">
+        <div class="container">
+          <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+            <div class="head-icon"><i class="fa fa-forward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i><img class="company-icon" src="@Url.Content("/Recources/Uploads/"+Model.Photo.Replace("jpeg", "png")+"?w=100")" alt=""><i class="fa fa-backward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i></div>
+            <h2 class="sec-title">@Resource.Products</h2>
+          </div>
+          <div class="sec-warrper">
+            <div class="products-list">
+              <div class="row">
+                @foreach (var item in Model.Product.Where(e => e.Lang == langId))
+                {
+
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="products-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                      <div class="products-thumb">
+                        <a href="@Url.Action("Product", new {id = item.Id})" class="img-hover">
+                          <img src="~/Recources/Products/@item.Photo" alt="" class="img-responsive">
+                        </a>
+
+                      </div>
+                      <div class="products-desc">
+                        <h2>
+                          <a href="@Url.Action("Product", new {id = item.Id})">@item.Title</a>
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+
+                }
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><!--section-productCompany-->
+    }
+  }
+  else
+  {
+    if (Model.ProductCats.Any())
+    {
+      <section class="section-productCompany">
+        <div class="container">
+          <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+            <div class="head-icon"><i class="fa fa-forward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i><img class="company-icon" src="@Url.Content("/Recources/Uploads/"+Model.Photo.Replace("jpeg", "png")+"?w=100")" alt=""><i class="fa fa-backward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i></div>
+            <h2 class="sec-title">@Resource.Products</h2>
+          </div>
+          <div class="sec-warrper">
+            <div class="products-list">
+              <div class="row">
+                @foreach (var item in Model.ProductCats)
+                {
+
+                  <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="products-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                      <div class="products-thumb">
+                        <a href="@Url.Action("Category", new {id = item.Id})" class="img-hover">
+                          <img src="@Url.Content("/Recources/ProductCat/" + item.Photo + "?w=300")" class="img-responsive" />
+                        </a>
+
+                      </div>
+                      <div class="products-desc">
+                        <h2><a href="@Url.Action("Category", new {id=item.Id })">@( isEnglish ? item.EnglishTitle : item.ArabicTitle)</a></h2>
+                      </div>
+                    </div>
+                  </div>
+
+                }
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section><!--section-productCompany-->
+    }
+  }
+}
+
+
+
+@{
+  if (reports.Any())
+  {
+    <section class="section-download">
+      <div class="container">
+        <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+          <div class="head-icon"><i class="fa fa-forward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i><img class="company-icon" src="@Url.Content("/Recources/Uploads/"+Model.Photo.Replace("jpeg", "png")+"?w=200")" alt=""><i class="fa fa-backward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i></div>
+          <h2 class="sec-title">@Resource.PublicationCenter</h2>
+        </div>
+        <div class="sec-warrper">
+          <div class="download-list clearfix">
+            @foreach (var item in reports)
+            {
+              <div class="load-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s" >
+                <a href="~/Recources/Uploads/@item.link" class="lo-icon" target="_blank" style ="width:100px; ">
+                  <i class="fa fa-file-text" aria-hidden="true"></i>
+                </a>
+                <h2 class="lo-title"  ><a href="~/Recources/Uploads/@item.link" target="_blank" style=" font-size: 9px;font-weight: bold ; margin:0 0 100px 7px;">@item.Title</a></h2>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+}
+
+@{
+  if (CompanyNews.Any())
+  {
+    <section class="section-newsEvents">
+      <div class="container">
+        <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+          <div class="head-icon"><i class="fa fa-forward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i><img class="company-icon" src="@Url.Content("/Recources/Uploads/"+Model.Photo.Replace("jpeg", "png")+"?w=200")" alt=""><i class="fa fa-backward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i></div>
+          <h2 class="sec-title">@Resource.News</h2>
+        </div>
+        <div class="sec-warrper">
+          <div class="newsEvents-list">
+            <div class="row">
+              @{
+                if (CompanyNews.FirstOrDefault() != null)
+                {
+                  var n1 = CompanyNews.FirstOrDefault();
+                  <div class="col-md-7">
+                    <div class="blog-box lg-blog-box wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.4s">
+                      <div class="blog-thumb">
+                        <a href="#">
+                          <img src="@Url.Content("/Recources/News/"+n1.Photo+"?w=800")" class="img-responsive" />
+                        </a>
+                      </div>
+                      <div class="blog-desc">
+                        <h2><a href="@Url.Action("News", new { id = n1.Id })">@n1.Title</a></h2>
+                        <p>@Html.Raw(n1.Summary)</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+              }
+
+              <div class="col-md-5">
+                <div class="blog-list">
+                  @foreach (var item in CompanyNews.Skip(1))
+                  {
+                    <div class="blog-box sm-blog-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                      <div class="blog-thumb">
+                        <a href="#">
+                          <img src="@Url.Content("/Recources/News/"+item.Photo+"?w=300")" class="img-responsive" />
+                        </a>
+                      </div>
+                      <div class="blog-desc">
+                        <h2><a href="@Url.Action("News", new {id=item.Id })">@item.Title</a></h2>
+                        <p>@Html.Raw(item.Summary)</p>
+
+                      </div>
+                    </div>
+                  }
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!--section-newsEvents-->
+  }
+}
+
+
+<section class="section-contact">
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <h2 class="sec-title">@Resource.ContactUs</h2>
+    </div>
+    <div class="sec-warrper">
+      <div class="contact-block">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="error-success-msgs"></div>
+            <iframe class="hidden" name="hidden"></iframe>
+            <form class="form-contact" action="@Url.Action("Send","Home",new {companyId = Model.Id, type = ContactType.Company})" method="post" target="hidden">
+              <div class="row">
+                <div class="col-sm-5">
+                  @Html.ValidationMessage("ReCaptcha")
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="@Resource.Name" name="name" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control" placeholder="@Resource.Email" name="email" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="@Resource.Mobile" name="mobile" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="@Resource.Phone" name="mobile" required>
+                  </div>
+         
+                </div>
+                <div class="col-sm-7">
+          
+                  <div class="form-group">
+                    <textarea class="form-control" placeholder="@Resource.Message" name="message" required> </textarea>
+                  </div>
+                  <div class="form-group">
+                    @Html.Recaptcha()
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-contact">@Resource.Send</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-4">
+            <div class="contact-info">
+              @{ if (Model.Branches.Any())
+                {
+                  if (Model.Branches.Count > 1)
+                  {
+                    var isActive = "active";
+                    var i = 1;
+                    <ul class="nav nav-tabs">
+
+                      @foreach (var branch in Model.Branches)
+                      {
+                        <li class="@isActive"><a data-toggle="tab" href="#branch_@i">@(isEnglish ? branch.ETitle : branch.Title)</a></li>
+                        isActive = "";
+                        ++i;
+                      }
+                    </ul>
+
+                    isActive = "active";
+                    i = 1;
+                    <div class="tab-content">
+                      @foreach (var branch in Model.Branches)
+                      {
+                        <div id="branch_@i" class="tab-pane fade in @isActive">
+                          <ul>
+                            <li>
+                              <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                              <p>@(isEnglish ? branch.EAdress : branch.Adress)</p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-globe" aria-hidden="true"></i></span>
+                              <p><a style="color: #FFF" href="https://@branch.Link" target="_blank">@branch.Link</a></p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                              <p><a href="mailto:@branch.Email">@branch.Email</a></p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-phone" aria-hidden="true"></i></span>
+                              <p style="direction: ltr">
+                                <a href="tel:@branch.Tell">@branch.Tell</a>
+                                @(string.IsNullOrEmpty(branch.Tell2) ? "" : ", " + branch.Tell2)
+                                @(string.IsNullOrEmpty(branch.Tell3) ? "" : ", " + branch.Tell3)
+                                @(string.IsNullOrEmpty(branch.Tell4) ? "" : ", " + branch.Tell4)
+                              </p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-fax" aria-hidden="true"></i></span>
+                              <p style="direction: ltr">
+                                @branch.Fax
+                                @(string.IsNullOrEmpty(branch.Fax2) ? "" : ", " + branch.Fax2)
+                                @(string.IsNullOrEmpty(branch.Fax3) ? "" : ", " + branch.Fax3)
+                                @(string.IsNullOrEmpty(branch.Fax4) ? "" : ", " + branch.Fax4)
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                        isActive = "";
+                        ++i;
+                      }
+                    </div>
+                  }
+                  else
+                  {
+                    var branch = Model.Branches.First();
+                    <ul>
+                      <li>
+                        <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                        <p>@(isEnglish ? branch.EAdress : branch.Adress)</p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-globe" aria-hidden="true"></i></span>
+                        <p><a style="color: #FFF" href="https://@branch.Link" target="_blank">@branch.Link</a></p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <p><a href="mailto:@branch.Email">@branch.Email</a></p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-phone" aria-hidden="true"></i></span>
+                        <p style="direction: ltr">
+                          <a href="tel:@branch.Tell">@branch.Tell</a>
+                          @(string.IsNullOrEmpty(branch.Tell2) ? "" : ", " + branch.Tell2)
+                          @(string.IsNullOrEmpty(branch.Tell3) ? "" : ", " + branch.Tell3)
+                          @(string.IsNullOrEmpty(branch.Tell4) ? "" : ", " + branch.Tell4)
+                        </p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-fax" aria-hidden="true"></i></span>
+                        <p style="direction: ltr">
+                          @branch.Fax
+                          @(string.IsNullOrEmpty(branch.Fax2) ? "" : ", " + branch.Fax2)
+                          @(string.IsNullOrEmpty(branch.Fax3) ? "" : ", " + branch.Fax3)
+                          @(string.IsNullOrEmpty(branch.Fax4) ? "" : ", " + branch.Fax4)
+                        </p>
+                      </li>
+                    </ul>
+                  }
+                }
+              }
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-contact-->
+
+
+@{
+  if (Model.Image.Any())
+  {
+    <section class="section-imgCompany">
+      <div class="container">
+        <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+          <div class="head-icon"><i class="fa fa-forward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i><img class="company-icon" src="@Url.Content("/Recources/Uploads/"+Model.Photo.Replace("jpeg", "png")+"?w=100")" alt=""><i class="fa fa-backward @(Model.Id ==1 ?"icon-blue" :Model.Id ==3 ?"icon-orange": Model.Id == 6 ?"icon-red":"icon-green" )"></i></div>
+          <h2 class="sec-title">@Resource.Images</h2>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="sec-warrper">
+          <div class="s_content">
+            <div class="slider-img-list">
+              <div class="loop owl-carousel">
+                @foreach (var item in Model.Image.ToList())
+                {
+                  <div class="item">
+
+                    <a data-fancybox="gallery" href="@Url.Content("/Recources/Albums/"+item.photo+"?w=800")">
+                      <img src="@Url.Content("/Recources/Albums/"+item.photo+"?w=300")" class="img-responsive" />
+                    </a>
+                  </div>
+                }
+
+              </div>
+            </div>
+          </div><!--s_content-->
+        </div>
+      </div>
+    </section><!--section-productCompany-->
+  }
+}
+
+@{
+  <script>
+	  $('[data-fancybox="gallery"]').fancybox();
+
+				function error() {
+			$(".error-success-msgs").html('<div class="alert alert-success"><p><strong>@Resource.Thanks ! </strong> @Resource.WillContact</p></div>');
+				}
+
+  </script>
+}

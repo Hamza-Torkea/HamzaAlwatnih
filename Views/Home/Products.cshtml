@@ -1,0 +1,72 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@model alwatnia.Helper.Functions.PaginatedResult<alwatnia.Models.Product>
+@{
+	ViewBag.Title = "Products";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	var isEng = Functions.IsEnglish();
+  var category = (ProductCat)ViewBag.Category;
+}
+
+<section class="section-topBanar">
+	<div class="container">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="@Url.Action("Index")">@Resource.Main</a>
+			</li>
+		  <li class="breadcrumb-item">
+            <a href="@Url.Action("Categories", new {id = category.CompanyId})">@Resource.Products</a>
+		  </li>
+		  <li class="breadcrumb-item active">
+            @(isEng ? category.EnglishTitle : category.ArabicTitle)
+		  </li>
+		</ol>
+        <h2 class="title-page">@(isEng ? category.EnglishTitle : category.ArabicTitle)</h2>
+	</div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+	<div class="container">
+		<div class="product_list">
+			<div class="row">
+				@foreach (var item in Model.Results)
+				{
+					<div class="col-sm-4">
+						<div class="product_item">
+							<div class="product_thumb">
+								<a href="@Url.Action("Product", new {id = item.Id})" class="img-hover">
+									<img src="~/Recources/Products/@item.Photo" alt="" class="img-responsive">
+								</a>
+							</div>
+							<div class="product_detail">
+								<h2>
+									<a href="@Url.Action("Product", new {id = item.Id})">@item.Title</a>
+								</h2>
+								@if (item.ProductCat != null)
+								{
+									<strong>@Resource.Category: @(isEng ? item.ProductCat.EnglishTitle : item.ProductCat.ArabicTitle)</strong>
+								}
+
+								@if (item.Details != null)
+								{
+									@Html.Raw(item.Details.Length > 145 ? item.Details.Substring(0, 145) : item.Details)
+								}
+								<a href="@Url.Action("Product", new {id = item.Id})" class="more-pro">@Resource.More</a>
+							</div>
+
+						</div><!--product_item-->
+					</div>
+				}
+
+			</div>
+
+			@Html.Partial("_Paginator", model: new Functions.PaginatedResult<IHasPaginator>()
+			{
+				Results = Model.Results,
+				Entity = "Products",
+				PageCounts = Model.PageCounts,
+				TotalCount = Model.TotalCount,
+				CurrentPage = Model.CurrentPage,
+			})
+		</div><!--product_list-->
+	</div>
+</div>

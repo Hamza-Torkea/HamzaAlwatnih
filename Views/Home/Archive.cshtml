@@ -1,0 +1,48 @@
+﻿@model IEnumerable<alwatnia.Models.Album>
+@using alwatnia.Helper;
+@{
+    ViewBag.Title = "Media";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 1;
+    var isEnglish = Functions.IsEnglish();
+
+
+}
+
+
+<section class="section-topBanar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">الرئيسية</a></li>
+            <li class="breadcrumb-item active">الأرشيف</li>
+        </ol>
+        <h2 class="title-page">الأرشيف</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="conference-list">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="confer-item">
+                            <div class="confer-thumb">
+                                <a href="@Url.Action("Show", new { id = item.Id })" class="img-hover">
+                                    <img src="~/Recources/Albums/@(item.Image.FirstOrDefault()!=null?item.Image.FirstOrDefault().photo:"default.jpg")" alt="" class="img-responsive">
+                                </a>
+                            </div>
+                            <div class="confer-desc">
+                                <h2><a href="@Url.Action("Show", new { id = item.Id })">@(isEnglish ? item.EnglishTitle : item.ArabicTitle)</a></h2>
+                            </div>
+                        </div><!--confer-item-->
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,74 @@
+﻿@using alwatnia.Views.Shared
+@using Page = alwatnia.Models.Page
+@{
+    ViewBag.Title = "Contact";
+    ViewData.AddActiveMenu(Nav.Contact);
+    ViewData.AddActivePage(Nav.ContactSupport);
+}
+<section class="section-">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+			<li class="breadcrumb-item active">@Resource.Support</li>
+        </ol>
+		<h2  style="color: #1e3687" class="title-page">@Resource.Support</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="technical-support">
+					<h2 class="title-inPage">@Resource.Support</h2>
+                    @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+                    <form class="form-contactPage" method="post" action="@Url.Action("Support")">
+                        <div class="form-group">
+							<label>@Resource.Name</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+							<label>@Resource.Email</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+							<label>@Resource.Problem</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>@Resource.Message</label>
+                            <textarea class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-submitContact" value="@Resource.Send">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="FAQ-right">
+                    <h2 class="title-inPage">@Resource.FAQ</h2>
+                    <div class="accordion" id="accordion2">
+	                    @foreach (var faq in (List<Page>) ViewBag.FAQs)
+	                    {
+		                    
+		                    <div class="accordion-group">
+			                    <div class="accordion-heading">
+				                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">@faq.title</a>
+			                    </div>
+			                    <div id="collapseOne" class="accordion-body collapse">
+				                    <div class="accordion-inner">
+					                    @faq.details
+				                    </div>
+			                    </div>
+		                    </div>
+	                    }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

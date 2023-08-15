@@ -1,0 +1,893 @@
+﻿@using alwatnia.Views.Shared
+@{
+  ViewBag.Title = "FillApplication";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData.AddActiveMenu(Nav.Jobs);
+  ViewData.AddActivePage(Nav.JobsFillApplication);
+}
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+<link rel="stylesheet" href="~/assets/career/css/form-elements.css">
+<link rel="stylesheet" href="~/assets/career/css/style.css">
+
+<section class="section-">
+  <div class="container">
+    <div class="new-bar">
+      <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+    </div>
+    <ol style="display: none" class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">@Resource.Main</a></li>
+      <li class="breadcrumb-item active">@Resource.JobApplication</li>
+    </ol>
+    <h2 style="color: #1e3687" class="title-page">@Resource.JobApplication</h2>
+  </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner" ng-app="vacancyApp">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 form-box" ng-controller="VacancyCtrl">
+        <iframe class="hidden" name="hidden"></iframe>
+        <form role="form" action="" method="post" class="registration-form" target="hidden">
+
+          <fieldset class="pf">
+            <div class="alert alert-success" ng-show="success">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+              <strong><i class="fa fa-check-circle"></i> </strong> تم إرسال الطلب بنجاح
+            </div>
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3> @Resource.PersonalInformation</h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+              <input type="hidden" name="action" value="register_new_user">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.FullName</label>
+                  <input type="text" ng-model="personalInformation.FullName" name="FullName" placeholder="@Resource.FullName..." class="form-first-name form-control" id="form-first-name">
+                  @*<span style="color: #ff5757;top: 41px;left: 19px;font-size: 22px;position: absolute;">*</span>*@
+                  <span style="color: #ff5757;top: -2px;right: 109px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.DOB</label>
+                  <input type="date" ng-model="personalInformation.DateOfBirth" name="DOB" placeholder="@Resource.DOB..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 109px;font-size: 25px;position: absolute;">*</span>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.POB</label>
+                  <select ng-change="handleCountryOfBirthChange()" class="form-mobile form-control" id="form-mobile" ng-model="personalInformation.countryOfBirth" name="BirthDate">
+                    @{ Html.RenderPartial("_Countries");}
+                  </select>
+                  <span style="color: #ff5757;top: -2px;right: 109px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>&nbsp;</label>
+                  <select ng-if="!renderInputInstedOfSelect" class="form-mobile form-control" id="form-mobile" ng-model="personalInformation.cityOfBirth" name="cityOfBirth">
+                    <option value="الرياض"> الرياض</option>
+                    <option value="جدة ">جدة  </option>
+                    <option value="مكة المكرمة">
+                      مكة المكرمة
+                    </option>
+                    <option value="المدينة">المدينة </option>
+                    <option value="الاحساء "> الاحساء </option>
+                    <option value="الدمام"> الدمام</option>
+                    <option value="الطائف">الطائف </option>
+                    <option value="بريدة">بريدة </option>
+                    <option value="تبوك ">تبوك  </option>
+                    <option value="القطيف">القطيف </option>
+                    <option value="خميس مشيط ">
+                      خميس مشيط
+                    </option>
+                    <option value="حائل"> حائل</option>
+                    <option value="حفر الباطن ">
+                      حفر الباطن
+                    </option>
+                    <option value="الخرج">الخرج </option>
+                    <option value="الجبيل "> الجبيل </option>
+                    <option value="أبها"> أبها</option>
+                    <option value="نجران"> نجران</option>
+                    <option value="ينبع">ينبع</option>
+                    <option value="القنفذة">القنفذة </option>
+                    <option value="جازان">جازان </option>
+                  </select>
+                  <input ng-if="renderInputInstedOfSelect" type="text" name="cityOfBirth" ng-model="personalInformation.cityOfBirth" placeholder="@Resource.CityOfBirth..." class="form-company form-control" id="form-company">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label style="display: block;">@Resource.SocialStatus</label>
+                  <select class="form-control" ng-model="personalInformation.SocialStatus">
+                    <option value="1">@Resource.Single</option>
+                    <option value="2">@Resource.Married</option>
+                    <option value="3">@Resource.Widowed</option>
+                    <option value="4">@Resource.Divorcee</option>
+                  </select>
+                  <span style="color: #ff5757;top: -2px;right: 147px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label style="display: block;">@Resource.Nationality</label>
+                  <select name="Nationality" ng-model="personalInformation.Nationality" class="form-mobile form-control" id="form-mobile">
+                    <option value="@Resource.SaudiNationality">@Resource.SaudiNationality</option>
+                    <option value="@Resource.NonSaudiNationality">@Resource.NonSaudiNationality</option>
+                  </select>
+                  <span style="color: #ff5757;top: -2px;right: 85px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label style="display: block;">@Resource.Gender</label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input ng-model="personalInformation.Gender" type="radio" name="gender" value="1">@Resource.Male</label>
+                    <label class="radio-inline"><input type="radio" ng-model="personalInformation.Gender" name="gender" value="2">@Resource.Female</label>
+
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 74px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label style="display: block;">@Resource.FamilyNo</label>
+                  <input type="number" name="Family" ng-model="personalInformation.NumberOfDependents" placeholder="@Resource.FamilyNo..." class="form-mobile form-control" id="form-mobile">
+                  <span style="color: #ff5757;top: -2px;right: 114px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>@Resource.IdNumber</label>
+                    <input type="text" name="CardNo" ng-model="personalInformation.IdentityNo" placeholder="@Resource.IdNumber..." class="form-company form-control" id="form-company">
+                    <span style="color: #ff5757;top: -2px;right: 109px;font-size: 25px;position: absolute;">*</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>@Resource.ReleaseDate</label>
+                    <input type="date" name="CardDate" ng-model="personalInformation.IdentitReleaseDate" placeholder="@Resource.ReleaseDate..." class="form-company form-control" id="form-company">
+                    <span style="color: #ff5757;top: -2px;right: 123px;font-size: 25px;position: absolute;">*</span>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>@Resource.PlaceOfIssue</label>
+                    <input type="text" name="CardPlace" ng-model="personalInformation.PlaceOfIssue" placeholder="@Resource.PlaceOfIssue..." class="form-company form-control" id="form-company">
+                    <span style="color: #ff5757;top: -2px;right: 123px;font-size: 25px;position: absolute;">*</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>@Resource.Passport</label>
+                    <input type="text" name="Passport" ng-model="personalInformation.Passport" placeholder="@Resource.Passport..." class="form-company form-control" id="form-company">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>@Resource.ReleaseDate</label>
+                    <input type="date" name="PassportDate" ng-model="personalInformation.PassportReleaseDate" placeholder="@Resource.ReleaseDate..." class="form-company form-control" id="form-company">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>@Resource.ExpirationDate</label>
+                    <input type="date" name="PassportEnd" ng-model="personalInformation.PassportEndDate" placeholder="@Resource.ExpirationDate..." class="form-company form-control" id="form-company">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.Mobile</label>
+                  <input type="number" name="mobile" ng-model="personalInformation.Mobile" placeholder="@Resource.Mobile..." class="form-company form-control" id="form-company">
+                  <span style="color: #ff5757;top: -2px;right: 76px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.Email</label>
+                  <input type="email" ng-model="personalInformation.Email" name="Email" placeholder="@Resource.Email..." class="form-company form-control" id="form-company">
+                  <span style="color: #ff5757;top: -2px;right: 141px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.Phone</label>
+                  <input type="number" name="Phone" ng-model="personalInformation.Tell" placeholder="@Resource.Phone..." class="form-company form-control" id="form-company">
+                  <span style="color: #ff5757;top: -2px;right: 76px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>@Resource.Address</label>
+                  <input type="text" name="Address" ng-model="personalInformation.Address" placeholder="@Resource.Address..." class="form-company form-control" id="form-company">
+                  <span style="color: #ff5757;top: -2px;right: 76px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button type="button" ng-click="addPersonal()" class="btn btn-next personalbtn">@Resource.Next</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="qf">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3>
+                  @Resource.Qualifications
+                </h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+              <input type="hidden" name="action" value="register_new_user">
+              <div ng-repeat="qualification in qualifications" class="form-bottom row">
+                <div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="form-email">@Resource.FirstAcademic</label>
+                      <input type="text" ng-model="qualification.Name" placeholder="@Resource.FirstAcademic..." class="form-first-name form-control" id="form-first-name">
+                      <span style="color: #ff5757;top: -2px;right: 181px;font-size: 25px;position: absolute;">*</span>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="form-email">@Resource.AcademicInstatue</label>
+                      <input type="text" ng-model="qualification.University" placeholder="@Resource.AcademicInstatue..." class="form-email form-control" id="form-email">
+                      <span style="color: #ff5757;top: -2px;right: 198px;font-size: 25px;position: absolute;">*</span>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label c for="form-first-name">@Resource.Specialization</label>
+                      <input type="text" ng-model="qualification.Specialization" placeholder="@Resource.Specialization..." class="form-email form-control" id="form-email">
+                      <span style="color: #ff5757;top: -2px;right: 87px;font-size: 25px;position: absolute;">*</span>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                    <div class="form-group">
+                      <label for="form-email">@Resource.GraduationYear</label>
+                      <input type="date" ng-model="qualification.GraduationYear" placeholder="@Resource.GraduationYear..." class="form-email form-control" id="form-email">
+                      <span style="color: #ff5757;top: -2px;right: 107px;font-size: 25px;position: absolute;">*</span>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-group">
+                      <label for="form-email">@Resource.Grade</label>
+                      <input type="text" ng-model="qualification.Grade" placeholder="@Resource.Grade..." class="form-email form-control" id="form-email">
+                      <span style="color: #ff5757;top: -2px;right: 80px;font-size: 25px;position: absolute;">*</span>
+                    </div>
+                  </div>
+                  <div class="col-md-1" style="padding-top: 30px;">
+                    <div class="form-group">
+                      <a class="removeBtn" ng-click="RemoveQualification(qualification)"><i class="fa fa-trash"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button class="btn" type="button" ng-click="AddNewQualification()">@Resource.AddQualification </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-top col-md-12">
+              <div class="form-top-left">
+                <h3>@Resource.LanguageSkills</h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-first-name">@Resource.ArabicLanguage</label>
+                  <input disabled type="text" ng-model="language1.Name" placeholder="@Resource.ArabicLanguage" class="form-first-name form-control" id="form-first-name">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">
+                    @Resource.Conversation
+                  </label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input required ng-model="language1.Conversation" type="radio" name="speak1" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language1.Conversation" type="radio" name="speak1" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language1.Conversation" type="radio" name="speak1" value="1">@Resource.Excellent</label>
+
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 92px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Writing</label>
+                  <div class="other-input">
+                    <label class="radio-inline"><input required ng-model="language1.Writing" type="radio" name="write1" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language1.Writing" type="radio" name="write1" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language1.Writing" type="radio" name="write1" value="1">@Resource.Excellent</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 78px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Reading</label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input required ng-model="language1.Reading" type="radio" name="read1" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language1.Reading" type="radio" name="read1" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language1.Reading" type="radio" name="read1" value="1">@Resource.Excellent</label>
+
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 82px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-first-name">@Resource.EnglishLangauge</label>
+                  <input disabled type="text" ng-model="language2.Name" placeholder="@Resource.EnglishLangauge" class="form-first-name form-control" id="form-first-name">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">
+                    @Resource.Conversation
+                  </label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input required ng-model="language2.Conversation" type="radio" name="speak2" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language2.Conversation" type="radio" name="speak2" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language2.Conversation" type="radio" name="speak2" value="1">@Resource.Excellent</label>
+
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 92px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Writing</label>
+                  <div class="other-input">
+                    <label class="radio-inline"><input required ng-model="language2.Writing" type="radio" name="write2" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language2.Writing" type="radio" name="write2" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language2.Writing" type="radio" name="write2" value="1">@Resource.Excellent</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 78px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Reading</label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input required ng-model="language2.Reading" type="radio" name="read2" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language2.Reading" type="radio" name="read2" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language2.Reading" type="radio" name="read2" value="1">@Resource.Excellent</label>
+
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 82px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-first-name">@Resource.OtherLanguage</label>
+                  <input type="text" ng-model="language3.Name" placeholder="@Resource.OtherLanguage" class="form-first-name form-control" id="form-first-name">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">
+                    @Resource.Conversation
+                  </label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input required ng-model="language3.Conversation" type="radio" name="speak3" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language3.Conversation" type="radio" name="speak3" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language3.Conversation" type="radio" name="speak3" value="1">@Resource.Excellent</label>
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Writing</label>
+                  <div class="other-input">
+                    <label class="radio-inline"><input required ng-model="language3.Writing" type="radio" name="write3" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language3.Writing" type="radio" name="write3" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language3.Writing" type="radio" name="write3" value="1">@Resource.Excellent</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Reading</label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input required ng-model="language3.Reading" type="radio" name="read3" value="3">@Resource.Medium</label>
+                    <label class="radio-inline"><input required ng-model="language3.Reading" type="radio" name="read3" value="2">@Resource.Good</label>
+                    <label class="radio-inline"><input required ng-model="language3.Reading" type="radio" name="read3" value="1">@Resource.Excellent</label>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-top col-md-12">
+              <div class="form-top-left">
+                <h3> @Resource.ComputerSkills</h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+              <div ng-repeat="skill in computerSkills" class="form-bottom row">
+                <div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <input type="text" ng-model="skill.Name" placeholder="@Resource.Windows..." class="form-first-name form-control" id="form-first-name">
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <div class="other-input">
+                        <label class="radio-inline"><input required ng-model="skill.Skill" type="radio" name="{{ $index }}" value="4">@Resource.Beginner</label>
+                        <label class="radio-inline"><input required ng-model="skill.Skill" type="radio" name="{{ $index }}" value="3">@Resource.Medium</label>
+                        <label class="radio-inline"><input required ng-model="skill.Skill" type="radio" name="{{ $index }}" value="2">@Resource.Good</label>
+                        <label class="radio-inline"><input required ng-model="skill.Skill" type="radio" name="{{ $index }}" value="1">@Resource.Excellent</label>
+                      </div>
+                      <span style="color: #ff5757;top: 12px;left: 35px;font-size: 25px;position: absolute;">*</span>
+                    </div>
+                  </div>
+                  <div class="col-md-1" style="padding-top: 30px;">
+                    <div class="form-group">
+                      <a class="removeBtn" ng-click="removeSkill(skill)"><i class="fa fa-trash"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button class="btn" type="button" ng-click="AddNewSkill()">@Resource.AddQualification </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-bottom row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button type="button" class="btn btn-next qualificationbtn" ng-click="AddQualification()">@Resource.Next</button>
+                  <button type="button" class="btn btn-previous">@Resource.Previous</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="cf">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3> @Resource.Training</h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+              <div ng-repeat="course in courses">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Address</label>
+                    <input type="text" ng-model="course.Address" placeholder="@Resource.Address..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Organization</label>
+                    <input type="text" ng-model="course.Orginization" placeholder="@Resource.Organization..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label c for="form-first-name">@Resource.Course</label>
+                    <input type="text" ng-model="course.Name" placeholder="@Resource.Course..." class="form-first-name form-control" id="form-first-name">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Date</label>
+                    <input type="date" ng-model="course.Date" placeholder="@Resource.Date..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Duration</label>
+                    <input type="text" ng-model="course.Duration" placeholder="@Resource.Duration..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-1" style="padding-top: 30px;">
+                  <div class="form-group">
+                    <a class="removeBtn" ng-click="removeCourse(course)"><i class="fa fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button class="btn" type="button" ng-click="AddCourse()">@Resource.AddCourse </button>
+                  <button type="button" class="btn btn-next coursebtn" ng-click="SubmitCourse()">@Resource.Next</button>
+                  <button type="button" class="btn btn-previous">@Resource.Previous</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="ef">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3> @Resource.EmploymentHistory </h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+
+              <div ng-repeat="emp in employment">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Duration</label>
+                    <input type="text" ng-model="emp.Duration" placeholder="@Resource.Duration..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.FromDate</label>
+                    <input type="date" ng-model="emp.FromDate" placeholder=" @Resource.FromDate..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label c for="form-first-name">@Resource.ToDate</label>
+                    <input type="date" ng-model="emp.ToDate" placeholder="@Resource.ToDate..." class="form-first-name form-control" id="form-first-name">
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Salary</label>
+                    <input type="text" ng-model="emp.Salary" placeholder="@Resource.Salary..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.JobTitle</label>
+                    <input type="text" ng-model="emp.JobTitle" placeholder="@Resource.JobTitle..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.CompanyAddressAndDetails</label>
+                    <input type="text" ng-model="emp.CompanyAddress" placeholder="@Resource.CompanyAddressAndDetails..." class="form-email form-control" id="form-email">
+                  </div>
+                </div>
+                <div class="col-md-11">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.JobDes</label>
+                    <textarea placeholder="@Resource.JobDes..." ng-model="emp.Description" class="form-email form-control" rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-1" style="padding-top: 30px;">
+                  <div class="form-group">
+                    <a class="removeBtn" ng-click="removeEmployment(emp)"><i class="fa fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button type="button" class="btn" ng-click="AddEmployment()">@Resource.AddJob</button>
+                  <button type="button" class="btn btn-next employmentbtn" ng-click="SubmitEmployment()">@Resource.Next</button>
+                  <button type="button" class="btn btn-previous">@Resource.Previous</button>
+
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="of">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3> @Resource.Other</h3>
+              </div>
+            </div>
+            <div class="form-bottom row">
+
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Conduct</label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input ng-model="personalInformation.HasCrime" ng-value="true" type="radio" name="crime" value="true">@Resource.Yes</label>
+                    <label class="radio-inline"><input ng-model="personalInformation.HasCrime" ng-value="false" type="radio" name="crime" value="false">@Resource.No</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px; left: 147px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6" ng-if="personalInformation.HasCrime === true">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Details</label>
+                  <input type="text" name="crimeDetails" ng-model="personalInformation.CrimeDescription" placeholder="@Resource.Details..." class="form-email form-control" id="form-email">
+                </div>
+                <span style="color: #ff5757;top: -2px;right: 94px;font-size: 25px;position: absolute;">*</span>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Health</label>
+                  <div class="other-input">
+
+                    <label class="radio-inline"><input ng-model="personalInformation.HasDisable" type="radio" name="health" ng-value="true">@Resource.Yes</label>
+                    <label class="radio-inline"><input ng-model="personalInformation.HasDisable" type="radio" name="health" ng-value="false">@Resource.No</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 254px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6" ng-if="personalInformation.HasDisable === true">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Details</label>
+                  <input type="text" name="healthDetails" ng-model="personalInformation.DisableDescription" placeholder="@Resource.Details..." class="form-email form-control" id="form-email">
+                </div>
+                <span style="color: #ff5757;top: -2px;right: 94px;font-size: 25px;position: absolute;">*</span>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label c for="form-first-name">@Resource.CurrentEmployementStatus</label>
+                  <div class="other-input">
+                    <label class="radio-inline"><input ng-model="personalInformation.EmployeeNow" type="radio" name="employ" ng-value="true">@Resource.Yes</label>
+                    <label class="radio-inline"><input ng-model="personalInformation.EmployeeNow" type="radio" name="employ" ng-value="false">@Resource.No</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 186px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-6" ng-if="personalInformation.EmployeeNow === true">
+                <div class="form-group">
+                  <label for="form-email">@Resource.CanContactCompany</label>
+                  <div class="other-input">
+                    <label class="radio-inline"><input ng-model="personalInformation.AskYourEmployer" type="radio" name="bossContact" ng-value="true">@Resource.Yes</label>
+                    <label class="radio-inline"><input ng-model="personalInformation.AskYourEmployer" type="radio" name="bossContact" ng-value="false">@Resource.No</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px; right: 328px; font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-6" ng-if="personalInformation.AskYourEmployer  === true">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Telephone </label>
+                  <input type="number" ng-model="personalInformation.EmployerMobile" name="bossMobile" placeholder="@Resource.Telephone..." class="form-email form-control" id="form-email">
+                </div>
+                <span style="color: #ff5757;top: -2px;right: 80px;font-size: 25px;position: absolute;">*</span>
+              </div>
+              <div class="col-md-6" ng-if="personalInformation.AskYourEmployer  === true">
+                <div class="form-group">
+                  <label for="form-email">@Resource.CompanyAddressAndDetails</label>
+                  <input type="text" ng-model="personalInformation.EmployerDescription" name="CompanyDetails" placeholder="@Resource.CompanyAddressAndDetails..." class="form-email form-control" id="form-email">
+                </div>
+                <span style="color: #ff5757;top: -2px;right: 329px;font-size: 25px;position: absolute;">*</span>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="form-email">@Resource.RelativeWorker</label>
+                  <div class="other-input">
+                    <label class="radio-inline"><input ng-model="personalInformation.HasRelativeInOurCompany" ng-value="true" type="radio" name="relationWork">@Resource.Yes</label>
+                    <label class="radio-inline"><input ng-model="personalInformation.HasRelativeInOurCompany" ng-value="false" type="radio" name="relationWork">@Resource.No</label>
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 493px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div ng-if="personalInformation.HasRelativeInOurCompany === true">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Unit </label>
+                    <input type="text" name="relationUnit" ng-model="employee.Unit" placeholder="@Resource.Unit..." class="form-email form-control" id="form-email">
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 74px;font-size: 25px;position: absolute;">*</span>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.EmployeeName </label>
+                    <input type="text" name="relationName" ng-model="employee.Name" placeholder="@Resource.EmployeeName..." class="form-email form-control" id="form-email">
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 122px;font-size: 25px;position: absolute;">*</span>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.RelativeRelation </label>
+                    <input type="text" name="relationType" ng-model="employee.RelativeRelation" placeholder="@Resource.RelativeRelation..." class="form-email form-control" id="form-email">
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 109px;font-size: 25px;position: absolute;">*</span>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="form-email">@Resource.Job </label>
+                    <input type="text" name="relationJob2" ng-model="employee.JobTitle" placeholder="@Resource.Job..." class="form-email form-control" id="form-email">
+                  </div>
+                  <span style="color: #ff5757;top: -2px;right: 87px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="form-group">
+                  <label for="form-email">@Resource.StartWorking </label>
+                  <input type="text" name="StartWork" ng-model="personalInformation.WhenStartWorking" placeholder="@Resource.StartWorking..." class="form-email form-control" id="form-email">
+                </div>
+                <span style="color: #ff5757;top: -2px;right: 233px;font-size: 25px;position: absolute;">*</span>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.ExpectedSalary </label>
+                  <input type="text" name="ExpSalary" ng-model="personalInformation.SalaryExpect" placeholder="@Resource.ExpectedSalary..." class="form-email form-control" id="form-email">
+                </div>
+                <span style="color: #ff5757;top: -2px;right: 208px;font-size: 25px;position: absolute;">*</span>
+              </div>
+
+              <div class="col-md-12">
+                <div class="form-group">
+                  <button type="button" class="btn btn-next othersbtn" ng-click="AddOther()">@Resource.Next</button>
+                  <button type="button" class="btn btn-previous">@Resource.Previous</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="rf">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3> @Resource.RefPersons</h3>
+              </div>
+            </div>
+
+            <div class="form-bottom row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Name</label>
+                  <input type="text" name="RefName1" ng-model="reference1.Name" placeholder="@Resource.Name..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 69px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Job </label>
+                  <input type="text" name="RefJob1" ng-model="reference1.JobTitle" placeholder="@Resource.Job..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 81px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Address </label>
+                  <input type="text" name="RefAddress1" ng-model="reference1.Address" placeholder="@Resource.Address..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 81px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Phone </label>
+                  <input type="number" name="RefTel1" ng-model="reference1.Mobile" placeholder="@Resource.Phone..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 77px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Name</label>
+                  <input type="text" name="RefName2" ng-model="reference2.Name" placeholder="@Resource.Name..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 69px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Job </label>
+                  <input type="text" name="RefJob2" ng-model="reference2.JobTitle" placeholder="@Resource.Job..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 81px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Address </label>
+                  <input type="text" name="RefAddress2" ng-model="reference2.Address" placeholder="@Resource.Address..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 81px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="form-email">@Resource.Phone </label>
+                  <input type="number" name="RefTel2" ng-model="reference2.Mobile" placeholder="@Resource.Phone..." class="form-email form-control" id="form-email">
+                  <span style="color: #ff5757;top: -2px;right: 77px;font-size: 25px;position: absolute;">*</span>
+                </div>
+              </div>
+
+              <div class="col-md-12 ">
+                <div class="Enotes">
+                  <p>
+                    <span class="badge badge-danger" style="background-color: #d9534f"> @Resource.Note : </span>
+                  </p>
+                  @ViewBag.App
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <br />
+                <div class="form-group">
+                  <div class="other-input">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" ng-model="personalInformation.Confirm" ng-value="true">@Resource.ApplicationAgreenment
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+
+                  <button type="button" class="btn btn-next" ng-disabled="isDisabled" ng-click="SendApp()">
+                    @Resource.SendApp
+                    <div ng-show="isDisabled" class="loader"></div>
+                  </button>
+
+                  <button type="button" class="btn btn-previous">@Resource.Previous</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@section Scripts{
+
+
+  <script src="~/assets/career/js/jquery.backstretch.min.js"></script>
+  <script src="~/assets/career/js/retina-1.1.0.min.js"></script>
+  <script src="~/Scripts/angular.js"></script>
+  <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.js"></script>
+  <script src="~/Scripts/angular-ui/ui-bootstrap.js"></script>
+  <script src="~/Scripts/app/core.js"></script>
+
+  @*<script src="~/assets/career/js/scripts.js"></script>*@
+  <script type="text/javascript">
+    $('#form-first-name').on('keydown',
+      (event) => {
+        const value = event.target.value;
+        if (value.split(' ').length > 4) {
+          if (+event.keyCode !== 8 && +event.keyCode !== 46 && (+event.keyCode !== 37 && event.keyCode !== 39)) {
+            event.preventDefault();
+            event.target.value = value.trim();
+          }
+        }
+      });
+
+    $('form.registration-form fieldset:first-child').fadeIn('slow');
+
+    // previous step
+    $('form.registration-form .btn-previous').on('click', function () {
+      $(this).parents('fieldset').fadeOut(400, function () {
+        $(this).prev().fadeIn();
+        scroll_to_class('.form-box');
+      });
+    });
+    function scroll_to_class(chosen_class) {
+      var nav_height = $('nav').outerHeight();
+      var scroll_to = $(chosen_class).offset().top - nav_height;
+
+      if ($(window).scrollTop() != scroll_to) {
+        $('html, body').stop().animate({ scrollTop: scroll_to }, 1000);
+      }
+    }
+  </script>
+
+  <!--[if lt IE 10]>
+      <script src="assets/js/placeholder.js"></script>
+  <![endif]-->
+}

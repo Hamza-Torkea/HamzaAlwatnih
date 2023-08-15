@@ -1,0 +1,85 @@
+﻿@using alwatnia.Helper;
+@using alwatnia.Views.Shared
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData.AddActiveMenu(Nav.About);
+    ViewData.AddActivePage(Nav.MainAbout);
+}
+<style>
+.section-aboutCompany img {
+    display: block;
+    margin: auto;
+    width: 85%;
+    height: 10%;
+}.section-aboutCompany {
+    padding: 0;
+}</style>
+<section class="">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="~/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+            <li class="breadcrumb-item active">@Resource.AboutCompany</li>
+        </ol>
+        <h2  style="color: #1e3687" class="title-page">@Resource.About</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                        
+                        <p>
+                            @Html.Raw(ViewBag.about)
+                        </p>
+                    </div>
+<!--
+                     <div class="row">
+                        <div class="col-sm-6">
+                         <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2>@Resource.Vision</h2>
+                        <p>
+                            @Html.Raw(ViewBag.vision)
+                        </p>
+
+                    </div>
+                         </div>
+                    <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                        <h2>@Resource.Message</h2>
+                        <p>
+                          @Html.Raw(ViewBag.target)
+                        </p>
+                    </div>
+                    </div>
+                    </div>
+-->
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+                        @{
+                            string VideoID = Functions.getVideoId(ViewBag.video);
+                            <iframe width="545" height="300" class="cbp-lightbox" src="https://www.youtube.com/embed/@VideoID" frameborder="0" allowfullscreen style="width:100%"></iframe>
+                        }
+
+                        @*<img src="~/assets/home/images/about-img.jpg" alt="" class="img-responsive">*@
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

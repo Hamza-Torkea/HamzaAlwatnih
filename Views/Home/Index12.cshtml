@@ -1,0 +1,743 @@
+﻿@using System.Globalization
+@using alwatnia.Helper;
+@using alwatnia.Models
+@{
+        /**/
+
+        ViewBag.Title = "Home Page";
+        var Sliders = (List<alwatnia.Models.Slider>)ViewBag.Slider;
+        var News = (List<alwatnia.Models.News>)ViewBag.News;
+        var News2 = (List<alwatnia.Models.News>)ViewBag.News2;
+        var Pages = (List<alwatnia.Models.Page>)ViewBag.Pages;
+        var Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+        var Company = (List<alwatnia.Models.Company>)ViewBag.Company;
+        var mainCompany = (alwatnia.Models.Company)ViewBag.MainCompany;
+
+        int count = 0;
+        int i = 0;
+        List<alwatnia.Models.Configration> conf = (List<alwatnia.Models.Configration>)ViewBag.conf;
+        var isEng = Functions.IsEnglish();
+
+}
+
+<section class="section-homeSlider">
+  <div id="homeSlider" class="owl-carousel">
+    @foreach (var item in Sliders)
+    {
+      <div class="item">
+
+        <div class="item-slide">
+          <div class="immg">
+            <img src="@Url.Content("/Recources/slider/"+item.Photo+"?w=1900")" class="img-responsive" />
+          </div>
+          <div class="caption-slider">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 col-sm-10">
+                  <div class="slide-caption to-animate">
+                    <h2>@Html.Raw(item.Title)</h2>
+                    <p>@item.Summery</p>
+                    @if (item.HasDetails.HasValue && item.HasDetails.Value)
+                    {
+                      <a href="@item.Url" class="more-desc">@Resource.More</a>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+  <div class="newsBarTop">
+    <div class="newsbar-content nav-height" id="scroller1">
+      <div class="scroll-text">
+        @foreach (var item in News)
+        {
+          <a href="@Url.Action("News", new { id = item.Id })">@item.Title</a>
+        }
+
+      </div>
+    </div><!--last-news-prog-->
+  </div>
+</section><!--section-homeSlider-->
+
+<section class="section-about" style="padding: 30px 0 80px;">
+  <div class="bg-color"></div>
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <div class="head-icon"><img src="~/assets/home/images/icon-head.png" alt=""></div>
+      <h2 class="sec-title">@Resource.Alwatania</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="sec-warrper clearfix wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+
+          <div class="about-content clearfix">
+            @foreach (var item in Pages)
+            {
+
+              if (item.tag.Equals("home_about"))
+              {
+                <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                  <h2>@item.title</h2>
+                  <p>@Html.Raw(item.details)</p>
+                </div>
+              }
+            }
+
+            <a href="@Url.Action("about")" class="about-more wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s">@Resource.More ...</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="vedio-about">
+          @{
+            string VideoID = Functions.getVideoId(ViewBag.video);
+            <iframe width="100%" height="320" class="cbp-lightbox" src="https://www.youtube.com/embed/@VideoID" frameborder="0" allowfullscreen style="min-width:100%"></iframe>
+          }
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-about-->
+<section class="section-units">
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <div class="head-icon"><img src="~/assets/home/images/icon-head1.png" alt=""></div>
+      <h2 class="sec-title">@Resource.Units</h2>
+    </div>
+    <div class="sec-warrper wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <div class="tabs-select">
+        <ul class="navtabs clearfix">
+          @foreach (var item in Company)
+          {
+
+            <li class='@(count==0?"active":"")'>
+              <a href="#tab@(item.Id)" data-toggle="tab" aria-expanded="true">
+                <img style="margin: -15px;height: 75px;" src="~/Recources/Uploads/@item.Photo.Replace("jpeg", "png")" alt="">
+              </a>
+            </li>
+            count++;
+          }
+        </ul>
+      </div>
+      <div class="tab-content-desc">
+        <div class="tab-content">
+          @foreach (var item in Company)
+          {
+            <div class="tab-pane fade @(i==0?" in active ":"")it" id="tab@(item.Id)">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="tab-col-txt">
+                    <h2>@(isEng ? item.ETitle : item.Title)  </h2>
+                    <p>@(isEng ? Html.Raw(item.ESummary) : Html.Raw(item.Summary)) </p>
+                    @if (item.Id == 1)
+                    {
+                      <a href="@Url.Action("About", "Home")">@Resource.Details</a>
+                    }
+                    else
+                    {
+                      <a href="@Url.Action("Company", new { id = item.Id })">@Resource.Details</a>
+                    }
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="tab-col-img">
+                    <img src="@Url.Content("/Recources/Uploads/"+item.image2+"?w=400")" class="img-responsive" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            i++;
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-units-->
+
+<section class="section-exhibitions">
+  <div class="bg-color"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-md-10 margin-auto">
+        <div class="row">
+          <div class="col-md-5 col-sm-6">
+            <div class="exhibitions-box wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s">
+              <div class="exhi-icon">
+                <img src="~/assets/home/images/exhibitions-icon.png" alt="">
+                <h2>@Resource.ExhibitionsConferences</h2>
+              </div>
+              <div class="exhi-list">
+                @foreach (var item in (List<alwatnia.Models.Album>)ViewBag.exh)
+                {
+                  <a href="@Url.Action("show", new {id=item.Id })" class="exhi-item">
+                    @(isEng ? item.EnglishTitle : item.ArabicTitle)
+                    <span>@String.Format("{0:MM/dd/yyyy}", item.cdate)</span>
+                  </a>
+                }
+                <br />
+                <a href="@Url.Action("Exhibtion","Home")" class="exhi-more">@Resource.More ...</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-offset-2 col-md-5 col-sm-offset-1 col-sm-5">
+            <ul class="exhibitions-links">
+              <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                <a href="@Url.Action("Center","Home")">@Resource.MediaCenter</a>
+              </li>
+              <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                <a href="@Url.Action("Media","Home",new{id="images"})"><i class="fa fa-picture-o" aria-hidden="true"></i>@Resource.Media</a>
+              </li>
+              <li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                <a href="@Url.Action("Media", "Home", new { id = "video" })"><i class="fa fa-video-camera" aria-hidden="true"></i>@Resource.Videos</a>
+              </li>
+              @*<li class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+                        <a href="@Url.Action("Archive","Home")"><i class="fa fa-file-text" aria-hidden="true"></i>@Resource.Archive</a>
+                </li>*@
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-exhibitions-->
+<section class="section-news">
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <div class="head-icon"><img src="~/assets/home/images/icon-head1.png" alt=""></div>
+      <h2 class="sec-title">@Resource.News</h2>
+    </div>
+    <div class="sec-warrper">
+      <div class="news-list clearfix">
+        @foreach (var item in News2)
+        {
+          <div class="news-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+            <div class="news-visible">
+              <a href="@Url.Action("News",  new { id = item.Id })" class="news-thumb">
+                <img src="@Url.Content("/Recources/news/"+item.Photo+"?w=300")" class="img-responsive" />
+              </a>
+              <h2 class="news-title-vi"><a href="@Url.Action("News", new  {id=item.Id })">@item.Title</a></h2>
+            </div>
+            <div class="news-hidden clearfix">
+              <h2 class="news-title-hi"><a href="@Url.Action("News", new { id = item.Id })">@item.Title</a></h2>
+              <p>@(item.Summary)</p>
+              <a href="@Url.Action("News",  new { id = item.Id })" class="news-more"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        }
+
+      </div>
+      <a href="@Url.Action("News")" class="more-listNews wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.8s">@Resource.More<span><i class="fa fa-angle-double-down" aria-hidden="true"></i></span></a>
+    </div>
+  </div>
+</section><!--section-news-->
+
+<section class="section-carrer parallax-window3" data-parallax="scroll" data-image-src="http://sendemail-001-site1.mysitepanel.net/assets/home/images/car.png">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-sm-push-6">
+        <div class="carrer-content">
+          <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+            <div class="head-icon"><img src="~/assets/home/images/icon-head.png" alt=""></div>
+            <h2 class="sec-title">@Resource.Jobs</h2>
+            <div class="about-content clearfix" style="padding-bottom: 40px;">
+              @foreach (var item in Pages)
+              {
+
+                if (item.tag.Equals("home_jobs"))
+                {
+                  <div class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <p>@Html.Raw(item.details)</p>
+                  </div>
+                }
+
+
+
+              }
+            </div>
+            <div class="carrer-txt wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+              <a href="@Url.Action("Career")" class="carrer-link">@Resource.Jobs</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-sm-pull-6">
+        <div class="ImgCareer wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+          <img src="~/assets/jobs.png" alt="" class="img-responsive">
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-carrer-->
+<section class="section-download">
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+      <div class="head-icon"><img src="~/assets/home/images/icon-head1.png" alt=""></div>
+      <h2 class="sec-title">@Resource.PublicationCenter</h2>
+    </div>
+    <div class="sec-warrper">
+      <div class="download-list clearfix">
+        @foreach (var item in (List<alwatnia.Models.Reports>)ViewBag.reports)
+        {
+          <div class="load-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+            <a href="~/Recources/Uploads/@item.link" class="lo-icon" target="_blank">
+              <i class="fa fa-file-text" aria-hidden="true"></i>
+            </a>
+            <h2 class="lo-title"><a href="~/Recources/Uploads/@item.link" target="_blank">@item.Title</a></h2>
+          </div>
+        }
+
+        <div class="load-item wow zoomIn" data-wow-duration="1s" data-wow-delay="0.4s">
+          <a href="@Url.Action("Reports")" class="lo-icon">
+            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          </a>
+          <h2 class="lo-title"><a href="@Url.Action("Reports")">@Resource.More</a></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-download-->
+
+
+
+
+
+
+
+
+
+
+
+<section class="section-events parallax-window2" data-parallax="scroll" data-image-src="../assets/home/images/coo.jpg">
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <div class="head-icon"><img src="~/assets/home/images/icon-head.png" alt=""></div>
+      <h2 class="sec-title">@Resource.UpcomingEvents</h2>
+    </div>
+    <div class="sec-warrper">
+      <div class="events-list">
+        @foreach (var item in Acts)
+        {
+          <div class="event-item">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="event-colRight clearfix wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                  <div class="ev-img">
+                    <a href="@Url.Action("Activities", new {id = item.Id})">
+
+                      <img src="@Url.Content("/Recources/Activities/"+item.Photo+"?w=500")" class="img-responsive" />
+                    </a>
+                  </div>
+                  <div class="ev-desc">
+                    <h2><a href="@Url.Action("Activities", new { id=item.Id})">@item.Title</a></h2>
+                    <p id="countdown">@String.Format("{0:dddd, MMMM d, yyyy}", item.StartDate) </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-offset-1 col-md-4">
+                <div class="event-colLeft wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+                  <div id="@item.Id"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+      </div>
+    </div>
+  </div>
+</section><!--section-events-->
+<section class="section-follow">
+  <div class="container">
+    <div class="follow-list">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <div class="follow-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+            <h2 class="title-fbox">@Resource.OnTwitter </h2>
+            <a href="https://twitter.com/wataniaind" class="twitter-follow-button" data-show-count="false">Follow @@wataniaind</a>
+            <a class="twitter-timeline"
+               href="https://twitter.com/wataniaind"
+               data-width="100%"
+               data-height="230"
+               data-chrome="nofooter noborders noheader noscrollbar">
+              Tweets by  @@wataniaind
+            </a>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="follow-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+            <h2 class="title-fbox">@Resource.OnFacebook</h2>
+            <div class="fb-page" data-href="https://www.facebook.com/Wataniaind/" data-tabs="timeline" data-height="255" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/Wataniaind/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Wataniaind/">Al Watania For Industries</a></blockquote></div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="follow-box wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+            <h2 class="title-fbox">@Resource.Follow</h2>
+            <ul class="follow-social">
+              <li><a href="@(conf.Where(w=>w.Config_name.Equals("facebook")).FirstOrDefault()!=null?conf.Where(w=>w.Config_name.Equals("facebook")).FirstOrDefault().Config_details:"")"><i class="fa fa-facebook" aria-hidden="true"></i> @Resource.LikeUsOnFace</a></li>
+              <li><a href="@(conf.Where(w=>w.Config_name.Equals("twitter")).FirstOrDefault()!=null?conf.Where(w=>w.Config_name.Equals("twitter")).FirstOrDefault().Config_details:"")"><i class="fa fa-twitter" aria-hidden="true"></i> @Resource.FollowUsOnTwitter</a></li>
+              <li><a href="@(conf.Where(w=>w.Config_name.Equals("youtube")).FirstOrDefault()!=null?conf.Where(w=>w.Config_name.Equals("youtube")).FirstOrDefault().Config_details:"")"><i class="fa fa-youtube" aria-hidden="true"></i> @Resource.FollowYoutube</a></li>
+              <li><a href="@(conf.Where(w=>w.Config_name.Equals("linkedin")).FirstOrDefault()!=null?conf.Where(w=>w.Config_name.Equals("linkedin")).FirstOrDefault().Config_details:"")"><i class="fa fa-linkedin" aria-hidden="true"></i> @Resource.FollowLinkedIn</a></li>
+              <li><a href="@(conf.Where(w=>w.Config_name.Equals("instagram")).FirstOrDefault()!=null?conf.Where(w=>w.Config_name.Equals("instagram")).FirstOrDefault().Config_details:"")"><i class="fa fa-instagram" aria-hidden="true"></i> @Resource.FollowInsta</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-follow-->
+<section class="section-contact parallax-window" data-parallax="scroll" data-image-src="http://sendemail-001-site1.mysitepanel.net/assets/home/images/cdon.png">
+  <div class="container">
+    <div class="sec-head wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+      <div class="head-icon"><img src="~/assets/home/images/icon-head.png" alt=""></div>
+      <h2 class="sec-title">@Resource.ContactUs</h2>
+    </div>
+    <div class="sec-warrper">
+      <div class="contact-block">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="error-success-msgs"></div>
+            <iframe class="hidden" name="hidden"></iframe>
+            <form class="form-contact" action="@Url.Action("Send","Home", new {type = ContactType.Main, redirectTo = "Contact"})" method="post">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="@Resource.Name" name="name" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="email" class="form-control" placeholder="@Resource.Email" name="email" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="@Resource.Mobile" name="mobile" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="@Resource.Phone" name="phone" required>
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                  <div class="form-group">
+                    <textarea class="form-control" placeholder="@Resource.Message" name="message" required> </textarea>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-contact">@Resource.Send</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-4">
+            <div class="contact-info wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+              @{ if (mainCompany.Branches.Any())
+                {
+                  if (mainCompany.Branches.Count > 1)
+                  {
+                    var isActive = "active";
+                    var value = 1;
+                    <ul class="nav nav-tabs">
+
+                      @foreach (var branch in mainCompany.Branches)
+                      {
+                        <li class="@isActive"><a data-toggle="tab" href="#branch_@value">@(isEng ? branch.ETitle : branch.Title)</a></li>
+                        isActive = "";
+                        ++value;
+                      }
+                    </ul>
+
+                    isActive = "active";
+                    value = 1;
+                    <div class="tab-content">
+                      @foreach (var branch in mainCompany.Branches)
+                      {
+                        <div id="branch_@value" class="tab-pane fade in @isActive">
+                          <ul>
+                            <li>
+                              <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                              <p>@(isEng ? branch.EAdress : branch.Adress)</p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-globe" aria-hidden="true"></i></span>
+                              <p><a style="color: #FFF" href="https://@branch.Link" target="_blank">@branch.Link</a></p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                              <p><a href="mailto:@branch.Email">@branch.Email</a></p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-phone" aria-hidden="true"></i></span>
+                              <p style="direction: ltr">
+                                <a href="tel:@branch.Tell">@branch.Tell</a>
+                                @(string.IsNullOrEmpty(branch.Tell2) ? "" : ", " + branch.Tell2)
+                                @(string.IsNullOrEmpty(branch.Tell3) ? "" : ", " + branch.Tell3)
+                                @(string.IsNullOrEmpty(branch.Tell4) ? "" : ", " + branch.Tell4)
+                              </p>
+                            </li>
+                            <li>
+                              <span><i class="fa fa-fax" aria-hidden="true"></i></span>
+                              <p style="direction: ltr">
+                                @branch.Fax
+                                @(string.IsNullOrEmpty(branch.Fax2) ? "" : ", " + branch.Fax2)
+                                @(string.IsNullOrEmpty(branch.Fax3) ? "" : ", " + branch.Fax3)
+                                @(string.IsNullOrEmpty(branch.Fax4) ? "" : ", " + branch.Fax4)
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                        isActive = "";
+                        ++value;
+                      }
+                    </div>
+                  }
+                  else
+                  {
+                    var branch = mainCompany.Branches.First();
+                    <ul>
+                      <li>
+                        <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                        <p>@(isEng ? branch.EAdress : branch.Adress)</p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-globe" aria-hidden="true"></i></span>
+                        <p><a style="color: #FFF" href="https://@branch.Link" target="_blank">@branch.Link</a></p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <p><a href="mailto:@branch.Email">@branch.Email</a></p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-phone" aria-hidden="true"></i></span>
+                        <p style="direction: ltr">
+                          <a href="tel:@branch.Tell">@branch.Tell</a>
+                          @(string.IsNullOrEmpty(branch.Tell2) ? "" : ", " + branch.Tell2)
+                          @(string.IsNullOrEmpty(branch.Tell3) ? "" : ", " + branch.Tell3)
+                          @(string.IsNullOrEmpty(branch.Tell4) ? "" : ", " + branch.Tell4)
+                        </p>
+                      </li>
+                      <li>
+                        <span><i class="fa fa-fax" aria-hidden="true"></i></span>
+                        <p style="direction: ltr">
+                          @branch.Fax
+                          @(string.IsNullOrEmpty(branch.Fax2) ? "" : ", " + branch.Fax2)
+                          @(string.IsNullOrEmpty(branch.Fax3) ? "" : ", " + branch.Fax3)
+                          @(string.IsNullOrEmpty(branch.Fax4) ? "" : ", " + branch.Fax4)
+                        </p>
+                      </li>
+                    </ul>
+                  }
+                }
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="subscribe-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+        <h2>@Resource.Subscripe</h2>
+        <div class="row">
+          <div class="col-md-6 col-sm-8 margin-auto">
+            <div class="error-success-msgs"></div>
+            <form class="form-scribe" action="@Url.Action("Mailing","Home")" method="post" target="hidden">
+              <div class="form-group">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <input type="email" class="form-control" placeholder="@Resource.Email" name="email" required>
+              </div>
+              <input type="submit" class="btn btn-scribe" value="@Resource.Send">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--section-contact-->
+<section class="section-map-clients">
+  <div class="mapLocation">
+    <div id="googleMap">
+      @{
+          var firstOfCompany = Company.FirstOrDefault();
+          if (firstOfCompany != null)
+          {
+            @Html.Raw(firstOfCompany.Map)
+          }
+      }
+    </div>
+  </div>
+  <div class="clients-list wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.3s" style="padding: 0 35px;">
+    <ul class="ul-list">
+      @foreach (var item in Company)
+      {
+      <li data-map="@item.Map" data-name="@(isEng ? item.ETitle : item.Title)" style="padding: 10px 0;">
+        <img src="~/Recources/Uploads/@item.Photo.Replace("jpeg", "png")" alt="">
+      </li>
+      }
+
+
+    </ul>
+  </div>
+  <div id="fb-root"></div>
+</section><!--section-map-clients-->
+@section Scripts{
+
+  <script src="~/assets/home/js/parallax.js"></script>
+  <script src="~/assets/home/js/jquery.marquee.min.js"></script>
+  <script>
+    new WOW().init();
+  </script>
+  <script type="text/javascript">
+								$('.scroll-text').marquee({
+				duration: 20000,
+				gap: 50,
+				delayBeforeStart: -15000,
+				direction: '@(isEng ? "left" :  "right")',
+				duplicated: false,
+				pauseOnHover: true
+		});
+	  $('#search-mobile').click(function(){
+		  $('.header-top .top #search-box').slideToggle();
+		  return false;
+	  });
+  </script>
+
+
+  @* <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsVCH2AY7nJecNz41eiAGCMdupbk0qNnE&language=@(isEng ?"en":"ar")"></script> *@
+  <script type="text/javascript">
+				@{
+						<text>
+
+								var setinterval = function (id,date) {
+										var itemId = id.toString();
+										var countDownDate = new Date(date).getTime();
+										var x = setInterval(function() {
+
+												// Get todays date and time
+												var now = new Date().getTime();
+
+												// Find the distance between now an the count down date
+												var distance = countDownDate - now;
+
+												// Time calculations for days, hours, minutes and seconds
+												var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+												var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+												var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+												var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+												document.getElementById(itemId).innerHTML = " <ul class='timer-event clearfix'><li><span id='daystim'>" +
+														days +
+														"</span>@Resource.Day</li>" +
+														"<li><span id='hourtim'>" +
+														hours +
+														"</span>@Resource.Hour</li>" +
+														"<li><span id='mintim'>" +
+														minutes +
+														"</span>@Resource.Minute</li>" +
+														"<li><span id='secondtim'>" +
+														seconds +
+														"</span>@Resource.Second</li></ul>";
+
+												// If the count down is finished, write some text
+												if (distance < 0) {
+														clearInterval(x);
+														document.getElementById(itemId).innerHTML =  "<h2 class='finishedAct'>@Resource.ActivityEnded </h2>";
+												}
+										}, 1000);
+								}
+
+								@foreach (var item in Acts)
+				{
+
+						<text>
+								setinterval("@item.Id" , "@(item.StartDate.Value.ToString("MM/dd/yyyy", new CultureInfo("en-US")))");
+						</text>
+				}
+
+//								var mapLocation = new google.maps.LatLng(24.557487, 46.893146);
+								var name = '@Resource.Alwatania';
+//								$('ul.ul-list li').mouseover(function () {
+//                                  var element = $(this);
+//                                  const map = element.attr('data-map');
+//								  $('#googleMap').html(map);
+//                                  mapLocation = new google.maps.LatLng(element.attr('data-map'), element.attr('data-lng'));
+//										name = element.attr('data-name');
+//										initialize();
+//								});
+								$('ul.ul-list li').click(function () {
+                                  var element = $(this);
+                                  const map = element.attr('data-map');
+								  $('#googleMap').html(map);
+//										mapLocation = new google.maps.LatLng(element.attr('data-lat'), element.attr('data-lng'));
+//										name = element.attr('data-name');
+//										initialize();
+								});
+//								var marker;
+//								var map;
+//								var right = google.maps.ControlPosition.RIGHT_CENTER;
+//								var left = google.maps.ControlPosition.LEFT_CENTER;
+//								var isEng = '@isEng' === 'False' ? false : true;
+//
+//								function initialize() {
+//										var mapOptions = {
+//												zoom: 15, //change zoom here
+//												scrollwheel: false,
+//												center: mapLocation,
+//												zoomControlOptions: {
+//														position: isEng ? right : left
+//												}
+//										};
+//
+//
+//										map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+//
+//
+//										marker = new google.maps.Marker({
+//												map: map,
+//												title: name,
+//												position: mapLocation
+//										});
+//
+//										var infowindow = new google.maps.InfoWindow({
+//												content: name
+//										});
+//
+//												infowindow.open(map, marker);
+//								}
+//								google.maps.event.addDomListener(window, 'load', initialize);
+						</text>
+}
+  </script>
+  <script>
+    window.twttr = (function (d, s, id) {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function (f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
+  </script>
+
+
+  <script>
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10&appId=250597685352334";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+}

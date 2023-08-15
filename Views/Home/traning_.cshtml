@@ -1,0 +1,63 @@
+﻿@using alwatnia.Helper;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="section-">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="http://watani-001-site1.mysitepanel.net/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+			<li class="breadcrumb-item active">@Resource.Training<li>
+</ol>
+		<h2 style="color: #1e3687"  class="title-page">@Resource.Training</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+						<h2> @Resource.Training</h2>
+                        @Html.Raw(ViewBag.traning)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+                        @{
+                            string VideoID = Functions.getVideoId(ViewBag.video);
+                            <iframe width="545" height="300" class="cbp-lightbox" src="https://www.youtube.com/embed/@VideoID" frameborder="0" allowfullscreen style="width:100%"></iframe>
+                        }
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                    <div class="col-sm-6">
+                        <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+
+                            <p>
+                                كل هذه المصانع (الوحدات الإستراتيجية) تعمل تحت مظلة الوطنية للصناعة كل في موقعه سواء كان داخل المملكة أو خارجها، هذا وقد تمكنت الوطنية للصناعة من خلال التطور المتواصل والمستمر من العمل على وضع إستراتيجيات طويلة المدى للوصول إلى أهدافها المعلنة والتي يمكنكم الوصول إليها عبر تصفحكم لصفحات موقعنا هذا، وذلك بفضل الله أولا ثم بفضل الجهود المقدرة من العاملين في هذا الكيان.
+
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+
+                            <p>
+                                وأنني إذا أخاطبكم أتطلع لعلاقة طويلة المدى متينة ذات شفافية عالية فنحن شركاء في هذه المسيرة التي نسأل الله عز وجل أن تتواصل
+                                فهذا التواصل يمثل في حد ذاته امتداداً لتاريخ بدأ يمثله الماضي .. وفخراً يحتذى يمثله الحاضر وتطلعاً يمثله المستقبل
+                                مع اطيب التمنيات ,
+                                مهندس/ ابراهيم بحيري
+                                الرئيس التنفيذي
+
+                            </p>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

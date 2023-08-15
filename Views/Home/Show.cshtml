@@ -1,0 +1,62 @@
+﻿@model alwatnia.Models.Album
+@using alwatnia.Helper;
+@{
+	ViewBag.Title = "Media";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	int count = 1;
+	var isEnglish = Functions.IsEnglish();
+
+}
+
+<link href="~/assets/home/js/source/jquery.fancybox.css" rel="stylesheet" media="screen" >
+<style>
+.confer-item {
+    min-height: inherit;
+}
+    .section-contentInner {
+    min-height: 400px;
+}
+</style>
+<section class="section-topBanar">
+    <div class="container">
+  
+		<h2 class="title-page">@(isEnglish ? Model.EnglishTitle : Model.ArabicTitle)</h2>
+    </div>
+</section><!--section-topBanar-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+  <li class="breadcrumb-item"><a href="@Url.Action("Exhibtion")">@Resource.ExhibitionsConferences</a></li>
+  <li class="breadcrumb-item active">@(isEnglish ? Model.EnglishTitle:Model.ArabicTitle)</li>
+</ol>
+<div class="section-contentInner">
+    <div class="container">
+        <div class="conference-list">
+            <div class="row">
+                @foreach (var item in Model.Image)
+                {
+
+                    <div class="col-md-4 col-sm-6">
+                        <div class="confer-item">
+                            <div class="confer-thumb">
+                                <a href="~/Recources/Albums/@item.photo?w=1000" class="img-hover fancybox"  rel="gallery1">
+	                                <img src="@Url.Content("/Recources/Albums/"+item.photo+"?w=500")" class="img-responsive" />
+                                </a>
+                            </div>
+                        </div><!--confer-item-->
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script type="text/javascript" src="~/assets/home/js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script>
+		$(".fancybox").fancybox({
+	        openEffect  : 'none',
+	        closeEffect : 'none',
+	    });
+</script>
+}

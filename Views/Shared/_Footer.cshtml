@@ -1,0 +1,82 @@
+﻿@using alwatnia.Helper
+<a class="scrolltop">
+    <i class="fa fa-chevron-up" aria-hidden="true"></i>
+</a>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<footer id="footer">
+    <div class="container">
+        <div class="copy-right"><p>@string.Format(Resource.RightsReserved, DateTime.Now.Year)</p></div>
+    </div>
+</footer><!--footer-->
+</div><!--main-wrapper-->
+<script type='text/javascript' data-cfasync='false'>window.purechatApi = { l: [], t: [], on: function () { this.l.push(arguments); } }; (function () { var done = false; var script = document.createElement('script'); script.async = true; script.type = 'text/javascript'; script.src = 'https://app.purechat.com/VisitorWidget/WidgetScript'; document.getElementsByTagName('HEAD').item(0).appendChild(script); script.onreadystatechange = script.onload = function (e) { if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) { var w = new PCWidget({ c: 'a42801bc-02ec-4b12-89ee-7efe258758e2', f: true }); done = true; } }; })();</script>
+
+@Scripts.Render("~/bundles/BasicJs")
+@Scripts.Render("~/bundles/HomeJs")
+<script>
+    // document.getElementById('shareBtn').onclick = function () {
+    //    FB.ui({
+    //      method: 'share',
+    //       display: 'popup',
+    //       href: 'https://developers.facebook.com/docs/',
+    //   }, function (response) { });
+    // }
+</script>
+@{
+    var isEng = Functions.IsEnglish();
+}
+<script>
+        function error() {
+            var isEng = '@isEng' === 'False' ? false : true;
+
+            if (isEng) {
+                $(".error-success-msgs")
+                    .html(
+                        '<div class="alert alert-success"><p>Sent successfully</p></div>');
+            } else {
+                $(".error-success-msgs")
+                    .html(
+                        '<div class="alert alert-success"><p>تمت العملية بنجاح</p></div>');
+            }
+        }
+</script>
+
+@if (ViewContext.RouteData.Values["action"].ToString().ToLower().Equals("index"))
+{
+    // <script>
+    //      (function (d, s, id) {
+    //          var js, fjs = d.getElementsByTagName(s)[0];
+    //          if (d.getElementById(id)) return;
+    //          js = d.createElement(s); js.id = id;
+    //          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=250597685352334";
+    //          fjs.parentNode.insertBefore(js, fjs);
+    //      }(document, 'script', 'facebook-jssdk'));</script>
+    //  <script>
+    //      window.twttr = (function (d, s, id) {
+    //          var js, fjs = d.getElementsByTagName(s)[0],
+    //            t = window.twttr || {};
+    //          if (d.getElementById(id)) return t;
+    //          js = d.createElement(s);
+    //          js.id = id;
+    //          js.src = "https://platform.twitter.com/widgets.js";
+    //          fjs.parentNode.insertBefore(js, fjs);
+
+    //          t._e = [];
+    //          t.ready = function (f) {
+    //              t._e.push(f);
+    //          };
+
+    //          return t;
+    //      }(document, "script", "twitter-wjs"));</script>
+}
+
+
+
+

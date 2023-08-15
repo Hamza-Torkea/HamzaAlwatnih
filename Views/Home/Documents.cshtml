@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Documents";
+   
+    List<alwatnia.Models.News> AnotherNews = (List<alwatnia.Models.News>)ViewBag.AnotherNews;
+    List<alwatnia.Models.News> LeftNews = (List<alwatnia.Models.News>)ViewBag.LeftNews;
+    List<alwatnia.Models.Product> Products = (List<alwatnia.Models.Product>)ViewBag.Products;
+    List<alwatnia.Models.Activity> Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+}
+
+<section class="section-topBanar">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("index")">الرئيسية</a></li>
+            <li class="breadcrumb-item active">الوثائق</li>
+        </ol>
+        <h2 class="title-page">الوثائق</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="career-txt">
+                    <h2>الوثائق</h2>
+                    <img src="~/assets/home/images/docs.png" alt="" class="img-responsive">
+                    <p>هدفنا المصداقية المتبادلة مع الجمهور حيث يتم عرض التقرير السنوي لمجموعة شركات الوطنية في هذه الصفحة حيثت يتم عرض التقارير السنوية والأرباح الربع سنوية حسب كل شركة </p>
+                </div>
+                <table class="table table-viewCareer table-bordered table-responsive">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>التقرير </th>
+                            <th>الشركة</th>
+                            <th>تاريخ الاصدار</th>
+                            <th>الحالة</th>
+                            <th>مشاهدة التقرير </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>WFI Form</td>
+                                <td>شركة الصناعات البلاستيكية</td>
+                                <td>25/02/2017</td>
+                                <td>متاح</td>
+                                <td><a href="http://wataniaind.com/Documant%20Library/WFI%20Form.docx" target="_blank">مشاهدة التقرير</a></td>
+                            </tr>
+                                    
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>ITQAN </td>
+                            <td>شركة اتقان للصناعات الورقية</td>
+                            <td>25/02/2017</td>
+                            <td>متاح</td>
+                            <td><a href="http://wataniaind.com/Documant%20Library/ITQAN.pptx" target="_blank">مشاهدة التقرير</a></td>
+                        </tr>  
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">الأخبار</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id=item.Id })" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id=item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new { id=""})" class="article-box-more">عرض المزيد</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">المنتجات</h2>
+                        <div class="row">
+                            @foreach (var item in Products)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Products", new { id = item.Id })" class="img-hover">
+                                                <img src="~/Recources/Products/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Products", new { id = item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <a href="@Url.Action("Products")" class="article-box-more">عرض المزيد</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">الفعاليات</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new { id = item.Id })" class="img-hover">
+                                                <img src="~/Recources/Activities/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new { id = item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">عرض المزيد</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

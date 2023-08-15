@@ -1,0 +1,23 @@
+﻿@using alwatnia.Helper
+@model List<alwatnia.Models.News>
+
+@foreach (var item in Model)
+{
+  <div class="item-news col-md-3 col-xs-6">
+    <div class="confer-item">
+      <div class="confer-thumb">
+        <a href="@Url.Action("News", "Home", new {id = item.Id})" class="img-hover">
+          <img src="@Url.Content("/Recources/News/" + item.Photo + "?w=350")" class="img-responsive" />
+        </a>
+      </div>
+      <div class="confer-desc">
+        <h2>
+          <a href="@Url.Action("News", "Home", new {id = item.Id})">@item.Title</a>
+        </h2>
+        <h5 style="line-height: 20px; text-align: justify;">
+          @item.Summary.Truncate(100)
+        </h5>
+      </div>
+    </div><!--confer-item-->
+  </div>
+}

@@ -1,0 +1,99 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@using alwatnia.Views.Shared
+@model List<Company>
+@{
+  var isEng = Functions.IsEnglish();
+  // var companyWithoutMain = (List<Company>)ViewBag.CompanyWithoutMain;
+}
+
+@{
+  try
+  {
+    <ul class="main-menu clearfix">
+      <li class="@Nav.MainNavClass(ViewContext)"><a href="@Url.Action("Index", "Home")">@Resource.Main</a></li>
+      <li class="@Nav.AboutNavClass(ViewContext)">
+        <a href="#">@Resource.AboutCompany</a>
+        <ul class="dropdown-menu" >
+          <li class="@Nav.MainAboutNavClass(ViewContext)"><a href="@Url.Action("About", "Home")">@Resource.About</a></li>
+          <li class="@Nav.MainVisionNavClass(ViewContext)"><a href="@Url.Action("Vision", "Home")">@Resource.VisionAndMessage</a></li>
+          <li class="@Nav.MainBcNavClass(ViewContext)"><a href="@Url.Action("Staff", "Home")"> @Resource.Staff</a></li>
+          <li class="@Nav.MainExecutiveManagementNavClass(ViewContext)" ><a href="@Url.Action("ExecutiveManagement", "Home")">@Resource.ExecutiveManagement</a></li>
+          <li class="@Nav.MainGovernanceNavClass(ViewContext)"><a href="@Url.Action("PoliciesandGovernance", "Home")">@Resource.PoliciesandGovernance</a></li>
+            <li class="@Nav.MainCeryNavClass(ViewContext)"><a href="@Url.Action("CertificationsAndAccreditations", "Home")">@Resource.CertificationsAndAccreditations</a></li>
+            <li class="@Nav.MainCorporateStrategyNavClass(ViewContext)"><a href="@Url.Action("CorporateStrategy", "Home")">@Resource.CorporateStrategy</a></li>
+            <li><a href="~/Recources/Uploads/Al-Watania_for_Industries_Profile.pdf" target="_blank">@Resource.IP</a></li>
+        </ul>
+      </li>
+      <li class="@Nav.McNavClass(ViewContext)">
+        <a href="#">@Resource.MediaCenter</a>
+        <ul class="dropdown-menu">
+          <li class="@Nav.McNewsNavClass(ViewContext)">
+            <a href="@Url.Action("News", "Home")">@Resource.News</a>
+          </li>
+          <li class="@Nav.McSocialNavClass(ViewContext)">
+            <a href="@Url.Action("Social", "Home")">@Resource.SocialResponsibility</a>
+          </li>
+          <li class="@Nav.McReportsNavClass(ViewContext)">
+            <a href="@Url.Action("Reports", "Home")">@Resource.Reports</a>
+          </li>
+          <li class="@Nav.McActivitiesNavClass(ViewContext)">
+            <a href="@Url.Action("Activities", "Home")">@Resource.Activities</a>
+          </li>
+         <li class="@Nav.McMediaContactNavClass(ViewContext)">
+            <a href="@Url.Action("MediaContact", "Home")">@Resource.MediaContact</a>
+          </li>
+        </ul>
+      </li>
+      <li class="@Nav.CompayNavClass(ViewContext)" >
+        <a href="#">@Resource.OurFactories</a>
+        <ul class="dropdown-menu">
+          @if (Model != null && Model.Any())
+          {
+            foreach (var item in Model)
+            {
+              <li class="@Nav.CompanySNavClass(ViewContext, item.ETitle)"><a href="@Url.Action("Company", "Home", new {id = item.Id})">@(isEng ? item.ETitle : item.Title)</a></li>
+            }
+          }
+        </ul>
+      </li>
+          <li class="@Nav.McMediaImagesNavClass(ViewContext)" >
+        <a href="#">@Resource.InvestorRelations</a>
+        <ul class="dropdown-menu">
+          
+        </ul>
+      </li>
+      <li class="@Nav.JobsNavClass(ViewContext)" >
+        <a href="#">@Resource.Jobs</a>
+        <ul class="dropdown-menu">
+          <li class="@Nav.JobsEnvironmentNavClass(ViewContext)" ><a href="@Url.Action("Environment", "Home")">@Resource.Environment</a></li>
+          <li class="@Nav.JobsFeaturesNavClass(ViewContext)" ><a href="@Url.Action("features", "Home")">@Resource.Features</a></li>
+          <li class="@Nav.JobsTraningNavClass(ViewContext)" ><a href="@Url.Action("traning", "Home")">@Resource.Training</a></li>
+          <li class="@Nav.JobsFillApplicationNavClass(ViewContext)" ><a href="@Url.Action("FillApplication", "Home")">@Resource.Applications</a></li>
+          <li class="@Nav.JobsCareerNavClass(ViewContext)" ><a href="@Url.Action("Career", "Home")">@Resource.Jobs</a></li>
+        </ul>
+      </li>
+      <li class="@Nav.ContactNavClass(ViewContext)">
+        <a href="#">@Resource.ContactUs</a>
+        <ul class="dropdown-menu">
+          <li class="@Nav.ContactContactsNavClass(ViewContext)"><a href="@Url.Action("Contact", "Home")">@Resource.Contacts</a></li>
+        </ul>
+      </li>
+      <li>
+        @if (isEng)
+        {
+          <a href="@Url.Action("ChangeCulture", "Home", new {lang = "ar"})">عربي</a>
+        }
+        else
+        {
+          <a href="@Url.Action("ChangeCulture", "Home", new {lang = "en"})">English</a>
+        }
+      </li>
+    </ul>
+    <div id="fb-root"></div>
+  }
+  catch (Exception)
+  {
+    // ignore
+  }
+}

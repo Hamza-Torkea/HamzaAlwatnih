@@ -1,0 +1,39 @@
+﻿@using alwatnia.Helper;
+@using alwatnia.Views.Shared
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewData.AddActiveMenu(Nav.Jobs);
+  ViewData.AddActivePage(Nav.JobsFeatures);
+}
+<section class="">
+    <div class="container">
+         <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol  class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+			<li class="breadcrumb-item active">@Resource.Features</li>
+        </ol>
+        <h2 style="color: #1e3687"  class="title-page">@Resource.Features</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="section-aboutCompany">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+<!--						<h2> @Resource.Features</h2>-->
+                        @Html.Raw(ViewBag.features)
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="about-block wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.4s">
+                        <img src="@Url.Action("Index", "Thumb", new { area = "", type = "Uploads", width =700, height = 400, name = ViewBag.photo })" alt="" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+    </div><!--section-aboutCompany-->
+</div>

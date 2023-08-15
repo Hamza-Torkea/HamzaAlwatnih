@@ -1,0 +1,117 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@model SearchResultViewModel
+
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = "Search Results";
+  ViewBag.Query = Model.Query;
+  ViewBag.Type = Model.Type;
+}
+
+<style>
+  .item-news.col-xs-6.col-md-12.full-w .confer-thumb {
+    float: right;
+    margin-left: 5px;
+  }
+
+    .item-news.col-xs-6.col-md-12.full-w .confer-thumb img.img-responsive {
+      height: 190px;
+      width: 240px;
+    }
+
+  .item-news.col-xs-6.col-md-12.full-w .confer-item .confer-desc {
+    overflow: hidden;
+    padding: 10px;
+  }
+
+    .item-news.col-xs-6.col-md-12.full-w .confer-item .confer-desc h2 {
+      text-align: right;
+    }
+
+  .item-news.col-xs-6.col-md-12.full-w .confer-item {
+    min-height: 192px !important;
+  }
+
+  .conference-list ul.list-inline {
+    font-size: 14px;
+    margin: 0 0 20px;
+  }
+
+  .full-w {
+    transition: 1s
+  }
+
+    .full-w h5 {
+      margin-top: 30px;
+    }
+
+  .confer-desc h2 {
+    transition: 1s
+  }
+
+  .full-w .confer-item .confer-thumb a {
+    height: 190px;
+  }
+</style>
+<section class="">
+  <div class="container">
+    <div class="new-bar">
+      <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+    </div>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="@Url.Action("Index")">@Resource.Main</a>
+      </li>
+      <li class="breadcrumb-item active">
+        @Resource.SearchResults
+      </li>
+    </ol>
+    <h2 style="color: #1e3687" class="title-page">@(Resource.SearchResults)</h2>
+  </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+  <div class="container">
+    <div class="conference-list">
+      <div class="row">
+        @{
+            var paginationModel = new Functions.PaginatedResult<IHasPaginator>()
+            {
+              Entity = "Index",
+              QueryParams = new RouteValueDictionary()
+            };
+
+          paginationModel.QueryParams.Add("type", string.Format("{0}", (int) Model.Type));
+          paginationModel.QueryParams.Add("query", string.Format("{0}", Model.Query));
+
+            switch (Model.Type)
+            {
+              case SearchTypes.Products:
+                paginationModel.Results = Model.Products.Results;
+                paginationModel.PageCounts = Model.Products.PageCounts;
+                paginationModel.TotalCount = Model.Products.TotalCount;
+
+                @Html.Partial("_Products", Model.Products.Results.ToList())
+              break;
+              case SearchTypes.News:
+                paginationModel.Results = Model.News.Results;
+                paginationModel.PageCounts = Model.News.PageCounts;
+                paginationModel.TotalCount = Model.News.TotalCount;
+
+                @Html.Partial("_News", Model.News.Results.ToList())
+              break;
+              case SearchTypes.Activities:
+                paginationModel.Results = Model.Activities.Results;
+                paginationModel.PageCounts = Model.Activities.PageCounts;
+                paginationModel.TotalCount = Model.Activities.TotalCount;
+
+                @Html.Partial("_Activities", Model.Activities.Results.ToList())
+              break;
+          }
+        }
+      </div>
+
+      @Html.Partial("_Paginator", model: paginationModel)
+    </div>
+  </div>
+</div>

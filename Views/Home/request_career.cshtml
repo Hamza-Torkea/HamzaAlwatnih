@@ -1,0 +1,145 @@
+﻿@model alwatnia.Models.Job
+@using reCAPTCHA.MVC
+@{
+    ViewBag.Title = "career_request";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var LeftNews = (List<alwatnia.Models.News>)ViewBag.LeftNews;
+    var Products = (List<alwatnia.Models.Product>)ViewBag.Products;
+    var Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+}
+
+<section class="section-topBanar">
+    <div class="container">
+        <h2 class="title-page">@Model.Title</h2>
+    </div>
+</section><!--section-topBanar-->
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="@Url.Action("Index")">@Resource.Main</a></li>
+  <li class="breadcrumb-item"><a href="@Url.Action("Career", new {id = (int?)null})">@Resource.Jobs</a></li>
+  <li class="breadcrumb-item active">@Model.Title</li>
+</ol>
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="desc-career">
+                    <h2>@Model.Title</h2>
+                    <div class="desc-career-list">
+                        @Html.Raw(Model.Details)
+                    </div>
+                </div>
+                  <div class="career-form">
+                    <h2>@Resource.JobApplication</h2>
+                    
+                    @if (TempData["success"] != null)
+                    {
+                      <div class="alert alert-success">
+                        <h5>@TempData["success"]</h5>
+                      </div>
+                    }
+
+                    <form class="form-career" action="@Url.Action("SendComment", "Home")" enctype="multipart/form-data" method="post">
+                      <input type="hidden" name="job_id" value="@Model.Id" />
+                      @Html.ValidationMessage("ReCaptcha")
+                          <div class="form-group">
+                            <input type="text" placeholder="@Resource.Name" class="form-control" required name="comment_auther">
+                          </div>
+                          <div class="form-group">
+                            <input type="email" placeholder="@Resource.Email" class="form-control" required name="Email">
+                          </div>
+                          <div class="form-group">
+                            <input type="number" placeholder="@Resource.Mobile" class="form-control" required name="Mobile">
+                          </div>
+
+                          <div class="form-group">
+                            <textarea class="form-control" rows="5" style="height:auto" placeholder="@Resource.Comment" name="comment_text" required></textarea>
+                          </div>
+
+                          <div class="form-group">
+                            <input type="file" class="form-control" placeholder="ارفاق السيره الذاتيه " required name="file">
+                          </div>
+                      <div class="form-group">
+                        @Html.Recaptcha()
+                      </div>
+                          <input type="submit" class="btn btn-submit-career" value="@Resource.SubmitRequest">
+                        </form>
+                    </div>
+            </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.News</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new {id = ""})" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.Products</h2>
+                        <div class="row">
+                            @foreach (var item in Products)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Product", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/Products/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Product", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <a href="@Url.Action("Products")" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.Activities</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new {id = item.Id})" class="img-hover">
+                                                <img src="~/Recources/Activities/@item.Photo?w=300" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new {id = item.Id})">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">@Resource.DisplayMore</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@model alwatnia.Helper.Functions.PaginatedResult<alwatnia.Models.News>
+@{
+	ViewBag.Title = "News";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	bool x = false;
+	bool y = false;
+	int count = 0;
+}
+
+<section class="section-topBanar">
+	<div class="container">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="@Url.Action("Index")">@Resource.Main</a>
+			</li>
+			<li class="breadcrumb-item active">@Resource.News</li>
+		</ol>
+		<h2 class="title-page">@Resource.News</h2>
+	</div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+	<div class="container">
+		<div class="conference-list">
+			<div class="row">
+				@foreach (var item in Model.Results)
+				{
+					count++;
+					if (!(x ^ y))
+					{
+						<div class="col-md-4 col-sm-5">
+							<div class="confer-item">
+								<div class="confer-thumb">
+									<a href="@Url.Action("News", new {id = item.Id})" class="img-hover">
+										<img src="@Url.Action("Index", "Thumb", new {area = "", type = "News", width = 350, height = 350, name = item.Photo})" alt="" class="img-responsive">
+									</a>
+								</div>
+								<div class="confer-desc">
+									<h2>
+										<a href="@Url.Action("News", new {id = item.Id})">@item.Title</a>
+									</h2>
+									<p>@Html.Raw(item.Summary)</p>
+								</div>
+							</div><!--confer-item-->
+						</div>
+					}
+					else
+					{
+						<div class="col-md-8 col-sm-7">
+							<div class="confer-item">
+								<div class="confer-thumb">
+									<a href="@Url.Action("News", new {id = item.Id})" class="img-hover">
+										<img src="@Url.Action("Index", "Thumb", new {area = "", type = "News", width = 600, height = 600, name = item.Photo})" alt="" class="img-responsive">
+									</a>
+								</div>
+								<div class="confer-desc">
+									<h2>
+										<a href="@Url.Action("News", new {id = item.Id})">@item.Title</a>
+									</h2>
+									<p>@Html.Raw(item.Summary)</p>
+								</div>
+							</div><!--confer-item-->
+						</div>
+					}
+
+					if (!x && !y)
+					{
+						x = false;
+						y = true;
+					}
+					if (count % 3 == 0)
+					{
+						x = false;
+						y = false;
+					}
+					if (count % 4 == 0)
+					{
+						x = false;
+						y = false;
+					}
+				}
+
+
+
+			</div>
+
+			@Html.Partial("_Paginator", model: new Functions.PaginatedResult<IHasPaginator>()
+			{
+				Results = Model.Results,
+				Entity = "News",
+				PageCounts = Model.PageCounts,
+				TotalCount = Model.TotalCount
+			})
+		</div>
+	</div>
+</div>

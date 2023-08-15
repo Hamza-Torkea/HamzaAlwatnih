@@ -1,0 +1,134 @@
+﻿@using alwatnia.Helper
+@using alwatnia.Models
+@using alwatnia.Views.Shared
+@model Functions.PaginatedResult<alwatnia.Models.Reports>
+@{
+    ViewBag.Title = "Reports";
+
+    List<alwatnia.Models.News> AnotherNews = (List<alwatnia.Models.News>)ViewBag.AnotherNews;
+    List<alwatnia.Models.News> LeftNews = (List<alwatnia.Models.News>)ViewBag.LeftNews;
+    List<alwatnia.Models.Product> Products = (List<alwatnia.Models.Product>)ViewBag.Products;
+    List<alwatnia.Models.Activity> Acts = (List<alwatnia.Models.Activity>)ViewBag.Acts;
+    int count = 0;
+    var isEng = Functions.IsEnglish();
+    ViewData.AddActivePage(Nav.Mc);
+    ViewData.AddActivePage(Nav.McReports);
+
+}
+<section class="">
+    <div class="container">
+        <div class="new-bar">
+            <img class="img-responsive" src="/assets/home/images/parcode.png" alt="" />
+        </div>
+        <ol style="display: none" class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("index")">@Resource.Reports</a></li>
+            <li class="breadcrumb-item active">@Resource.Reports</li>
+        </ol>
+        <h2 style="color: #1e3687" class="title-page">@Resource.Reports</h2>
+    </div>
+</section><!--section-topBanar-->
+<div class="section-contentInner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="career-txt">
+                    <img src="~/assets/home/images/reports_cropped.jpg" alt="" class="img-responsive">
+                </div>
+                
+                <table class="table table-viewCareer table-bordered table-responsive">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@Resource.Report</th>
+                            <th>@Resource.Company</th>
+                            <th>@Resource.ReleaseDate</th>
+                            <th>@Resource.ViewReport </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Results)
+                        {
+                            <tr>
+                                <th scope="row">@(++count)</th>
+                                <td>@item.Title</td>
+                                <td>
+                                    @{
+                                        if (item.Company != null)
+                                        {
+                                            @(isEng ? item.Company.ETitle : item.Company.Title)
+                                        }
+                                }
+                            </td>
+                            <td>@string.Format("{0:MM/dd/yyyy}", item.cdate)</td>
+                            <td><a href="~/Recources/Uploads/@item.link" target="_blank">@Resource.ViewReport</a></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+
+
+                @Html.Partial("_Paginator", new Functions.PaginatedResult<IHasPaginator>
+                {
+                  Results = Model.Results,
+                  Entity = "Reports",
+                  PageCounts = Model.PageCounts,
+                  TotalCount = Model.TotalCount,
+                  CurrentPage = Model.CurrentPage
+                })
+
+            </div>
+            <div class="col-md-3">
+                <div class="subject-left">
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.News</h2>
+                        <div class="row">
+                            @foreach (var item in LeftNews)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("news", new {id=item.Id })" class="img-hover">
+                                                <img src="~/Recources/News/@item.Photo?w=400" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("news", new {id=item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("News", new { id=""})" class="article-box-more">@Resource.More</a>
+                    </div><!--article-box-->
+                    <div class="article-box">
+                        <h2 class="b-article-title">@Resource.Activities</h2>
+                        <div class="row">
+                            @foreach (var item in Acts)
+                            {
+                                <div class="col-md-12 col-sm-6">
+                                    <div class="m-subject-item">
+                                        <div class="m-subject-thumb">
+                                            <a href="@Url.Action("Activities", new { id = item.Id })" class="img-hover">
+                                                <img src="~/Recources/Activities/@item.Photo?w=400" alt="" class="img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="m-subject-detail">
+                                            <h2>
+                                                <a href="@Url.Action("Activities", new { id = item.Id })">@item.Title</a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <a href="@Url.Action("Activities")" class="article-box-more">@Resource.More</a>
+                    </div><!--article-box-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
