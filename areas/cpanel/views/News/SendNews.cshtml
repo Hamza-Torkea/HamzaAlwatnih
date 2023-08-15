@@ -1,0 +1,74 @@
+﻿@using alwatnia.Models
+@model alwatnia.Areas.Cpanel.ViewModels.NewsController.SendNewsViewModel
+@{
+  ViewBag.Title = "Send News To Emails";
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>اضافة خبر جديد</h1>
+
+      <div class="breadcrumb">
+        <a href="@Url.Action("Index", "News")" class="btn default"><i class="fa fa-eye"></i> عرض الأخبار </a>
+      </div>
+
+    }
+  </div>
+</div>
+<form action="@Url.Action("Send", "News")" method="post" class="horizontal-form" id="Slider_form">
+  <div class="row">
+    @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+    <input type="hidden" name="newsId" value="@ViewBag.NewsId" />
+    <div class="col-md-12">
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">الايميلات المراد ارسال الخبر لها</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>الايميبلات</label>
+                @{
+                  var i = 0;
+                  foreach (var email in (List<MailingList>)ViewBag.Emails)
+                  {
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="emails" value="@email.Email">@email.Email</label>
+                    </div>
+                    ++i;
+                  }
+                }
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="sendToTwitter" value="true">نشر علي تويتر؟
+                  </label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="sendToFacebook" value="true">نشر علي فيسبوك؟
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">ارسال</button>
+      <a class="btn btn-primary" href="@Url.Action("Index", "News")">انهاء</a>
+    </div>
+  </div>
+</form>
+

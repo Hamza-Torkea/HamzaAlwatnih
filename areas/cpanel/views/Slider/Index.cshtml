@@ -1,0 +1,110 @@
+﻿@model IEnumerable<alwatnia.Models.Slider>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض السلايدر</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Create", "Slider")" class="btn green"><i class="fa fa-plus"></i> اضافة سلايدر جديد </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row"> 
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+        @*<div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن سلايدر</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>العنوان</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="title" id ="name" placeholder="العنوان" value="@Request.QueryString["title"]">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <select class="form-control" id="lang">
+                                <option value="">-- اختار اللغة --</option>
+                                <option value="1" @(Request.QueryString["langId"] =="1" ? "selected" : "")>اللغة العربية</option>
+                                <option value="2" @(Request.QueryString["langId"] =="2" ? "selected" : "")> English</option>
+                            </select>
+                        </div>
+                    </div>
+                  
+                    <button type="submit" onclick="search('Slider')" class="btn blue"><i class="fa fa-search"></i> بحث</button>
+
+                </div>
+
+            </div>
+        </div>*@
+    <div class="col-md-12">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-bubble font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض السلايدر</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> العنوان </th>
+                            <th> تاريخ الاضافة </th>
+                            <th> العمليات </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.OrderBy(x => x.OrderNo))
+                        {
+
+                            <tr>
+                                <td class="col-counter"> @(i++) </td>
+                                <td > @Html.Raw(item.Title) </td>
+                                <td class="col-operation"> @string.Format("{0:MM/dd/yyyy}", item.Cdate) </td>
+                                <td class="col-operation">
+                                    <div class="btn-group btn-group-solid">
+                                        <a href="@Url.Action("Edit", "Slider", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                                        <a onclick="return confirm('هل تريد حذف هذا السلايدر ؟؟');" href="@Url.Action("Delete", "Slider", new {id=item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+<script src="~/Scripts/search.js"></script>

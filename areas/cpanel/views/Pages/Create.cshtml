@@ -1,0 +1,192 @@
+﻿@model alwatnia.Models.Page
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>اضافة صفحة </h1>
+
+
+        }
+    </div>
+</div>
+<form action="@Url.Action("Create", "Pages")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+    <div class="row">
+        @Html.Action("TempMessage", "Message", new {area = ""})
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">خصائص الصفحة</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class="form-group">
+                        <label>الشركة التابعة لها الصفحة</label>
+                        <select name="company_id" class="form-control">
+                            <option value="">-- اختار شركة --</option>
+                        </select>
+                    </div>
+
+                    <br/>
+
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <select name="lang" class="form-control">
+                            <option value="">-- اختار اللغة --</option>
+                            <option value="1" @(Model != null ? Model.lang == 1 ? "selected" : "" : "")>العربية</option>
+                            <option value="2" @(Model != null ? Model.lang == 2 ? "selected" : "" : "")>English</option>
+                        </select>
+                    </div>
+
+                    <hr/>
+
+                    <div class="form-group">
+                        <label>نوع الصفحة</label>
+                        <select name="tag" class="form-control">
+                            <option value="about" @(Model != null && Model.tag.Contains("about") ? "selected" : "")>من نحن</option>
+                            <option value="target" @(Model != null && Model.tag.Contains("target") ? "selected" : "")>هدفنا</option>
+                            <option value="vision" @(Model != null && Model.tag.Contains("vision") ? "selected" : "")>رؤيتنا</option>
+                            <option value="manager" @(Model != null && Model.tag.Contains("manager") ? "selected" : "")>كلمة الادارة</option>
+                            <option value="message" @(Model != null && Model.tag.Contains("message") ? "selected" : "")>رسالتنا</option>
+                            <option value="home_about" @(Model != null && Model.tag.Contains("home_about") ? "selected" : "")>من نحن - الواجهة الرئيسية</option>
+                            <option value="home_target" @(Model != null && Model.tag.Contains("home_target") ? "selected" : "")>هدفنا - الواجهة الرئيسية</option>
+                            <option value="home_vision" @(Model != null && Model.tag.Contains("home_vision") ? "selected" : "")> الواجهة الرئيسية- رؤيتنا</option>
+                            <option value="home_jobs" @(Model != null && Model.tag.Contains("home_jobs") ? "selected" : "")> الواجهة الرئيسية- الوظائف</option>
+                            <option value="managment" @(Model != null && Model.tag.Contains("managment") ? "selected" : "")> مجلس الادارة</option>
+                            <option value="ceo" @(Model != null && Model.tag.Contains("ceo") ? "selected" : "")> الرئيس التنفيذي</option>
+                            <option value="enviroment" @(Model != null && Model.tag.Contains("enviroment") ? "selected" : "")> بيئة العمل</option>
+                            <option value="profile" @(Model != null && Model.tag.Contains("profile") ? "selected" : "")> بروفايل الشركة</option>
+                            <option value="features" @(Model != null && Model.tag.Contains("features") ? "selected" : "")> المزايا </option>
+                            <option value="traning" @(Model != null && Model.tag.Contains("traning") ? "selected" : "")> التطوير والتدريب </option>
+                            <option value="jobapplication" @(Model != null && Model.tag.Contains("jobapplication") ? "selected" : "")> طلبات التوظيف </option>
+                            <option value="hq" @(Model != null && Model.tag.Equals("hq") ? "selected" : "")> الهيكل التنظيمي </option>
+                            <option value="value" @(Model != null && Model.tag.Equals("value") ? "selected" : "")> القيم </option>
+                            <option value="social" @(Model != null && Model.tag.Equals("social") ? "selected" : "")> المسؤولية الاجتماعية </option>
+                            <option value="bod" @(Model != null && Model.tag.Equals("bod") ? "selected" : "")> أعضاء مجلس الادارة </option>
+                            <option value="certifications_and_accreditations" @(Model != null && Model.tag.Equals("certifications_and_accreditations") ? "selected" : "")> شهادات الجودة </option>
+                        </select>
+                    </div>
+
+                    <hr/>
+                    <div class="form-group ">
+                        <label>اختار صورة الخبر</label>
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="height: 150px; width: 200px;"> </div>
+                            <div>
+                                <span class="btn red btn-outline btn-file">
+                                    <span class="fileinput-new"> اختار الصورة </span>
+                                    <span class="fileinput-exists"> تغيير </span>
+                                    <input type="file" name="file">
+                                </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                            </div>
+                        </div>
+                        <div class="clearfix margin-top-10">
+                            <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+                        </div>
+
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label>فيديو</label>
+                        <input type="text" dir="rtl" class="form-control" name="video" placeholder="رابط الفيديو" value="@(Model != null ? Model.video : "")">
+                    </div>
+                    <hr/>
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر الصفحة</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">تفاصيل الصفحة</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>عنوان الصفحة</label>
+                                <input type="text" dir="rtl" class="form-control" name="title" placeholder="العنوان" value="@(Model != null ? Model.title : "")">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label>تفاصيل الصفحة</label>
+                                <textarea class="form-control" name="details" rows="20" id="details" dir="rtl">@(Model != null ? Model.details : "")</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+
+    <script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options
+        tinymce.init({
+            selector: '#details',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table contextmenu paste code'
+            ],
+
+            toolbar:
+                'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css',
+            image_title: true,
+            // enable automatic uploads of images represented by blob or data URIs
+            automatic_uploads: true,
+            // URL of our upload handler (for more details check: https://www.tinymce.com/docs/configure/file-image-upload/#images_upload_url)
+            images_upload_url: '@Url.Action("UploadFiles")',
+            // here we add custom filepicker only to Image dialog
+            file_picker_types: 'image',
+            // and here's our custom image picker
+            file_picker_callback: function(cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                // Note: In modern browsers input[type="file"] is functional without
+                // even adding it to the DOM, but that might not be the case in some older
+                // or quirky browsers like IE, so you might want to add it to the DOM
+                // just in case, and visually hide it. And do not forget do remove it
+                // once you do not need it anymore.
+
+                input.onchange = function() {
+                    var file = this.files[0];
+
+                    // Note: Now we need to register the blob in TinyMCEs image blob
+                    // registry. In the next release this part hopefully won't be
+                    // necessary, as we are looking to handle it internally.
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var blobInfo = blobCache.create(id, file);
+                    blobCache.add(blobInfo);
+
+                    // call the callback and populate the Title field with the file name
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+
+                input.click();
+            }
+        });
+    </script>
+}

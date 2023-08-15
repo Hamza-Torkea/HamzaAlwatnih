@@ -1,0 +1,106 @@
+﻿@model alwatnia.Models.Product
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>اضافة منتج جديد</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Products")" class="btn default"><i class="fa fa-eye"></i> عرض المنتجات </a>
+            </div>
+
+        }
+    </div>
+</div>
+<form action="@Url.Action("Create", "Products")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+    <div class="row">
+        @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">خصائص المنتج</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>تصنيف المنتج</label>
+                        <select class="form-control" name="ProductCatId">
+                            <option>-- اختار تصنيف المنتج --</option>
+                            @foreach (var item in (List<alwatnia.Models.ProductCat>)ViewBag.productCats)
+                            {
+                                <option value="@item.Id" >@item.ArabicTitle || @item.EnglishTitle</option>
+
+                            }
+                        </select>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <select name="lang" class="form-control">
+                            <option value="">-- اختار اللغة --</option>
+                            <option value="1" @( Model !=null? Model.Lang == 1 ? "selected":"" : "")>العربية</option>
+                            <option value="2" @( Model !=null? Model.Lang == 2 ? "selected":"" : "")>English</option>
+                        </select>
+                    </div>
+
+                    <hr />
+                    <div class="form-group ">
+                        <label>اختار صورة المنتج</label>
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"> </div>
+                            <div>
+                                <span class="btn red btn-outline btn-file">
+                                    <span class="fileinput-new"> اختار الصورة </span>
+                                    <span class="fileinput-exists"> تغيير </span>
+                                    <input type="file" name="file">
+                                </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                            </div>
+                        </div>
+                        <div class="clearfix margin-top-10">
+                            <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+                        </div>
+
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> النشر</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">تفاصيل المنتج</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>عنوان المنتج</label>
+                                <input type="text" class="form-control" name="title" placeholder="العنوان" value="@( Model !=null? Model.Title:"")">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label>تفاصيل المنتج</label>
+                                <textarea class="form-control" name="details" rows="20" id="details">@( Model != null ? Model.Details : "")</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

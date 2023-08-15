@@ -1,0 +1,142 @@
+﻿@model alwatnia.Models.Slider
+@{
+  ViewBag.Title = "Edit";
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>اضافة سلايدر جديد</h1>
+
+      <div class="breadcrumb">
+        <a href="@Url.Action("Index", "Slider")" class="btn default"><i class="fa fa-eye"></i> عرض السلايدر </a>
+      </div>
+
+    }
+  </div>
+</div>
+<form action="@Url.Action("Edit", "Slider")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+  <div class="row">
+    @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+    <div class="col-md-3">
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">خصائص السلايدر</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+
+          <hr />
+          <div class="form-group">
+            <label>اللغة</label>
+            <select name="lang" class="form-control">
+              <option value="">-- اختار اللغة --</option>
+              <option value="1" @( Model != null ? Model.Lang == 1 ? "selected" : "" : "")>العربية</option>
+              <option value="2" @( Model != null ? Model.Lang == 2 ? "selected" : "" : "")>English</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <div class="mt-checkbox-inline">
+              <label class="mt-checkbox">
+                <input type="checkbox" id="HasDetails" value="true" name="HasDetails" @(Model != null && Model.HasDetails.HasValue && Model.HasDetails.Value ? "checked" : "")>   اظهار زر التفاصيل
+                <span></span>
+              </label>
+            </div>
+          </div>
+          <hr />
+          <div class="col-md-12">
+            <div class="form-group ">
+              <label>رابط التفاصيل</label>
+              <textarea class="form-control" name="Url" rows="5" id="Url">@( Model != null ? Model.Url : "")</textarea>
+            </div>
+          </div>
+          <hr />
+          <div class="form-group ">
+            <label>اختار صورة لسلايدر</label>
+            <input type="hidden" name="photo" value="@Model.Photo" />
+            <input type="hidden" name="cdate" value="@Model.Cdate" />
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+              <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                <img src="~/Recources/slider/@Model.Photo" height="150px" width="100%" />
+              </div>
+              <div>
+                <span class="btn red btn-outline btn-file">
+                  <span class="fileinput-new"> اختار الصورة </span>
+                  <span class="fileinput-exists"> تغيير </span>
+                  <input type="file" name="file" id="file">
+                </span>
+                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+              </div>
+            </div>
+            <div class="clearfix margin-top-10">
+              <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+            </div>
+
+          </div>
+          <hr />
+
+
+          <div class="form-group">
+            <label>الترتيب</label>
+            <select name="OrderNo" class="form-control">
+              <option value="">-- اختار الترتيب --</option>
+              <option value="1" @( Model != null ? Model.OrderNo == 1 ? "selected" : "" : "")>1</option>
+              <option value="2" @( Model != null ? Model.OrderNo == 2 ? "selected" : "" : "")>2</option>
+              <option value="3" @( Model != null ? Model.OrderNo == 3 ? "selected" : "" : "")>3</option>
+              <option value="4" @( Model != null ? Model.OrderNo == 4 ? "selected" : "" : "")>4</option>
+              <option value="5" @( Model != null ? Model.OrderNo == 5 ? "selected" : "" : "")>5</option>
+              <option value="6" @( Model != null ? Model.OrderNo == 6 ? "selected" : "" : "")>6</option>
+              <option value="7" @( Model != null ? Model.OrderNo == 7 ? "selected" : "" : "")>7</option>
+              <option value="8" @( Model != null ? Model.OrderNo == 8 ? "selected" : "" : "")>8</option>
+              <option value="9" @( Model != null ? Model.OrderNo == 9 ? "selected" : "" : "")>9</option>
+              <option value="10" @( Model != null ? Model.OrderNo == 10 ? "selected" : "" : "")>10</option>
+            </select>
+          </div>
+          <hr />
+
+          <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر لسلايدر</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-9">
+
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">تفاصيل السلايدر</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>عنوان السلايدر</label>
+                <input type="text" class="form-control" name="title" placeholder="العنوان" value="@( Model !=null? Model.Title:"")">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group ">
+                <label>نص مختصر للسلايدر</label>
+                <textarea class="form-control" name="summery" rows="5" id="summery">@( Model != null ? Model.Summery : "")</textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group ">
+                <label>تفاصيل السلايدر</label>
+                <textarea class="form-control" name="details" rows="20" id="details">@( Model != null ? Model.Details : "")</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

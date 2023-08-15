@@ -1,0 +1,72 @@
+﻿@model IEnumerable<alwatnia.Models.Medium>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض الصور</h1>
+
+            <div class="breadcrumb">
+                <a data-toggle="modal" data-target="#responsive" class="btn green"><i class="fa fa-plus"></i> رفع صور جديدة </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <div class="col-md-12"> 
+        <div id="js-grid-lightbox-gallery" class="cbp">
+            @foreach (var item in Model.OrderBy(x=> x.OrderNo))
+            {
+                
+                <div class="cbp-item web-design graphic print motion">
+                    <div class="del-btn"><a href="@Url.Action("Delete", "Media", new {id=@item.Id })" onclick="return confirm('هل تريد حذف الصورة ؟')" class="btn red"><i class="fa fa-remove"></i></a> </div>
+                    
+                    <a href="@Url.Action("GetMediaDetails", "Media", new {id=@item.Id })" class="cbp-caption cbp-singlePageInline" data-title="World Clock Widget<br>by Paul Flavius Nechita" rel="nofollow">
+                        <div class="cbp-caption-defaultWrap">
+	                        <img src="@Url.Content("/Recources/Albums/"+item.Link+"?w=300")"  style="height:241px;" class="img-responsive"/>
+                        </div>
+                    </a>
+                </div>
+            }
+            </div>  
+    </div>
+</div>
+
+
+
+
+
+
+<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+  
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">رفع صور جديدة</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN SAMPLE TABLE PORTLET-->                  
+                    <div class="jumbotron">
+                        <form action="@Url.Action("UploadFiless", "Media")" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                                <input type="submit" value="Upload" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">الغاء الأمر</button>
+            <a href="@Url.Action("index", "Media")" class="btn btn-outline dark"> تــــم</a>
+        </div>  
+</div>

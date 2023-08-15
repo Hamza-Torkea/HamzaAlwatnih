@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    List<alwatnia.Models.Comment> comments = (List<alwatnia.Models.Comment>)ViewBag.comments;
+    List<alwatnia.Models.Comment> jobs = (List<alwatnia.Models.Comment>)ViewBag.Job;
+}
+
+
+
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+            <div class="visual">
+                <i class="fa fa-comments"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="@ViewBag.News">0</span>
+                </div>
+                <div class="desc"> الأخبار </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+            <div class="visual">
+                <i class="fa fa-bar-chart-o"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="@ViewBag.products">0</span>
+                </div>
+                <div class="desc"> الوظائف </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+            <div class="visual">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <div class="details">
+                <div class="number">
+                    <span data-counter="counterup" data-value="@ViewBag.Activity">0</span>
+                </div>
+                <div class="desc"> الفعاليات </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+            <div class="visual">
+                <i class="fa fa-globe"></i>
+            </div>
+            <div class="details">
+                <div class="number">                    
+                    <span data-counter="counterup" data-value="@ViewBag.Jobs">0</span>
+                </div>
+                <div class="desc">المنتجات </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row">
+   @*<div class="col-md-6 col-sm-6">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-bubbles font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">التعليقات</span>
+                </div>
+              
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="portlet_comments_1">
+                        <!-- BEGIN: Comments -->
+                        @foreach (var item in comments)
+                        {
+                            <div class="mt-comments">
+                                <div class="mt-comment">
+                                    <div class="mt-comment-img">
+                                        <img src="~/assets/pages/media/users/default.png" />
+                                    </div>
+                                    <div class="mt-comment-body">
+                                        <div class="mt-comment-info">
+                                            <span class="mt-comment-author">@item.comment_auther</span>
+                                            <span class="mt-comment-date">@(string.Format("{0:ddd, MMM d, yyyy}",item.cdate))</span>
+                                        </div>
+                                        <div class="mt-comment-text"> @item.comment_text </div>
+                                        <div class="mt-comment-details">                                           
+                                            <ul class="mt-comment-actions">                                               
+                                                <li>
+                                                    <a href="@Url.Action("Comments",item.news_id.HasValue?"News":item.product_id.HasValue?"products":"Activity")">عرض التعليقات</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Delete", "Home", new {id=item.Id })">حذف </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        
+                        <!-- END: Comments -->
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>*@
+                                
+    <div class="col-md-12 col-sm-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <i class="icon-bubbles font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">المتقدمين للوظائف</span>
+                </div>
+                @*<ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#portlet_comments_1" data-toggle="tab"> Pending </a>
+                        </li>
+                        <li>
+                            <a href="#portlet_comments_2" data-toggle="tab"> Approved </a>
+                        </li>
+                    </ul>*@
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="portlet_comments_1">
+                        <!-- BEGIN: Comments -->
+                        <div class="mt-comments">
+                            @foreach (var item in jobs)
+                            {
+                                <div class="mt-comments">
+                                    <div class="mt-comment">
+                                        <div class="mt-comment-img">
+                                            <img src="~/assets/pages/media/users/default.png" />
+                                        </div>
+                                        <div class="mt-comment-body">
+                                            <div class="mt-comment-info">
+                                                <span class="mt-comment-author">@item.comment_auther - (@item.Email)</span>
+                                                <span class="mt-comment-date">@(string.Format("{0:ddd, MMM d, yyyy}", item.cdate))</span>
+                                            </div>
+                                            <div class="mt-comment-text"> @item.Job.Title </div>
+                                            <div class="mt-comment-details">
+                                                <ul class="mt-comment-actions">
+                                                    <li>
+                                                        <a href="~/Recources/Uploads/@item.comment_media">السيرة الذاتية</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="@Url.Action("Delete", "Home", new {id=item.Id })">حذف </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <!-- END: Comments -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+</div>

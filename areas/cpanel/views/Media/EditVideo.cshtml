@@ -1,0 +1,69 @@
+﻿@model alwatnia.Models.Medium
+@{
+   
+    Layout = null;
+    int i = 1;
+}
+    <form action="@Url.Action("Edit", "Media")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title"> تعديل الفيديو</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>عنوان الفيديو</label>
+                        <input type="text" class="form-control" value="@( Model != null ? Model.Title : "")" name="Title" placeholder="العنوان">
+                    </div>
+                </div>
+                <input type="hidden" name="cdate" value="@Model.cdate" />
+                <input type="hidden" name="Type" value="@Model.Type" />
+                <input type="hidden" name="Id" value="@Model.Id" />
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label> Video title</label>
+                        <input type="text" class="form-control" value="@( Model != null ? Model.ETitle : "")" name="ETitle" placeholder="Title">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>رابط الفيديو</label>
+                        <input type="text" class="form-control" value="@( Model != null ? Model.Link : "")" name="Link" placeholder="الرابط">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>الترتيب</label>
+                <select name="OrderNo" class="form-control">
+                    <option value="">-- اختار الترتيب --</option>
+                    <option value="1" @( Model != null ? Model.OrderNo == 1 ? "selected" : "" : "")>1</option>
+                    <option value="2" @( Model != null ? Model.OrderNo == 2 ? "selected" : "" : "")>2</option>
+                    <option value="3" @( Model != null ? Model.OrderNo == 3 ? "selected" : "" : "")>3</option>
+                    <option value="4" @( Model != null ? Model.OrderNo == 4 ? "selected" : "" : "")>4</option>
+                    <option value="5" @( Model != null ? Model.OrderNo == 5 ? "selected" : "" : "")>5</option>
+                    <option value="6" @( Model != null ? Model.OrderNo == 6 ? "selected" : "" : "")>6</option>
+                    <option value="7" @( Model != null ? Model.OrderNo == 7 ? "selected" : "" : "")>7</option>
+                    <option value="8" @( Model != null ? Model.OrderNo == 8 ? "selected" : "" : "")>8</option>
+                    <option value="9" @( Model != null ? Model.OrderNo == 9 ? "selected" : "" : "")>9</option>
+                    <option value="10" @( Model != null ? Model.OrderNo == 10 ? "selected" : "" : "")>10</option>
+                </select>
+            </div>
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn blue"><i class="fa fa-save"></i> حفظ </button>
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">الغاء الأمر</button>
+        </div>
+    </form>
+

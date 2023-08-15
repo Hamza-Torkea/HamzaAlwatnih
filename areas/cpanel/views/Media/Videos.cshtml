@@ -1,0 +1,131 @@
+﻿@model IEnumerable<alwatnia.Models.Medium>
+@using alwatnia.Helper
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .edit-btn a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9999999;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض الفيديوهات</h1>
+
+            <div class="breadcrumb">
+                <a data-toggle="modal" data-target="#responsive" class="btn green"><i class="fa fa-plus"></i> اضافة فيديو جديد </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <div class="col-md-12">
+        <div id="js-grid-lightbox-gallery" class="cbp">
+            @foreach (var item in Model.OrderBy(x => x.OrderNo))
+            {
+                string VideoID = Functions.getVideoId(item.Link);
+                <div class="cbp-item web-design graphic print motion">
+                    <div class="del-btn"><a href="@Url.Action("Delete", "Media", new {id=item.Id })" onclick="return confirm('هل تريد حذف الفيديو ؟')" class="btn red"><i class="fa fa-remove"></i></a> </div>
+                    <div class="edit-btn"><a href="@Url.Action("EditVideo", "Media", new {id=item.Id })" data-href="@Url.Action("EditVideo", "Media", new {id=item.Id })" data-toggle="modal" data-target="#responsive1" class="btn blue"><i class="fa fa-edit"></i></a> </div>
+                    <a href="@Url.Action("GetMediaDetails", "Media", new { id = @item.Id })" class="cbp-caption cbp-singlePageInline" data-title="World Clock Widget<br>by Paul Flavius Nechita" rel="nofollow">
+                        <div class="cbp-caption-defaultWrap">
+                            <img src="https://img.youtube.com/vi/@VideoID/hqdefault.jpg" alt="" style="height:241px;">  
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<div id="responsive" class="modal fade" tabindex="-1" data-width="760">
+    <form action="@Url.Action("Create", "Media")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">فيديو جديد</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>عنوان الفيديو</label>
+                        <input type="text" class="form-control" name="Title" placeholder="العنوان">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label> Video title</label>
+                        <input type="text" class="form-control" name="ETitle" placeholder="Title">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>رابط الفيديو</label>
+                        <input type="text" class="form-control" name="Link" placeholder="الرابط">
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label>الترتيب</label>
+                        <select name="OrderNo" class="form-control">
+                            <option value="">-- اختار الترتيب --</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3" >3</option>
+                            <option value="4" >4</option>
+                            <option value="5" >5</option>
+                            <option value="6" >6</option>
+                            <option value="7" >7</option>
+                            <option value="8" >8</option>
+                            <option value="9" >9</option>
+                            <option value="10" >10</option>
+                        </select>
+                    </div>
+
+                    </div>
+                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> حفظ </button>
+                    <button type="button" data-dismiss="modal" class="btn btn-outline dark">الغاء الأمر</button>
+                </div>
+</form>
+</div>
+
+<div id="responsive1" class="modal fade" tabindex="-1" data-width="760">
+    <form action="@Url.Action("Edit", "Media")" method="post" class="horizontal-form">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title"> تعديل الفيديو</h4>
+        </div>
+        <div class="modal-body">
+
+        </div>
+    </form>
+</div><!-- /.modal -->
+
+

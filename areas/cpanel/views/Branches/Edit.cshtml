@@ -1,0 +1,120 @@
+﻿@model alwatnia.Models.Branch
+
+@{
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = Resources.Resource.Branches;
+}
+
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>اضافة فرع جديدة</h1>
+
+      <div class="breadcrumb">
+        <a href="@Url.Action("Index", "Branches", new { companyId = @Model.CompanyId })" class="btn default"><i class="fa fa-eye"></i> عرض الفروع </a>
+      </div>
+
+    }
+  </div>
+</div>
+<form action="@Url.Action("Edit", "Branches")" method="post" class="horizontal-form" id="Slider_form">
+  <div class="row">
+    @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+    <div class="col-md-12">
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">بيانات الفرع</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+
+          <input type="hidden" class="form-control" name="companyId" value="@( Model !=null? Model.CompanyId:0)" />
+          <input type="hidden" class="form-control" name="id" value="@( Model !=null? Model.Id:0)" />
+
+          <div class="form-group ">
+            <label> عنوان الفرع</label>
+            <input type="text" class="form-control" name="title"  value="@( Model !=null? Model.Title:"")"/>
+          </div>
+          <hr />
+          <div class="form-group ">
+            <label> Branch Name</label>
+            <input type="text" class="form-control" name="eTitle" />
+          </div>
+          <hr />
+          <div class="form-group">
+            <label>البريد الالكتروني </label>
+            <input type="email" class="form-control" name="email" placeholder="البريد الالكتروني" value="@( Model !=null? Model.Email:"")">
+          </div>
+          <hr />
+
+          <div class="form-group">
+            <label>العنوان </label>
+            <input type="text" class="form-control" name="adress" placeholder="العنوان" value="@( Model != null ? Model.Adress : "")">
+          </div>
+          <hr />
+
+          <div class="form-group">
+            <label>Address </label>
+            <input type="text" class="form-control" name="Eadress" placeholder="العنوان" value="@( Model != null ? Model.EAdress : "")">
+          </div>
+
+          <hr />
+
+          <div class="form-group">
+            <label> لنك الشركة </label>
+            <input type="text" class="form-control" name="link" placeholder="..." value="@( Model != null ? Model.Link : "")">
+          </div>
+         
+          <hr />
+          <div class="form-group">
+            <label> تلفون </label>
+            <input type="text" class="form-control" name="tell" placeholder=" تلفون"  value="@( Model !=null? Model.Tell:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> تلفون 2 </label>
+            <input type="text" class="form-control" name="tell2" placeholder=" تلفون"  value="@( Model !=null? Model.Tell2:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> تلفون 3  </label>
+            <input type="text" class="form-control" name="tell3" placeholder=" تلفون"  value="@( Model !=null? Model.Tell3:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> تلفون 4  </label>
+            <input type="text" class="form-control" name="tell4" placeholder=" تلفون"  value="@( Model !=null? Model.Tell4:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> الفاكس </label>
+            <input required type="text" class="form-control" name="fax" placeholder=" الفاكس"  value="@( Model !=null? Model.Fax:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> الفاكس 2 </label>
+            <input type="text" class="form-control" name="fax2" placeholder=" الفاكس"  value="@( Model !=null? Model.Fax2:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> الفاكس 3 </label>
+            <input type="text" class="form-control" name="fax3" placeholder=" الفاكس"  value="@( Model !=null? Model.Fax3:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label> الفاكس 4 </label>
+            <input type="text" class="form-control" name="fax4" placeholder=" الفاكس"  value="@( Model !=null? Model.Fax4:"")">
+          </div>
+
+          <hr />
+          <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>

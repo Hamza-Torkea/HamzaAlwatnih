@@ -1,0 +1,152 @@
+﻿@model alwatnia.Models.Exctive
+@{
+    ViewBag.Title = "EditExecutiveManagement";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>اضافة موظف</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("ExecutiveManagement", "Company")" class="btn default"><i class="fa fa-eye"></i> عرض الموظفين </a>
+            </div>
+
+        }
+    </div>
+</div>
+<form action="@Url.Action("EditExecutiveManagement", "Company")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+    <div class="row">
+        @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">خصائص الموظف</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    @*<div class="form-group">
+                            <label>&nbsp;</label>
+                            <div class="mt-checkbox-inline">
+                                <label class="mt-checkbox">
+                                    <input type="checkbox" id="Urgent" value="true" name="Urgent" @(Model != null && Model.Urgent.HasValue && Model.Urgent.Value ? "checked" : "")>   اظهار في شريط الاخبار
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <hr />*@
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <select name="lang" class="form-control">
+                            <option value="">-- اختار اللغة --</option>
+                            <option value="1" @( Model != null ? Model.Lang == 1 ? "selected" : "" : "")>العربية</option>
+                            <option value="2" @( Model != null ? Model.Lang == 2 ? "selected" : "" : "")>English</option>
+                        </select>                                                   
+                    </div>
+                    <div class="form-group">
+                        <label>المسمى الوظيفي</label>
+                        <input type="text" class="form-control" name="Job" placeholder="المسمى الوظيفي" value="@( Model !=null? Model.Job:"")">
+                    </div>
+                    <div class="form-group ">
+                        <label> الشركة التابعة</label>
+                        <select class="form-control" name="CompanyId">
+                            <option value="">-- اختر شركة --</option>
+                            @foreach (var item in (List<alwatnia.Models.Company>)ViewBag.company)
+                            {
+                                <option @( Model != null && Model.Id == item.Id ? "selected" : "") value="@item.Id">@item.Title</option>
+
+                            }
+                        </select>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>الفيس بوك </label>
+                        <input type="text" class="form-control" name="facebook" placeholder="..." value="@( Model != null ? Model.Facebook : "")">
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label>تويتر </label>
+                        <input type="text" class="form-control" name="twitter" placeholder="..." value="@( Model != null ? Model.Twitter : "")">
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label>لينكيد ان </label>
+                        <input type="text" class="form-control" name="linkedin" placeholder="..." value="@( Model != null ? Model.LinkedIn : "")">
+                    </div>
+
+                    <hr />
+
+                    <div class="form-group">
+                        <label>انستجرام </label>
+                        <input type="text" class="form-control" name="instagram" placeholder="..." value="@( Model != null ? Model.Instagram : "")">
+                    </div>
+
+                    <hr />
+                    <div class="form-group ">
+                        <label>اختار صورة الخبر</label>
+
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                                <img src="~/Recources/Staff/@Model.Photo" height="200px" width="100%" />
+                            </div>
+                            <div>
+                                <span class="btn red btn-outline btn-file">
+                                    <span class="fileinput-new"> اختار الصورة </span>
+                                    <span class="fileinput-exists"> تغيير </span>
+                                    <input type="file" name="file">
+                                </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                            </div>
+                        </div>
+                        <div class="clearfix margin-top-10">
+                            <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+                        </div>
+
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر </button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+            <input type="hidden" name="photo" value="@Model.Photo" />
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">تفاصيل الموظف</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>اسم الموظف</label>
+                                <input type="text" class="form-control" name="title" placeholder="اسم الموظف" value="@( Model !=null? Model.Title:"")">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label>نبذة عن الموظف</label>
+                                <textarea class="form-control" name="details" rows="20">
+                                @( Model != null ? Model.Details : "")
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

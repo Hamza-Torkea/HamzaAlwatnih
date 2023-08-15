@@ -1,0 +1,119 @@
+﻿@model alwatnia.Models.Job
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>اضافة وظيفة جديدة</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Jobs")" class="btn default"><i class="fa fa-eye"></i> عرض الوظائف </a>
+            </div>
+
+        }
+    </div>
+</div>
+<form action="@Url.Action("Create", "Jobs")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+    <div class="row">
+        @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">خصائص الوظيفة</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <div class="mt-checkbox-inline">
+                            <label class="mt-checkbox">
+                                <input type="checkbox" id="IsOpen" value="true" name="IsOpen" @(Model != null && Model.IsOpen.HasValue && Model.IsOpen.Value ? "checked" : "")>   فتح التقديم عبر موقع الشركة
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                                        <hr />
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <select name="lang" class="form-control">
+                            <option value="">-- اختار اللغة --</option>
+                            <option value="1" @( Model !=null? Model.Lang == 1 ? "selected":"" : "")>العربية</option>
+                            <option value="2" @( Model !=null? Model.Lang == 2 ? "selected":"" : "")>English</option>
+                        </select>
+                    </div>
+                    <hr />
+                    <div class="form-group ">
+                        <label>تاريخ انتهاء التقديم</label>
+                        <input type="text" class="form-control StartDate" name="NewDate" value="@( Model != null ? Model.NewDate : null)" />
+                  
+                    </div>
+                    <hr />
+                    <div class="form-group ">
+                        <label> المدينة</label>
+                        <select class="form-control" name="City">
+                            <option value="الرياض">الرياض</option>
+                        </select>
+                    </div>
+                  <hr />
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="postToFacebook" value="true">نشر علي فيسبوك؟
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" name="postToTwitter" value="true">نشر علي تويتر؟
+                      </label>
+                    </div>
+                  </div>
+                  <br />
+
+
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر الوظيفة</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">تفاصيل الوظيفة</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>عنوان الوظيفة</label>
+                                <input type="text" class="form-control" name="title" placeholder="العنوان" value="@( Model !=null? Model.Title:"")">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label>تفاصيل الوظيفة</label>
+                                <textarea class="form-control" name="details" rows="20" id="details">@( Model != null ? Model.Details : "")</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{    
+    <script>
+        $(".StartDate").datepicker();
+    </script>    
+}

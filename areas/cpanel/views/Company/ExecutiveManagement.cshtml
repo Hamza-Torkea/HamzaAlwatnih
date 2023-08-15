@@ -1,0 +1,126 @@
+﻿@model IEnumerable<alwatnia.Models.Exctive>
+@{
+    ViewBag.Title = "ExecutiveManagement";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض الموظفيين</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("addExecutiveManagement", "Company")" class="btn green"><i class="fa fa-plus"></i> اضافة موظف جديد </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <form action="@Url.Action("ExecutiveManagement", "Company")" method="get" class="horizontal-form" id="Slider_form">
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن موظف</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>العنوان</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="title" placeholder="العنوان" value="@Request.QueryString["title"]">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-language"></i>
+                            </span>
+                            <select class="form-control" name="lang" placeholder="اللغة">
+                                <option value="">اختار اللغة </option>
+                                <option value="1">اللغة العربية </option>
+                                <option value="2">English  </option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group ">
+                        <label> الشركة التابعة</label>
+                        <select class="form-control" name="company">
+                            <option value="">-- اختر شركة --</option>
+                            @foreach (var item in (List<alwatnia.Models.Company>)ViewBag.company)
+                            {
+                                <option value="@item.Id">@item.Title</option>
+
+                            }
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn blue"><i class="fa fa-search"></i> بحث</button>
+                    <a href="@Url.Action("Index")" class="btn default"><i class="fa fa-reply"></i> الغاء</a>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض الموظفين</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th class="col-counter"> # </th>
+                                <th> العنوان </th>
+                                <th class="col-operation"> الشركة </th>
+                                <th class="col-operation"> العمليات </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td class="col-counter"> @(i++) </td>
+                                    <td> @Html.Raw(item.Title) </td>
+                                    <td class="col-operation">@(item.CompanyId.HasValue?item.Company.Title:"")</td>
+                                    <td class="col-operation">
+                                        <div class="btn-group btn-group-solid">
+                                            <a href="@Url.Action("EditExecutiveManagement", "Company", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                                            <a onclick="return confirm('هل تريد حذف هذا الموظف ؟؟');" href="@Url.Action("DeleteExecutiveManagement", "Company", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>

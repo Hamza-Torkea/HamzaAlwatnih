@@ -1,0 +1,72 @@
+﻿@model List<alwatnia.Models.Branch>
+
+@{
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+  ViewBag.Title = Resources.Resource.Branches;
+}
+
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>عرض الفروع</h1>
+
+      <div class="breadcrumb">
+        <a href="@Url.Action("Create", "Branches", new {companyId = ViewBag.CompanyId})" class="btn green"><i class="fa fa-plus"></i> اضافة فرع جديدة </a>
+      </div>
+
+    }
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+  <div class="col-md-12">
+    <!-- BEGIN BORDERED TABLE PORTLET-->
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-bubble font-dark"></i>
+          <span class="caption-subject font-dark bold uppercase">عرض الفروع</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-scrollable">
+          <table class="table table-bordered table-hover">
+            <thead>
+
+              <tr>
+                <th class="col-counter"> # </th>
+                <th> العنوان </th>
+                <th class="col-operation"> العمليات </th>
+
+              </tr>
+            </thead>
+            <tbody>
+            @{
+              var i = 1;
+                foreach (var item in Model)
+                {
+
+                  <tr>
+                    <td class="col-counter"> @(i++) </td>
+                    <td> @Html.Raw(item.Title) </td>
+                    <td class="col-operation">
+                      <div class="btn-group btn-group-solid">
+                        <a href="@Url.Action("Edit", "Branches", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                        <a onclick="return confirm('هل تريد حذف هذا الفرع ؟؟');" href="@Url.Action("Delete", "Branches", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                      </div>
+                    </td>
+
+                  </tr>
+                }
+              }
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- END BORDERED TABLE PORTLET-->
+  </div>
+</div>

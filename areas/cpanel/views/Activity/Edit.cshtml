@@ -1,0 +1,161 @@
+﻿@model alwatnia.Models.Activity
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>اضافة فعالية جديدة</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Activity")" class="btn default"><i class="fa fa-eye"></i> عرض الفعاليات </a>
+            </div>
+
+        }
+    </div>
+</div>
+<form action="@Url.Action("Edit", "Activity")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+    <div class="row">
+        @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">خصائص الفعالية</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    <div class="form-group ">
+                        <label> تاريخ الفعالية</label>
+                        <input type="text" class="form-control StartDate" name="startdate" value="@Convert.ToDateTime(Model.StartDate).ToString("yyyy-MM-dd")" />
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>اللغة</label>
+                        <select name="lang" class="form-control">
+                            <option value="">-- اختار اللغة --</option>
+                            <option value="1" @( Model !=null? Model.Lang == 1 ? "selected":"" : "")>العربية</option>
+                            <option value="2" @( Model !=null? Model.Lang == 2 ? "selected":"" : "")>English</option>
+                        </select>
+                    </div>
+                    <hr />
+
+                    <div class="form-group ">
+                        <label>اختار صورة الخبر</label>
+                        <input type="hidden" name="photo"  value="@Model.Photo"/>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;">
+                                <img src="~/Recources/Activities/@Model.Photo" height="200px" width="100%" /> 
+                            </div>
+                            <div>
+                                <span class="btn red btn-outline btn-file">
+                                    <span class="fileinput-new"> اختار الصورة </span>
+                                    <span class="fileinput-exists"> تغيير </span>
+                                    <input type="file" name="file">
+                                </span>
+                                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                            </div>
+                        </div>
+                        <div class="clearfix margin-top-10">
+                            <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+                        </div>
+
+                    </div>
+                    <hr />
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر الفعالية</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">تفاصيل الفعالية</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>عنوان الفعالية</label>
+                                <input type="text" class="form-control" name="title" placeholder="العنوان" value="@( Model !=null? Model.Title:"")">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label>تفاصيل الفعالية</label>
+                                <textarea class="form-control" name="details" rows="20" id="details">@( Model != null ? Model.Details : "")</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        $(".StartDate").datepicker();
+    </script>
+    <script type="text/javascript">
+        // Initialize your tinyMCE Editor with your preferred options
+        tinymce.init({
+            selector: '#details',
+            height: 500,
+            menubar: false,
+            plugins: [
+              'advlist autolink lists link image charmap print preview anchor',
+              'searchreplace visualblocks code fullscreen',
+              'insertdatetime media table contextmenu paste code'
+            ],
+
+            toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            content_css: '//www.tinymce.com/css/codepen.min.css',
+            image_title: true,
+            // enable automatic uploads of images represented by blob or data URIs
+            automatic_uploads: true,
+            // URL of our upload handler (for more details check: https://www.tinymce.com/docs/configure/file-image-upload/#images_upload_url)
+            images_upload_url: '@Url.Action("UploadFiles")',
+            // here we add custom filepicker only to Image dialog
+            file_picker_types: 'image',
+            // and here's our custom image picker
+            file_picker_callback: function (cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                // Note: In modern browsers input[type="file"] is functional without
+                // even adding it to the DOM, but that might not be the case in some older
+                // or quirky browsers like IE, so you might want to add it to the DOM
+                // just in case, and visually hide it. And do not forget do remove it
+                // once you do not need it anymore.
+
+                input.onchange = function () {
+                    var file = this.files[0];
+
+                    // Note: Now we need to register the blob in TinyMCEs image blob
+                    // registry. In the next release this part hopefully won't be
+                    // necessary, as we are looking to handle it internally.
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                    var blobInfo = blobCache.create(id, file);
+                    blobCache.add(blobInfo);
+
+                    // call the callback and populate the Title field with the file name
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+
+                input.click();
+            }
+        });
+    </script>
+}

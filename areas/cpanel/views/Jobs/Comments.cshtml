@@ -1,0 +1,113 @@
+﻿@model IEnumerable<alwatnia.Models.Comment>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>المتقدمين للوظائف</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Jobs")" class="btn default"><i class="fa fa-eye"></i> عرض الوظائف </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+    <form action="@Url.Action("Index", "Comment")" method="get" class="horizontal-form" id="Slider_form">
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن متقدم</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>المرسل</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="comment_auther" placeholder="محمد ...." value="@Request.QueryString["comment_auther"]">
+                        </div>
+                    </div>
+                    <hr />                   
+                    <div class="form-group ">
+                        <label>الوظيفة</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-bookmark" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" class="form-control" name="job" placeholder="الوظيفة" value="@Request.QueryString["job"]">
+                        </div>
+                    </div>
+                    <hr />
+
+                    <button type="submit" class="btn blue"><i class="fa fa-search"></i> بحث</button>
+                    <a href="@Url.Action("Index")" class="btn default"><i class="fa fa-reply"></i> الغاء</a>
+
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض الوظائف</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                            <tr>
+                                <th class="col-operation"> المرسل </th>
+                                <th class="col-operation"> البريد الالكتروني </th>
+                                <th class="col-operation"> الجوال </th>
+                                <th class="col-operation"> الوظيفة </th>
+                                <th class="col-operation">في تاريخ</th>                                
+                                <th class="col-operation"> العمليات </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td class="col-operation"> @item.comment_auther </td>
+                                    <td class="col-operation"> @item.Email</td>
+                                    <td class="col-operation"> @item.mobile</td>
+                                    <td class="col-operation"> @item.Job.Title</td>
+                                    <td class="col-operation"> @(string.Format("{0:ddd, MMMM d, yyyy}", item.cdate))</td>
+                                    <td class="col-operation">
+                                        <div class="btn-group btn-group-solid">
+                                            <a target="_blank" href="/Recources/Uploads/@item.comment_media" class="btn blue"><i class="fa fa-download"></i> CV </a>
+                                            <a onclick="return confirm('هل تريد حذف هذا المتقدم ؟؟');" href="@Url.Action("Delete", "Jobs", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>

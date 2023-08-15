@@ -1,0 +1,34 @@
+﻿@model alwatnia.Models.Medium
+@using alwatnia.Helper
+<div class="cbp-l-inline">
+    <div class="cbp-l-inline-left">
+        <div class="row">
+            <div class="col-sm-12 portfolio-tile">
+                @{
+                    if (Model.Type.Equals("video"))
+                    {
+                        string VideoID = Functions.getVideoId(Model.Link);
+                        <iframe width="560" height="315" class="cbp-lightbox" src="https://www.youtube.com/embed/@VideoID" frameborder="0" allowfullscreen></iframe>
+                    }
+                    else
+                    {
+                        <a href="~/Recources/Albums/@Model.Link" class="cbp-lightbox">
+                            <img src="~/Recources/Albums/@Model.Link" alt="">
+                        </a>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="cbp-l-inline-right">
+        <div class="cbp-l-inline-title">@(Model.Type.Equals("video") ? "رابط الفيديو" : "رابط الصورة")</div>
+        <div class="cbp-l-inline-subtitle"></div>
+        <div class="cbp-l-inline-desc">
+            
+            <h3><a href="@(Model.Type.Equals("video") ? Model.Link : Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + "/Recources/Albums/" + Model.Link)">@(Model.Type.Equals("video") ? Model.Link : Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + "/Recources/Albums/" + Model.Link)</a>
+            </h3>
+
+        </div>
+    </div>
+</div>

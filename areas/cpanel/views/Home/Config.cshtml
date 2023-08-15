@@ -1,0 +1,248 @@
+﻿@model IEnumerable<alwatnia.Models.Configration>
+@{
+  ViewBag.Title = "Create";
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+  int i = 1;
+
+}
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>صفحة الاعدادات</h1>
+
+
+    }
+  </div>
+</div>
+<form action="@Url.Action("Config", "Home")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+  <div class="row">
+    @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+
+    <div class="col-md-12">
+
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">تفاصيل الاعدادات</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>عدد الأخبار المراد اظهارها في شريط الرئيسيه؟ </label>
+                <input type="number" class="form-control" name="news_number" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("news_number")).FirstOrDefault()!=null ? Model.Where(w => w.Config_name.Equals("news_number")).FirstOrDefault().Config_details:"")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>بريد الكتروني تواصل معنا</label>
+                <input type="email" class="form-control" name="contact_email" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("contact_email")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("contact_email")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>حساب الفيس بوك</label>
+                <input type="text" class="form-control" name="facebook" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("facebook")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("facebook")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>حساب الانستجرام</label>
+                <input type="text" class="form-control" name="instagram" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("instagram")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("instagram")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>حساب التويتر</label>
+                <input type="text" class="form-control" name="twitter" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("twitter")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("twitter")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>حساب اللينكيد ان</label>
+                <input type="text" class="form-control" name="linkedin" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("linkedin")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("linkedin")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>حساب اليوتيوب</label>
+                <input type="text" class="form-control" name="youtube" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("youtube")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("youtube")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>المدينة</label>
+                <input type="text" class="form-control" name="city" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("city")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("city")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>العنوان</label>
+                <input type="text" class="form-control" name="address" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("address")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("address")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>city</label>
+                <input type="text" class="form-control" name="ecity" placeholder="" value="@(Model.FirstOrDefault(w => w.Config_name.Equals("ecity")) != null ? Model.FirstOrDefault(w => w.Config_name.Equals("ecity")).Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>address</label>
+                <input type="text" class="form-control" name="eaddress" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("eaddress")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("eaddress")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>رابط الموقع الالكتروني</label>
+                <input type="text" class="form-control" name="link" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("link")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("link")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>رقم الهاتف</label>
+                <input type="text" class="form-control" name="phone" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("phone")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("phone")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>رقم الموبايل</label>
+                <input type="text" class="form-control" name="mobile" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("mobile")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("mobile")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Twitter Consumer Key </label>
+                <input type="text" class="form-control" name="twitter_consumer_key" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("twitter_consumer_key")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("twitter_consumer_key")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Twitter Consumer Secret</label>
+                <input type="text" class="form-control" name="twitter_consumer_secret" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("twitter_consumer_secret")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("twitter_consumer_secret")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Twitter Access Token</label>
+                <input type="text" class="form-control" name="twitter_access_token" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("twitter_access_token")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("twitter_access_token")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Twitter Access Token Secret</label>
+                <input type="text" class="form-control" name="twitter_access_token_secret" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("twitter_access_token_secret")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("twitter_access_token_secret")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Facebook App ID</label>
+                <input type="text" class="form-control" name="facebook_app_id" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("facebook_app_id")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("facebook_app_id")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Facebook App Secret</label>
+                <input type="text" class="form-control" name="facebook_app_secret" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("facebook_app_secret")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("facebook_app_secret")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Facebook Page Url</label>
+                <input type="text" class="form-control" name="facebook_page_url" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("facebook_page_url")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("facebook_page_url")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Facebook Page Id</label>
+                <input disabled="disabled" type="text" class="form-control" name="facebook_page_id" placeholder="" value="@(Model.Where(w => w.Config_name.Equals("facebook_page_id")).FirstOrDefault() != null ? Model.Where(w => w.Config_name.Equals("facebook_page_id")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Facebook Access Token</label>
+                @if (Model.Where(w => w.Config_name.Equals("facebook_access_token")).FirstOrDefault() != null)
+                {
+                  <input type="text" class="form-control" name="facebook_access_token"
+                         disabled="disabled"
+                         placeholder=""
+                         value="@Model.Where(w => w.Config_name.Equals("facebook_access_token")).FirstOrDefault().Config_details">
+                }
+                else
+                {
+                  <a class="btn btn-primary" href="@Url.Action("GenerateAccessToken", "Home")">
+                    Generate Access Token
+                  </a>
+                }
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Email Settings(From)</label>
+                <input type="text" class="form-control" name="email_from" placeholder=""
+                       value="@(Model.FirstOrDefault(w => w.Config_name.Equals("email_from"))
+                            != null ? Model.FirstOrDefault(w => w.Config_name.Equals("email_from")).Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Email Settings(Host)</label>
+                <input type="text" class="form-control" name="email_host" placeholder=""
+                       value="@(Model.Where(w => w.Config_name.Equals("email_host")).FirstOrDefault()
+                            != null ? Model.Where(w => w.Config_name.Equals("email_host")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Email Settings(Port)</label>
+                <input type="text" class="form-control" name="email_port" placeholder=""
+                       value="@(Model.Where(w => w.Config_name.Equals("email_port")).FirstOrDefault()
+                            != null ? Model.Where(w => w.Config_name.Equals("email_port")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Email Settings(UserName)</label>
+                <input type="text" class="form-control" name="email_username" placeholder=""
+                       value="@(Model.Where(w => w.Config_name.Equals("email_username")).FirstOrDefault()
+                            != null ? Model.Where(w => w.Config_name.Equals("email_username")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Email Settings(Password)</label>
+                <input type="text" class="form-control" name="email_password" placeholder=""
+                       value="@(Model.Where(w => w.Config_name.Equals("email_password")).FirstOrDefault()
+                            != null ? Model.Where(w => w.Config_name.Equals("email_password")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="form-group">
+                <label>Email Settings(Enable Ssl)</label>
+                <input type="text" class="form-control" name="email_enable_ssl" placeholder=""
+                       value="@(Model.Where(w => w.Config_name.Equals("email_enable_ssl")).FirstOrDefault()
+                            != null ? Model.Where(w => w.Config_name.Equals("email_enable_ssl")).FirstOrDefault().Config_details : "")">
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <button type="submit" class="btn blue"><i class="fa fa-save"></i> حفظ الاعدادات</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

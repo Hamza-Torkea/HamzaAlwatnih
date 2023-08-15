@@ -1,0 +1,84 @@
+﻿@model alwatnia.Models.Album
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>المركز الاعلامي والمعارض</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Index", "Album")" class="btn default"><i class="fa fa-eye"></i> ادارة المركز الاعلامي </a>
+            </div>
+
+        }
+    </div>
+</div>
+<form action="@Url.Action("Create", "Album")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+    <div class="row">
+        @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">خصائص الاضافة</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group ">
+                        <label> النوع</label>
+                        <select class="form-control" name="type">
+                            @*<option value="1">المركز الاعلامي</option>*@
+                            @*<option value="2">الأرشيف </option>*@
+                            <option value="3">المعارض </option>
+                           
+                        </select>
+                    </div>                    
+                    <hr />
+                    <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-9">
+
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-arrow-left font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">التفاصيل</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>العنوان</label>
+                                <input type="text" class="form-control" name="ArabicTitle" placeholder="العنوان" value="@( Model !=null? Model.ArabicTitle:"")">
+                            </div>
+                            <div class="form-group ">
+                                <label>التفاصيل </label>
+                                <textarea class="form-control" name="ArabicDetails" rows="10" id="details">@( Model != null ? Model.ArabicDetails : "")</textarea>
+                            </div>
+                        </div>
+                       
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>title</label>
+                                <input type="text" class="form-control" name="EnglishTitle" placeholder="title" value="@( Model !=null? Model.EnglishTitle:"")">
+                            </div>
+                            <div class="form-group ">
+                                <label>details </label>
+                                <textarea class="form-control" name="EnglishDetails" rows="10" id="details">@( Model != null ? Model.EnglishDetails : "")</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

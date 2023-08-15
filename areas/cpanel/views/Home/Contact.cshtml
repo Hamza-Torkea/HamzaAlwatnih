@@ -1,0 +1,125 @@
+﻿@model IEnumerable<alwatnia.Models.Contact>
+@{
+  ViewBag.Title = "Index";
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+  int i = 1;
+}
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>تواصل معنا </h1>
+
+    }
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+  <div class="col-md-3">
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-magnifier font-dark"></i>
+          <span class="caption-subject font-dark bold uppercase">ابحث عن متواصل</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="form-group">
+          <label>اسم المرسل</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" class="form-control" id="name" name="name" placeholder=" ...." value="@Request.QueryString["name"]">
+          </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+          <label>البريد الالكتروني</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" class="form-control" id="email" name="email" placeholder=" ...." value="@Request.QueryString["email"]">
+          </div>
+        </div>
+        <button type="submit" onclick="searchContact()" class="btn blue"><i class="fa fa-save"></i> بحث الصفحة</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-9">
+    <!-- BEGIN BORDERED TABLE PORTLET-->
+    <div class="portlet light portlet-fit bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-arrow-left font-dark"></i>
+          <span class="caption-subject font-dark bold uppercase">عرض المرسلين</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="table-scrollable">
+          <table class="table table-bordered table-hover">
+            <thead>
+
+              <tr>
+                <th class="col-counter"> # </th>
+                <th> الاسم </th>
+                <th> الموبايل </th>
+                <th> البريد الالكتروني </th>
+                <th> الهاتف </th>
+                <th colspan="2" class="col-operation"> العمليات </th>
+
+              </tr>
+            </thead>
+            <tbody>
+              @foreach (var item in Model)
+              {
+
+                <tr class="bg-@(item.IsRead.HasValue && item.IsRead.Value ? "success" : "warning")">
+                  <td class="col-counter"> @(i++) </td>
+                  <td> @item.Name </td>
+                  <td> @item.Mobile </td>
+                  <td>@item.Email </td>
+                  <td>@item.Phone </td>
+                  <td class="col-operation">
+                    <div class="btn-group btn-group-solid">
+                      <form class="form-inline" action="@Url.Action("RemoveContact", "Home", new {id = item.Id})" method="post">
+                        <button class="btn btn-danger"><i class="fa fa-trash"></i> حذف</button>
+                      </form>
+                    </div>
+                  </td>
+                  <td class="col-operation">
+                    @if (item.IsRead != true)
+                    {
+                      <div class="btn-group btn-group-solid">
+                        <a href="@Url.Action("Done", "Home", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تمت القراءة</a>
+                      </div>
+                    }
+                    else
+                    {
+                      <div class="btn-group btn-group-solid">
+                        <p>تم القراءة</p>
+                      </div>
+                    }
+                  </td>
+                </tr>
+                <tr class="bg-@(item.IsRead.HasValue && item.IsRead.Value ? "success" : "warning")">
+                  <td colspan="5"> التفاصيل : @item.Message</td>
+                </tr>
+              }
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- END BORDERED TABLE PORTLET-->
+  </div>
+</div>
+
+<script src="~/Scripts/contact.js"></script>

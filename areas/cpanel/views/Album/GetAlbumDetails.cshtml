@@ -1,0 +1,25 @@
+﻿@model alwatnia.Models.Image
+<div class="cbp-l-inline">
+    <div class="cbp-l-inline-left">
+        <div class="row">
+            <div class="col-sm-12 portfolio-tile">
+                @{
+                    <a href="~/Recources/Albums/@Model.photo" class="cbp-lightbox">
+                        <img src="~/Recources/Albums/@Model.photo" alt="">
+                    </a>
+                }
+
+            </div>
+        </div>
+    </div>
+    <div class="cbp-l-inline-right">
+        <div class="cbp-l-inline-title"> رابط الصورة</div>
+        <div class="cbp-l-inline-subtitle"></div>
+        <div class="cbp-l-inline-desc">
+            <h3>
+                <a href="@(Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + "/Recources/Albums/" + Model.photo)">@(Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port) + "/Recources/Albums/" + Model.photo)</a>
+            </h3>
+
+        </div>
+    </div>
+</div>

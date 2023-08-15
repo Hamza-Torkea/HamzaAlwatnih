@@ -1,0 +1,122 @@
+﻿@model IEnumerable<alwatnia.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض المنتجات</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Create", "Products")" class="btn green"><i class="fa fa-plus"></i> اضافة منتج جديد </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن منتج</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label>اسم المنتج </label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="title" id="name" placeholder="العنوان" value="@Request.QueryString["title"]">
+                        </div>
+                    </div>
+                    @*<hr />*@
+                    <div class="form-group" style="display:none !important;">
+                        <label>اللغة</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <select class="form-control" id="lang">
+                                <option value="">-- اختار اللغة --</option>
+                                <option value="1" @(Request.QueryString["langId"] =="1" ? "selected" : "")>اللغة العربية</option>
+                                <option value="2" @(Request.QueryString["langId"] =="2" ? "selected" : "")> English</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    @*<div class="form-group">
+                        <label>تصنيف المنتج</label>
+                        <select class="form-control" name="ProductCatId" id="company">
+                            <option>-- اختار تصنيف المنتج --</option>
+                            @foreach (var item in (List<alwatnia.Models.ProductCat>)ViewBag.productCats)
+                            {
+                                <option value="@item.Id" >@item.ArabicTitle</option>
+
+                            }
+                        </select>
+                    </div>
+                    <hr />*@
+
+                    <button type="submit" onclick="search('Products')" id="btnSearch" class="btn blue"><i class="fa fa-save"></i>  بحــــث</button>
+                </div>
+
+            </div>
+        </div>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض المنتجات</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-counter"> # </th>
+                            <th> اسم المنتج </th>
+                            @*<th class="text-center"> <i class="icon-bubble"></i>  </th>*@
+                            <th class="col-operation"> العمليات </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td class="col-counter"> @(i++) </td>
+                                <td>@Html.Raw(item.Title)</td>
+                                @*<td class="text-center"><a href="#">@item.Comments.Count() <i class="fa fa-comment"></i></a> </td>*@
+                                <td class="col-operation">
+                                    <div class="btn-group btn-group-solid">
+                                        <a href="@Url.Action("Edit", "Products", new { id = item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                                        <a onclick="return confirm('هل تريد حذف هذا المنتج ؟؟');" href="@Url.Action("Delete", "Products", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+<script src="~/Scripts/search.js"></script>

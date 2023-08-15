@@ -1,0 +1,14 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <a href="@Url.Action("Index", "Media")" class="btn green mb"> استعراض الملفات <i class="fa fa-eye"></i></a>
+        <div class="jumbotron">
+            <form action="@Url.Action("UploadFiles", "Media")" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

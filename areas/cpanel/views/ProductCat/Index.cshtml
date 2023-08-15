@@ -1,0 +1,107 @@
+﻿@model IEnumerable<alwatnia.Models.ProductCat>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض تصنيفات المنتجات</h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Create", "ProductCat")" class="btn green"><i class="fa fa-plus"></i> اضافة تصنيف جديد </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">@Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })</div>
+        <div class="col-md-3">
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-magnifier font-dark"></i>
+                        <span class="caption-subject font-dark bold uppercase">ابحث عن تصنيف</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="form-group">
+                        <label> اسم التصنيف بالعربية أو الانجليزية </label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+
+                                <i class="fa fa-book"></i>
+                            </span>
+                            <input type="text" class="form-control" name="title" id="name" placeholder="الاسم" value="@Request.QueryString["title"]">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <label>الشركة التابع لها المنتج</label>
+                        <select class="form-control" name="company_id" id="company">
+                            <option value="">-- اختار شركة المنتج --</option>
+                            @foreach (var item in (List<alwatnia.Models.Company>)ViewBag.company)
+                            {
+                                <option value="@item.Id" >@item.Title</option>
+
+                            }
+                        </select>
+                    </div>
+                    <hr />
+
+                    <button type="submit" onclick="search('ProductCat')" id="btnSearch" class="btn blue"><i class="fa fa-save"></i>  بحــــث</button>
+                </div>
+
+            </div>
+        </div>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض تصنيفات المنتجات</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="col-counter"> # </th>
+                            <th> اسم التصنيف </th>
+                            <th> Category name </th>
+                            <th class="col-operation"> العمليات </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td class="col-counter"> @(i++) </td>
+                                <td>@Html.Raw(item.ArabicTitle)</td>
+                                <td>@Html.Raw(item.EnglishTitle)</td>
+                                <td class="col-operation">
+                                    <div class="btn-group btn-group-solid">
+                                        <a href="@Url.Action("Edit", "ProductCat", new { id = item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                                        <a onclick="return confirm('هل تريد حذف هذا المنتج ؟؟');" href="@Url.Action("Delete", "ProductCat", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+<script src="~/Scripts/search.js"></script>

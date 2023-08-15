@@ -1,0 +1,99 @@
+﻿@model IEnumerable<alwatnia.Models.Album>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>عرض المركز الاعلامي </h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Create", "album")" class="btn green"><i class="fa fa-plus"></i> اضافة جديد </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-magnifier font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">ابحث في المركز</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="form-group">
+                    <label>العنوان</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" name="name" id="name" placeholder=" ...." value="@Request.QueryString["title"]">
+                    </div>
+                </div>
+                <hr />
+                
+                <button type="submit" onclick="search('Album')" class="btn blue"><i class="fa fa-save"></i> بحــــــث </button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض المركز الاعلامي</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                        <tr>
+                            <th class="col-counter"> # </th>
+                            <th> العنوان </th>
+                            <th> title </th>
+                            <th class="col-operation"> العمليات </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td class="col-counter"> @(i++) </td>
+                                <td>@item.ArabicTitle </td>
+                                <td>@item.EnglishTitle </td>
+                                <td class="col-operation">
+                                    <div class="btn-group btn-group-solid">
+                                        <a href="@Url.Action("Edit", "Album", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                                        <a onclick="return confirm('هل تريد حذف هذا الألبوم ؟؟');" href="@Url.Action("Delete", "Album", new { id = item.Id })" class="btn red"><i class="fa fa-remove"></i> حذف</a>
+                                    </div>
+                                    <div class="btn-group btn-group-solid">
+                                        <a href="@Url.Action("Uploading", "Album", new { id = item.Id })" class="btn dark"><i class="fa fa-eye"></i> اضافة صور  </a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+<script src="~/Scripts/search.js"></script>

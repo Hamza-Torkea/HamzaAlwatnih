@@ -1,0 +1,210 @@
+﻿@model alwatnia.Models.Company
+@{
+  ViewBag.Title = "Create";
+  Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-md-12">
+    @section addBtn {
+
+      <h1>اضافة شركة جديد</h1>
+
+      <div class="breadcrumb">
+        <a href="@Url.Action("Index", "Company")" class="btn default"><i class="fa fa-eye"></i> عرض الشركات </a>
+      </div>
+
+    }
+  </div>
+</div>
+<form action="@Url.Action("Create", "Company")" method="post" class="horizontal-form" id="Slider_form" enctype="multipart/form-data">
+  <div class="row">
+    @Html.Action(actionName: "TempMessage", controllerName: "Message", routeValues: new { area = "" })
+    <div class="col-md-3">
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">خصائص الشركة</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="form-group">
+            <label>
+              اظهار المنتجات بدل من التصنيفات؟
+              <input type="checkbox" name="ShowProductsInstedOfCategories" value="@(Model != null ? Model.ShowProductsInstedOfCategories : false)" />
+            </label>
+          </div>
+          <hr />
+          <div class="form-group">
+            <label>البريد الالكتروني </label>
+            <input type="email" class="form-control" name="email" placeholder="البريد الالكتروني" value="@( Model !=null? Model.Email:"")">
+          </div>
+          <hr />
+          <div class="form-group">
+            <label>كلمة المرور </label>
+            <input required type="text" class="form-control" name="password" placeholder="كلمة المرور" value="@( Model !=null? Model.Password:"")">
+          </div>
+          <hr />
+
+          <div class="form-group">
+            <label>المدينة </label>
+            <select name="city" class="form-control">
+              <option value="">-- اختار المدينة --</option>
+              <option value="الرياض">الرياض</option>
+            </select>
+          </div>
+
+          <hr />
+
+          <div class="form-group">
+            <label>الفيس بوك </label>
+            <input type="text" class="form-control" name="facebook" placeholder="..." value="@( Model != null ? Model.Facebook : "")">
+          </div>
+          <hr />
+
+
+
+          <div class="form-group">
+            <label>تويتر </label>
+            <input type="text" class="form-control" name="twitter" placeholder="..." value="@( Model != null ? Model.Twitter : "")">
+          </div>
+
+          <hr />
+
+          <div class="form-group">
+            <label>لينكيد ان </label>
+            <input type="text" class="form-control" name="linkedin" placeholder="..." value="@( Model != null ? Model.Linkedin : "")">
+          </div>
+
+          <hr />
+
+          <div class="form-group">
+            <label>انستجرام </label>
+            <input type="text" class="form-control" name="instagram" placeholder="..." value="@( Model != null ? Model.Instagram : "")">
+          </div>
+
+          <hr />
+          <hr />
+
+          <div class="form-group">
+            <label>فيديو الصفحة الرئيسية </label>
+            <input type="text" class="form-control" name="video" placeholder="..." value="@( Model != null ? Model.Video : "")">
+          </div>
+          <div class="form-group ">
+            <label>اختار شعار</label>
+
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+              <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"> </div>
+              <div>
+                <span class="btn red btn-outline btn-file">
+                  <span class="fileinput-new"> اختار الصورة </span>
+                  <span class="fileinput-exists"> تغيير </span>
+                  <input type="file" name="file">
+                </span>
+                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+              </div>
+            </div>
+            <div class="clearfix margin-top-10">
+              <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+            </div>
+
+          </div>
+          <hr />
+
+
+          <hr />
+          <div class="form-group ">
+            <label> الصورة الثانية</label>
+
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+              <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"> </div>
+              <div>
+                <span class="btn red btn-outline btn-file">
+                  <span class="fileinput-new"> اختار الصورة </span>
+                  <span class="fileinput-exists"> تغيير </span>
+                  <input type="file" name="file2">
+                </span>
+                <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> حذف </a>
+              </div>
+            </div>
+            <div class="clearfix margin-top-10">
+              <span class="label label-success">ملاحظة!</span> حجم الصورة اقل من 5 MB.
+            </div>
+
+          </div>
+          <hr />
+
+
+
+          <button type="submit" class="btn blue"><i class="fa fa-save"></i> نشر </button>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-9">
+
+      <div class="portlet light portlet-fit bordered">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="icon-arrow-left font-dark"></i>
+            <span class="caption-subject font-dark bold uppercase">تفاصيل الشركة</span>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+
+            <div class="form-group">
+              <label>اسم الشركة</label>
+              <input type="text" class="form-control" name="title" placeholder="العنوان" value="@( Model !=null? Model.Title:"")">
+            </div>
+
+            <div class="form-group">
+              <label>Company Name</label>
+              <input type="text" class="form-control" name="Etitle" placeholder="title" value="@( Model !=null? Model.ETitle:"")">
+            </div>
+
+            <div class="form-group">
+              <label> ملخص عن الشركة</label>
+              <textarea class="form-control" name="Summary" rows="5">@( Model !=null? Model.Summary:"")</textarea>
+            </div>
+            <div class="form-group ">
+              <label>About Company Summary</label>
+              <textarea class="form-control" name="ESummary" rows="5">@( Model !=null? Model.ESummary:"")</textarea>
+            </div>
+            <div class="form-group">
+              <label>الخريطة</label>
+              <textarea style="direction: ltr" class="form-control"  name="map" rows="5" id="map"></textarea>
+            </div>
+
+            <div class="form-group ">
+              <label>عن الشركة</label>
+              <textarea class="form-control Content-details" name="about" rows="5" id="about"></textarea>
+            </div>
+            <div class="form-group ">
+              <label>رؤية الشركة</label>
+              <textarea class="form-control Content-details" name="vision" rows="5" id="vision"></textarea>
+            </div>
+            <div class="form-group ">
+              <label>رسالة الشركة</label>
+              <textarea class="form-control Content-details" name="message" rows="5" id="message"></textarea>
+            </div>
+
+            <div class="form-group ">
+              <label>About</label>
+              <textarea class="form-control Content-details" name="Eabout" rows="5" id="about"></textarea>
+            </div>
+            <div class="form-group ">
+              <label>Vision</label>
+              <textarea class="form-control Content-details" name="Evision" rows="5" id="vision"></textarea>
+            </div>
+            <div class="form-group ">
+              <label>Message</label>
+              <textarea class="form-control Content-details" name="Emessage" rows="5" id="message"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

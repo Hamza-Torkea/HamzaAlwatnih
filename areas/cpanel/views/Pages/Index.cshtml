@@ -1,0 +1,124 @@
+﻿@model IEnumerable<alwatnia.Models.Page>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Cpanel/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @section addBtn {
+
+            <h1>الصفحات </h1>
+
+            <div class="breadcrumb">
+                <a href="@Url.Action("Create", "Pages")" class="btn green"><i class="fa fa-plus"></i> اضافة صفحة جديدة </a>
+            </div>
+
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-magnifier font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">ابحث عن صفحة</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="form-group">
+                    <label>اسم الصفحة</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" name="name" id ="name" placeholder="من نحن ...." value="@Request.QueryString["title"]">
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label>اللغة</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <select class="form-control" id="lang">
+                            <option value="">-- اختار اللغة --</option>
+                            <option value="1" @(Request.QueryString["langId"] =="1" ? "selected" : "")>اللغة العربية</option>
+                            <option value="2" @(Request.QueryString["langId"] =="2" ? "selected" : "")> English</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <label>الشركة</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <select class="form-control" id="company">
+                            <option value="">-- اختار الشركة --</option>
+                        </select>
+                    </div>
+                </div>
+                <hr />
+                <button type="submit" onclick="search('Pages')" id="btnSearch" class="btn blue"><i class="fa fa-save"></i>  بحــــث</button>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-9">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-arrow-left font-dark"></i>
+                    <span class="caption-subject font-dark bold uppercase">عرض الصفحات</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+
+                        <tr>
+                            <th class="col-counter"> # </th>
+                            <th> العنوان </th>
+                            <th class="col-operation"> العمليات </th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td class="col-counter"> @(i++) </td>
+                                <td> @(item.tag.Contains("home")? @Html.Raw(item.title+" - الواجهة الرئيسية "):@Html.Raw(item.title)) </td>
+                                <td class="col-operation">
+                                    <div class="btn-group btn-group-solid">
+                                        <a href="@Url.Action("Edit", "Pages", new {id=item.Id })" class="btn blue"><i class="fa fa-edit"></i> تحرير</a>
+                                        <div class="btn-group btn-group-solid">
+                                            <a href="@Url.Action("Uploading", "Pages", new { id = item.Id })" class="btn dark"><i class="fa fa-eye"></i> اضافة صور  </a>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>
+<script src="~/Scripts/search.js"></script>
+
