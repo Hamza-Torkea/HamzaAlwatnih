@@ -1,0 +1,8 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeEditing/Localization/MoveToResource/LastResourceFile/@EntryValue">FC15C106-F96C-40D9-A00D-93CCDA0EC4DD/d:App_LocalResources/f:Resource.resx</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=RECOURCES_005CALBUMS_005C_0027_002BMODEL_002EPHOTO/@EntryIndexedValue">Recources\Albums\'+Model.photo</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=VIEWS_005CHOME_005CRECOURCES/@EntryIndexedValue">Views\Home\Recources</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/IgnoredPaths/=VIEWS_005CHOME_005CRECOURCES_005CSLIDER/@EntryIndexedValue">Views\Home\Recources\slider</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=RECOURCES_005CALBUMS_005C_0027_002BMODEL_002EPHOTO/@EntryIndexedValue">Recources\Albums\'+Model.photo</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=VIEWS_005CHOME_005CRECOURCES/@EntryIndexedValue">Views\Home\Recources</s:String>
+	<s:String x:Key="/Default/CodeInspection/WebPathMapping/PathsInCorrectCasing/=VIEWS_005CHOME_005CRECOURCES_005CSLIDER/@EntryIndexedValue">Views\Home\Recources\slider</s:String></wpf:ResourceDictionary>
